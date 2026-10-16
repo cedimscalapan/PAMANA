@@ -2,7 +2,8 @@ import { IonButton, IonContent, IonIcon, IonPage, IonSegment, IonSegmentButton }
 import { arrowForwardOutline, bookOutline, checkmarkCircleOutline, closeOutline } from 'ionicons/icons';
 import { useMemo, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { lessons, storageKey, Lesson, sourceById } from '../data/content';
+import { storageKey, Lesson, sourceById } from '../data/content';
+import { lessons } from '../data/learning';
 import { setStored } from '../services/storage';
 import { ModuleHeader, PageFrame } from '../components/AppChrome';
 
@@ -12,7 +13,7 @@ export default function LearnPage() {
   const [selected, setSelected] = useState<Lesson>();
   const [answer, setAnswer] = useState<number>();
   const [, refresh] = useState(0);
-  const categories = ['All', 'History & Geography', 'Communities', 'Writing', 'Traditions'];
+  const categories = ['All', 'History & Geography', 'People & Communities', 'Writing & Language', 'Living Traditions', 'Nature & Travel'];
   const filtered = useMemo(() => category === 'All' ? lessons : lessons.filter((lesson) => lesson.category === category), [category]);
   const completed = (id: string) => localStorage.getItem(storageKey(id)) === 'complete';
   const openLesson = (lesson: Lesson) => { setSelected(lesson); setAnswer(undefined); };

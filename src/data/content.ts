@@ -26,6 +26,7 @@ export type Lesson = {
   sourceIds: string[];
   points: string[];
   quiz: QuizQuestion;
+  lastReviewed?: string;
 };
 
 export type Place = {
@@ -61,6 +62,16 @@ export const sources: Source[] = [
   { id: 'hanunoo', title: 'Hanunó’o orthography notes', publisher: 'Richard Ishida / r12a', url: 'https://r12a.github.io/scripts/hano/hnn.html', status: 'Source checked', use: 'Unicode, abugida structure, vowel signs, and pamudpod reference.' },
   { id: 'unicode', title: 'Hanunoo Unicode chart', publisher: 'Unicode Consortium', url: 'https://unicode.org/charts/PDF/U1720.pdf', status: 'Source checked', use: 'Character block and code-point reference.' },
   { id: 'ppdo', title: 'Provincial Planning and Development Office', publisher: 'Oriental Mindoro PPDO', url: 'https://ppdo.ormindoro.gov.ph', status: 'Review pending', use: 'Requested official planning reference; verify before publication.' },
+  { id: 'ppdo-general', title: 'General Information', publisher: 'Oriental Mindoro PPDO', url: 'https://ppdo.ormindoro.gov.ph/provincialdata/general-information/', status: 'Source checked', use: 'Official province location, land area, boundaries, climate, capital, municipalities, and barangays.' },
+  { id: 'ppdo-profile', title: 'Profile of the Province', publisher: 'Oriental Mindoro PPDO', url: 'https://ppdo.ormindoro.gov.ph/wp-content/uploads/2022/10/063021-AR-2020.pdf', status: 'Source checked', use: 'Province profile including land-area distribution by city/municipality.' },
+  { id: 'psa-2024', title: '2024 Census of Population', publisher: 'Philippine Statistics Authority', url: 'https://rssomimaropa.psa.gov.ph/content/2024-census-population-popcen-oriental-mindoro-population-counts-declared-official', status: 'Source checked', use: 'Official 2024 population counts for Oriental Mindoro and its city/municipalities.' },
+  { id: 'ncca-mangyan', title: 'Peoples of the Philippines: Mangyan', publisher: 'National Commission for Culture and the Arts', url: 'https://ncca.gov.ph/about-culture-and-arts/culture-profile/glimpses-peoples-of-the-philippines/mangyan/', status: 'Source checked', use: 'Community names, geographic groupings, writing, and ambahan context.' },
+  { id: 'ncca-ginaw', title: 'Ginaw Bilog and the Ambahan Tradition', publisher: 'National Commission for Culture and the Arts', url: 'https://ncca.gov.ph/about-culture-and-arts/culture-profile/gamaba/national-living-treasures-ginaw-bilog/', status: 'Source checked', use: 'Ambahan form, performance, transmission, and Ginaw Bilog’s cultural work.' },
+  { id: 'ncca-ambahan', title: 'In Focus: Ginaw Bilog and the Ambahan Tradition', publisher: 'National Commission for Culture and the Arts', url: 'https://ncca.gov.ph/about-culture-and-arts/in-focus/ginaw-bilog-and-the-ambahan-tradition/', status: 'Source checked', use: 'Seven-syllable ambahan lines, bamboo inscription, and community-sensitive context.' },
+  { id: 'travel-lakbay', title: 'What is LAKBAY', publisher: 'Travel Oriental Mindoro', url: 'https://www.travelorientalmindoro.ph/page/what-is-lakbay', status: 'Source checked', use: 'Official tourism portal mission, sustainable tourism, destinations, events, and services.' },
+  { id: 'travel-history', title: 'History of Oriental Mindoro', publisher: 'Travel Oriental Mindoro', url: 'https://www.travelorientalmindoro.ph/page/history', status: 'Source checked', use: 'Provincial history and the 1950 division of Mindoro.' },
+  { id: 'travel-naujan', title: 'Naujan Lake', publisher: 'Travel Oriental Mindoro', url: 'https://www.travelorientalmindoro.ph/place/naujan-lake', status: 'Source checked', use: 'Lake size ranking, Ramsar status, surrounding municipalities, fish, and water birds.' },
+  { id: 'denr-tamaraw', title: 'DENR Tamaraw news alert', publisher: 'Department of Environment and Natural Resources', url: 'https://denr.gov.ph/wp-content/uploads/2023/07/DENR_News_Alerts_13_October_2020_Tuesday.pdf', status: 'Source checked', use: 'Government conservation context for the Mindoro-endemic tamaraw.' },
   { id: 'tamaraw-media', title: 'Tamaraw photograph', publisher: 'Gregg Yan / Wikimedia Commons', url: 'https://commons.wikimedia.org/wiki/File:Bubalus_mindorensis_by_Gregg_Yan_02.jpg', status: 'License checked', use: 'Offline wildlife image; CC BY-SA 3.0 attribution is shown in-app.' },
 ];
 
