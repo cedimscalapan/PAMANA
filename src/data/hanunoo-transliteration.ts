@@ -98,7 +98,7 @@ export function transliterateFilipino(input: string): TransliterationResult {
     const token = tokens[index];
 
     if (token.kind === 'separator') {
-      if (output.at(-1) !== ' ') output.push(' ');
+      if (output[output.length - 1] !== ' ') output.push(' ');
       if (token.text === '-') notes.add('The hyphen is shown as a word boundary; Hanunó’o has no equivalent hyphen in this converter.');
       continue;
     }
