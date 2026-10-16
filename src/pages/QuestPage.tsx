@@ -128,8 +128,9 @@ export default function QuestPage() {
     <IonPage>
       <IonContent fullscreen>
         <PageFrame active="quest">
-          <ModuleHeader title="Pamana Quest" subtitle="Isang mabilis, patas, at source-checked na offline challenge." tone="amber" icon={trophyOutline} />
+          <ModuleHeader title="Pamana Quest" subtitle={`${questQuestions.length} source-checked questions · 10 per round · offline challenge`} tone="amber" icon={trophyOutline} />
           <section className="module-content quest-content">
+            <div className="quest-bank-note"><strong>{questQuestions.length}-question challenge bank</strong><span>Every round mixes categories, difficulty, timers, and randomized answer positions.</span></div>
             {!finished && question ? (
               <article className="quest-card">
                 <div className="quest-progress-top"><span>QUESTION {questionIndex + 1} OF {session.length}</span><strong>{currentScore} POINTS</strong></div>
