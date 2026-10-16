@@ -34,6 +34,12 @@ jobs:
         run: |
           node -e "console.log(require.resolve('@capacitor/android/package.json'))"
           ./node_modules/.bin/cap add android
+      - name: Generate Ka-Pamana Android icon and splash
+        run: |
+          mkdir -p resources
+          cp src/assets/reference/ka-pamana-icon.png resources/icon.png
+          cp src/assets/reference/smart-pamana-showcase.png resources/splash.png
+          ./node_modules/.bin/capacitor-assets generate --android
       - name: Sync Capacitor
         run: ./node_modules/.bin/cap sync android
       - name: Build debug APK

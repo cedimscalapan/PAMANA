@@ -28,10 +28,11 @@ export const places: Place[] = [
 ];
 
 export const sources = [
-  { title: 'Travel Oriental Mindoro', publisher: 'Oriental Mindoro tourism portal', status: 'Review pending' },
-  { title: 'Mangyan Bamboo Collection: Background', publisher: 'Library of Congress', status: 'Review pending' },
-  { title: 'Hanunó’o orthography notes', publisher: 'Richard Ishida / r12a', status: 'Source checked' },
-  { title: 'Provincial Planning and Development Office', publisher: 'Oriental Mindoro PPDO', status: 'Review pending' }
+  { id: 'tourism', title: 'Travel Oriental Mindoro', publisher: 'Oriental Mindoro tourism portal', url: 'https://www.travelorientalmindoro.ph/', status: 'Review pending', use: 'Province overview, towns, attractions, and travel context.' },
+  { id: 'loc', title: 'Mangyan Bamboo Collection: Background', publisher: 'Library of Congress', url: 'https://guides.loc.gov/mangyan-bamboo-collection/background', status: 'Review pending', use: 'Mangyan communities, ambahan, bamboo collection, and writing traditions.' },
+  { id: 'hanunoo', title: 'Hanunó’o orthography notes', publisher: 'Richard Ishida / r12a', url: 'https://r12a.github.io/scripts/hano/hnn.html', status: 'Source checked', use: 'Unicode, abugida structure, vowel signs, and pamudpod reference.' },
+  { id: 'unicode', title: 'Hanunoo Unicode chart', publisher: 'Unicode Consortium', url: 'https://unicode.org/charts/PDF/U1720.pdf', status: 'Source checked', use: 'Character block and code-point reference.' },
+  { id: 'ppdo', title: 'Provincial Planning and Development Office', publisher: 'Oriental Mindoro PPDO', url: 'https://ppdo.ormindoro.gov.ph', status: 'Review pending', use: 'Requested official planning reference; verify before publication.' }
 ];
 
 export const storageKey = (id: string) => `pamana.lesson.${id}`;
