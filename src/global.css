@@ -245,3 +245,131 @@ ion-button { --border-radius: 14px; text-transform: none; font-weight: 700; }
   .app-bottom-nav { max-width: 720px; right: auto; left: 50%; width: 100%; transform: translateX(-50%); }
   .onboarding-hero { border-radius: 0 0 42px 42px; }
 }
+
+/* Sulat Pamana complete learning module */
+.sulat-section-nav { position: sticky; top: 0; z-index: 8; display: grid; grid-template-columns: repeat(5, minmax(68px, 1fr)); max-width: 720px; margin: 0 auto; overflow-x: auto; border-bottom: 1px solid #e6daca; background: rgba(255, 249, 237, .97); box-shadow: 0 5px 13px rgba(88, 61, 37, .05); scrollbar-width: none; }
+.sulat-section-nav::-webkit-scrollbar { display: none; }
+.sulat-section-nav button { min-width: 68px; padding: 10px 4px 9px; border: 0; border-bottom: 3px solid transparent; background: transparent; color: #8d8275; cursor: pointer; }
+.sulat-section-nav ion-icon { display: block; margin: 0 auto 4px; font-size: 19px; }
+.sulat-section-nav span { display: block; font-size: 9px; font-weight: 800; }
+.sulat-section-nav button.active { border-bottom-color: var(--terracotta); color: var(--green); background: #fffaf0; }
+.sulat-content { max-width: 720px; min-height: 55vh; margin: 0 auto; padding: 21px 18px 12px; }
+.sulat-title-row { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 14px; }
+.sulat-title-row .module-kicker { margin-bottom: 5px; }
+.sulat-title-row h2 { margin: 0; color: var(--brown); font: 700 21px/1.15 var(--heading); }
+.sulat-title-row > span { flex: 0 0 auto; max-width: 128px; padding: 7px 9px; border-radius: 12px; background: #e4f1e6; color: var(--green); font-size: 9px; font-weight: 900; text-align: center; }
+.sulat-audio-bar { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 13px; padding: 13px 14px; }
+.sulat-audio-bar div { min-width: 0; }
+.sulat-audio-bar strong, .sulat-audio-bar small { display: block; }
+.sulat-audio-bar strong { color: var(--brown); font-size: 12px; }
+.sulat-audio-bar small { margin-top: 3px; color: var(--muted); font-size: 9px; }
+.sulat-audio-bar ion-button { --border-color: #d8c7ad; --color: var(--green); margin: 0; font-size: 10px; }
+.sulat-status { margin: 10px 0; padding: 10px 12px; border-radius: 13px; background: #e8f3e7; color: var(--green); font-size: 11px; line-height: 1.4; }
+.sulat-character-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 9px; }
+.sulat-character-card { overflow: hidden; transition: border-color .2s ease, box-shadow .2s ease; }
+.sulat-character-card.selected { border-color: #6fa182; box-shadow: 0 0 0 2px rgba(36,90,67,.12); }
+.sulat-character-select { display: block; width: 100%; min-height: 137px; padding: 11px 8px 7px; border: 0; background: transparent; color: var(--ink); text-align: center; cursor: pointer; }
+.sulat-character-select .hanunoo-glyph { display: grid; min-height: 66px; place-items: center; color: var(--brown); font-size: 55px; }
+.sulat-character-select strong, .sulat-character-select small { display: block; }
+.sulat-character-select strong { min-height: 25px; color: var(--brown); font-size: 10px; line-height: 1.25; }
+.sulat-character-select small { margin-top: 4px; color: var(--muted); font-size: 8px; }
+.sulat-character-actions { display: grid; grid-template-columns: repeat(2, 1fr); min-height: 31px; border-top: 1px solid #eee3d5; border-bottom: 1px solid #eee3d5; }
+.sulat-character-actions button { display: flex; align-items: center; justify-content: center; gap: 3px; padding: 7px 2px; border: 0; background: #fffaf0; color: var(--green); font-size: 9px; font-weight: 800; cursor: pointer; }
+.sulat-character-actions button + button { border-left: 1px solid #eee3d5; }
+.sulat-character-actions span { grid-column: 1 / -1; align-self: center; color: var(--muted); font-size: 8px; text-align: center; }
+.sulat-character-card > ion-button { --color: var(--terracotta); width: 100%; margin: 0; font-size: 10px; }
+.sulat-cultural-note { margin: 16px 2px 5px; color: var(--muted); font-size: 10px; line-height: 1.5; }
+.sulat-convert-form { margin-bottom: 14px; padding: 15px; }
+.sulat-convert-form label { display: block; margin-bottom: 8px; color: var(--brown); font-size: 11px; font-weight: 900; }
+.sulat-convert-form > div { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 8px; }
+.sulat-convert-form ion-input, .sulat-rename-row ion-input { --padding-start: 12px; --padding-end: 12px; min-height: 44px; border: 1px solid #decfb9; border-radius: 13px; background: #fffdf7; font-size: 13px; }
+.sulat-convert-form ion-button { --background: var(--green); min-height: 44px; margin: 0; font-size: 11px; }
+.sulat-convert-form > small { display: block; margin-top: 9px; color: var(--muted); font-size: 9px; line-height: 1.35; }
+.sulat-conversion-result { padding: 17px; }
+.sulat-result-heading { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; }
+.sulat-result-heading h3 { margin: 5px 0 0; color: var(--brown); font: 700 23px var(--heading); }
+.sulat-result-heading ion-button { --color: var(--muted); margin: -9px -9px 0 0; }
+.sulat-result-badge { display: inline-block; padding: 5px 8px; border-radius: 9px; font-size: 8px; font-weight: 900; letter-spacing: .35px; }
+.sulat-result-badge.supported { background: #e2f1e5; color: var(--green); }
+.sulat-result-badge.partial { background: #fae2d8; color: #9d4635; }
+.sulat-script-result { padding: 22px 4px 8px; overflow-x: auto; color: var(--brown); font-size: 58px; text-align: center; white-space: nowrap; }
+.sulat-syllables { color: var(--terracotta) !important; font-size: 11px !important; font-weight: 800; letter-spacing: .4px; text-align: center; }
+.sulat-breakdown { display: grid; gap: 6px; margin: 14px 0; }
+.sulat-breakdown > div, .sulat-word-card details > div { display: grid; grid-template-columns: 38px 47px minmax(0, 1fr); align-items: center; gap: 8px; padding: 7px 8px; border-radius: 11px; background: #faf3e8; }
+.sulat-breakdown > div.unsupported { background: #fae4dc; }
+.sulat-breakdown span, .sulat-word-card details span { color: var(--terracotta); font-size: 10px; font-weight: 900; }
+.sulat-breakdown strong, .sulat-word-card details strong { color: var(--brown); font-size: 26px; text-align: center; }
+.sulat-breakdown small, .sulat-word-card details small { color: var(--muted); font-size: 9px; line-height: 1.3; }
+.sulat-warning, .sulat-info { margin: 7px 0; padding: 9px 10px; border-radius: 11px; font-size: 10px; line-height: 1.4; }
+.sulat-warning { background: #fae4dc; color: #8d3f30; }
+.sulat-info { background: #f5ecd9; color: #735a3d; }
+.sulat-result-actions, .sulat-word-actions, .sulat-record-actions { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 13px; }
+.sulat-result-actions ion-button, .sulat-word-actions ion-button, .sulat-record-actions ion-button { --border-radius: 13px; flex: 1 1 120px; min-height: 40px; margin: 0; font-size: 10px; }
+.sulat-result-actions ion-button:last-of-type, .sulat-word-actions ion-button:last-of-type { --background: var(--green); }
+.sulat-source-box { margin: 14px 0 0; padding: 13px 14px; border: 1px dashed #d8c8b0; border-radius: 16px; color: var(--muted); font-size: 10px; line-height: 1.45; }
+.sulat-source-box strong { color: var(--brown); }
+.sulat-source-box p { margin: 5px 0 7px; }
+.sulat-source-box a { display: block; margin-top: 4px; color: var(--green); font-weight: 800; text-decoration: none; }
+.sulat-practice-reference { display: grid; grid-template-columns: minmax(100px, .7fr) 1.5fr; align-items: center; min-height: 124px; margin-bottom: 10px; padding: 15px; }
+.sulat-practice-reference > div:first-child span, .sulat-practice-reference > div:first-child strong { display: block; }
+.sulat-practice-reference > div:first-child span { color: var(--terracotta); font-size: 9px; font-weight: 900; letter-spacing: .7px; }
+.sulat-practice-reference > div:first-child strong { margin-top: 6px; color: var(--brown); font-size: 14px; }
+.sulat-practice-reference > .hanunoo-glyph { overflow-x: auto; color: var(--brown); font-size: 64px; text-align: center; white-space: nowrap; }
+.sulat-mode-switch { display: grid; grid-template-columns: repeat(2, 1fr); gap: 4px; margin-bottom: 10px; padding: 4px; border-radius: 15px; background: #eadfce; }
+.sulat-mode-switch button { min-height: 38px; border: 0; border-radius: 11px; background: transparent; color: var(--muted); font-size: 10px; font-weight: 900; cursor: pointer; }
+.sulat-mode-switch button.active { background: #fffdf7; color: var(--green); box-shadow: 0 2px 8px rgba(87,62,40,.09); }
+.sulat-practice-card { padding: 13px; }
+.sulat-trace-pad { position: relative; overflow: hidden; border: 2px dashed #d4c3aa; border-radius: 17px; background: #fffdf7; touch-action: none; }
+.sulat-trace-pad canvas { display: block; width: 100%; height: auto; min-height: 205px; cursor: crosshair; touch-action: none; }
+.sulat-trace-pad > span { position: absolute; right: 0; bottom: 8px; left: 0; color: #a99b88; font-size: 9px; text-align: center; pointer-events: none; }
+.sulat-canvas-tools { display: grid; grid-template-columns: repeat(4, 1fr); gap: 5px; margin-top: 9px; }
+.sulat-canvas-tools ion-button { --border-color: #d9c8ae; --color: var(--brown); --padding-start: 3px; --padding-end: 3px; min-width: 0; min-height: 38px; margin: 0; font-size: 9px; }
+.sulat-note-input { --padding-start: 10px; --padding-end: 10px; --padding-top: 10px; --padding-bottom: 10px; min-height: 53px; margin-top: 10px; border: 1px solid #e2d5c2; border-radius: 13px; background: #fffaf1; font-size: 11px; }
+.sulat-save-button { --background: var(--green); min-height: 45px; margin: 10px 0 0; font-size: 11px; }
+.sulat-word-search { --background: #fffdf7; --border-radius: 15px; --box-shadow: 0 4px 14px rgba(85,62,38,.05); --placeholder-color: #9b8f80; padding: 0 0 12px; }
+.sulat-word-list { display: grid; gap: 10px; }
+.sulat-word-card { padding: 15px; }
+.sulat-word-topline { display: grid; grid-template-columns: minmax(90px, .65fr) 1.5fr; align-items: center; gap: 10px; }
+.sulat-word-topline span { color: var(--terracotta); font-size: 8px; font-weight: 900; letter-spacing: .5px; text-transform: uppercase; }
+.sulat-word-topline h3 { margin: 4px 0 0; color: var(--brown); font: 700 21px var(--heading); }
+.sulat-word-topline > .hanunoo-glyph { overflow-x: auto; color: var(--brown); font-size: 38px; text-align: right; white-space: nowrap; }
+.sulat-word-card > p:not(.sulat-syllables) { margin: 10px 0 7px; color: var(--muted); font-size: 11px; line-height: 1.45; }
+.sulat-word-card details { margin: 12px 0; }
+.sulat-word-card summary { color: var(--green); font-size: 10px; font-weight: 900; cursor: pointer; }
+.sulat-word-card details > div { margin-top: 5px; }
+.sulat-translation-label { display: grid; gap: 3px; padding: 9px 10px; border-radius: 11px; background: #f4eddf; }
+.sulat-translation-label strong { color: var(--brown); font-size: 9px; }
+.sulat-translation-label span { color: var(--muted); font-size: 9px; line-height: 1.35; }
+.sulat-empty { padding: 30px 18px; color: var(--muted); text-align: center; }
+.sulat-empty > ion-icon { color: #c59b5d; font-size: 44px; }
+.sulat-empty h3 { margin: 9px 0 5px; color: var(--brown); font: 700 19px var(--heading); }
+.sulat-empty p { margin: 0 auto 14px; max-width: 310px; font-size: 11px; line-height: 1.45; }
+.sulat-empty ion-button { --background: var(--green); font-size: 10px; }
+.sulat-history-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+.sulat-history-card { overflow: hidden; padding: 8px; border: 1px solid #eadfce; color: var(--ink); text-align: left; cursor: pointer; }
+.sulat-history-card img, .sulat-history-card > .hanunoo-glyph { display: grid; width: 100%; aspect-ratio: 16 / 9; place-items: center; object-fit: cover; border-radius: 13px; background: #fffaf1; color: var(--brown); font-size: 40px; }
+.sulat-history-card span { display: inline-block; margin-top: 8px; padding: 4px 6px; border-radius: 8px; background: #e5f1e7; color: var(--green); font-size: 8px; font-weight: 900; }
+.sulat-history-card strong, .sulat-history-card small { display: block; }
+.sulat-history-card strong { margin-top: 6px; color: var(--brown); font-size: 12px; }
+.sulat-history-card small { margin-top: 3px; color: var(--muted); font-size: 8px; line-height: 1.3; }
+.sulat-record-detail { padding: 15px; }
+.sulat-record-heading { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.sulat-record-heading ion-button { --color: var(--green); --padding-start: 0; margin: 0; font-size: 10px; }
+.sulat-record-heading > span { padding: 5px 8px; border-radius: 9px; background: #e4f1e6; color: var(--green); font-size: 8px; font-weight: 900; }
+.sulat-record-detail > img { display: block; width: 100%; margin: 10px 0; border: 1px solid #e8ddcf; border-radius: 15px; background: #fffdf7; }
+.sulat-record-script { overflow-x: auto; margin-top: 12px; color: var(--brown); font-size: 42px; text-align: center; white-space: nowrap; }
+.sulat-record-detail h3 { margin: 8px 0 3px; color: var(--brown); font: 700 21px var(--heading); text-align: center; }
+.sulat-record-detail > p { margin: 0; color: var(--muted); font-size: 9px; text-align: center; }
+.sulat-record-detail blockquote { margin: 12px 0; padding: 10px 12px; border-left: 3px solid var(--amber); border-radius: 0 10px 10px 0; background: #fff6e5; color: var(--muted); font-size: 10px; line-height: 1.4; }
+.sulat-rename-row { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 7px; margin-top: 13px; }
+.sulat-rename-row ion-button { --border-color: #d5c3a8; --color: var(--green); min-height: 44px; margin: 0; font-size: 10px; }
+
+@media (min-width: 560px) {
+  .sulat-character-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .sulat-history-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+@media (max-width: 380px) {
+  .sulat-canvas-tools { grid-template-columns: repeat(2, 1fr); }
+  .sulat-convert-form > div { grid-template-columns: 1fr; }
+}

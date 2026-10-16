@@ -28,6 +28,8 @@ jobs:
         run: npm install --legacy-peer-deps --package-lock=false --no-audit --no-fund
       - name: Install Capacitor Android build tools
         run: npm install --legacy-peer-deps --package-lock=false --no-save --no-audit --no-fund @capacitor/cli@6.1.2 @capacitor/android@6.1.2
+      - name: Verify transliteration, storage, and TypeScript
+        run: npm test
       - name: Build web app
         run: npm run build
       - name: Add Android platform

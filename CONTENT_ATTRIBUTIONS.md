@@ -21,3 +21,14 @@ The app bundles source metadata and a small amount of local media so the core le
 The source URLs and intended use are bundled in `src/data/content.ts` and displayed in Settings. Community-sensitive content remains explicitly marked for educator/community review before publication.
 
 The complete local Hanunó’o character inventory is defined in `src/data/hanunoo.ts`. It contains every assigned character from U+1720 through U+1736: 3 independent vowels, 15 consonants, 2 combining vowel signs, U+1734 pamudpod, and U+1735/U+1736 Philippine punctuation.
+
+The Filipino sound-transliteration rules in `src/data/hanunoo-transliteration.ts` use the modern printed orthography described by Richard Ishida and the Unicode Hanunoo chart:
+
+- Richard Ishida, “Hanunó’o Orthography Notes”: https://r12a.github.io/scripts/hano/hnn
+- Unicode Hanunoo chart: https://unicode.org/charts/PDF/U1720.pdf
+
+The common-word list contains Filipino vocabulary and Filipino explanations only. Its Hanunó’o glyph strings are clearly labeled sound transliterations, not translations into the Hanunó’o language. No unreviewed Hanunó’o-language definitions are bundled.
+
+## Pronunciation recordings
+
+No community-verified Hanunó’o speaker recordings were present in the supplied repository, so no artificial or Filipino text-to-speech audio is bundled as a replacement. `src/services/pronunciation.ts` accepts local recordings only when their source and reviewer metadata are documented. Authentic recordings must be added and reviewed with knowledgeable Hanunó’o speakers before the audio catalog can be considered complete.

@@ -8,7 +8,7 @@ This is the implementation map for the requested twelve-phase build. A phase is 
 4. **Onboarding and navigation** — Four-step onboarding, guarded first launch, module routing, back actions, and bottom navigation.
 5. **Home dashboard** — Welcome hero, Ka-Pamana avatar, continue-learning action, module shortcuts, rotating daily fact, and settings access.
 6. **Matuto learning module** — Offline lesson catalog, category filtering, lesson detail, source links, quiz feedback, and persisted completion.
-7. **Sulat writing module** — Hanunó’o/Buhid practice selector, Unicode reference glyphs, participation persistence, and reset action.
+7. **Sulat writing module** — Complete Hanunó’o Unicode inventory, source-aware Filipino transliteration, searchable offline vocabulary, guided/freehand tracing, vector stroke preservation, optimized previews, and persistent My Writings history. Authentic speaker audio remains a release gate because no reviewed recordings were supplied.
 8. **Lakbay exploration module** — Selectable offline map pins, coordinates, place details, source links, conservation media, and travel-safety messaging.
 9. **Pamana Quest** — Multi-question offline quiz, scoring, completion screen, retry flow, and saved score.
 10. **Kuwento and Koleksyon** — Private story composer, device-only persistence, collection cards, local collection state, and media attribution.
