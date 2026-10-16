@@ -106,6 +106,18 @@ export const lessons: Lesson[] = [
     points: ['The tourism portal describes Mount Halcon as 2,586 metres and the highest point on Mindoro.', 'MAHAL TANA links Mangyan, Halcon, Tamaraw, and Naujan Lake as four provincial icons.', 'Mindoro was divided into Oriental and Occidental Mindoro in 1950 under Republic Act No. 505.'],
     quiz: { prompt: 'In the tourism portal’s MAHAL TANA explanation, what does “NA” refer to?', answers: ['Naujan Lake', 'National museum', 'Narra tree', 'Naujan festival'], correctIndex: 0, explanation: 'The portal explains MAHAL TANA as Mangyan, Halcon, Tamaraw, and Naujan Lake.' },
   },
+  {
+    id: 'l15', title: 'Heritage places across the province', category: 'Nature & Travel', duration: 12,
+    summary: 'Use the official cultural-place directory as a starting point while respecting local access rules and community protocols.', sourceStatus: 'reviewed', sourceIds: ['lakbay-cultural', 'lakbay-place-mangyan-villages'], lastReviewed: reviewed,
+    points: ['The tourism portal lists historical and cultural sites across several Oriental Mindoro municipalities.', 'A public listing is not the same as permission to enter a community or reproduce cultural material.', 'Check current access information and follow local guidance before visiting.'],
+    quiz: { prompt: 'What should a learner do before visiting a culturally sensitive place?', answers: ['Check access information and follow local guidance', 'Assume every place is open for research', 'Copy photos without asking', 'Treat the listing as travel permission'], correctIndex: 0, explanation: 'The app uses public listings for discovery, but access and cultural protocols still require local confirmation.' },
+  },
+  {
+    id: 'l16', title: 'A year of Oriental Mindoro festivals', category: 'Nature & Travel', duration: 12,
+    summary: 'Explore the official annual calendar and connect celebrations to the municipalities that host them.', sourceStatus: 'reviewed', sourceIds: ['lakbay-festivals'], lastReviewed: reviewed,
+    points: ['The official calendar lists 18 annual festivals across Oriental Mindoro.', 'Festival dates and programs can change, so the offline calendar keeps a source link and verification reminder.', 'The app presents festivals as learning context, not as a guarantee of current schedules.'],
+    quiz: { prompt: 'How many festivals are listed in the official tourism calendar?', answers: ['18', '8', '15', '36'], correctIndex: 0, explanation: 'The Travel Oriental Mindoro festival directory currently lists 18 festivals.' },
+  },
 ];
 
 const question = (
@@ -238,6 +250,10 @@ export const questQuestions: QuestQuestion[] = [
   question('history-09', 'History & Identity', 'medium', 'Which provincial set is represented by MAHAL TANA?', ['Mangyan, Halcon, Tamaraw, and Naujan Lake', 'Mansalay, Hanunoo, Tawbuid, and Naujan', 'Manila, Halcon, Tagalog, and Nature', 'Mangrove, Harbor, Tourism, and Navigation'], 0, 'The tourism portal explains the four icons as Mangyan, Halcon, Tamaraw, and Naujan Lake.', ['tourism']),
   question('history-10', 'History & Identity', 'hard', 'What should a learner do when a historical collection and living community knowledge differ in scope?', ['Keep both contexts visible and avoid claiming one replaces the other', 'Delete the community context', 'Assume the oldest record is complete', 'Remove all attribution'], 0, 'The LOC collection and NCCA profiles support complementary, source-aware learning.', ['loc', 'ncca-mangyan']),
   question('history-11', 'History & Identity', 'easy', 'Which regional name is used for Region IV-B, where Oriental Mindoro is located?', ['MIMAROPA', 'CALABARZON', 'SOCCKSARGEN', 'CARAGA'], 0, 'The PPDO identifies Oriental Mindoro as part of MIMAROPA, or Region IV-B.', ['ppdo-general']),
+  question('travel-01', 'Nature & Travel', 'easy', 'How many annual festivals are listed in the official Oriental Mindoro calendar?', ['18', '8', '15', '30'], 0, 'The official festival directory lists 18 festivals.', ['lakbay-festivals']),
+  question('travel-02', 'Nature & Travel', 'medium', 'Which municipality hosts the official Mangyan Festival listed by the tourism portal?', ['Mansalay', 'Baco', 'Victoria', 'Calapan City'], 0, 'The festival page identifies Mangyan Festival as the official festival of Mansalay.', ['lakbay-festivals']),
+  question('travel-03', 'Nature & Travel', 'medium', 'Which festival is connected with Iraya cultural presentations, games, songs, and folktales?', ['Kaaldawan-Iraya Festival', 'Banana Festival', 'Kalap Festival', 'MASAYAW Festival'], 0, 'The official festival page lists these highlights for Kaaldawan-Iraya Festival.', ['lakbay-festivals']),
+  question('travel-04', 'Nature & Travel', 'hard', 'What is the responsible way to use an offline festival date?', ['Use it as a learning reference and verify the current program before traveling', 'Treat it as a guaranteed live schedule', 'Copy the event poster without permission', 'Ignore the official source link'], 0, 'Festival programs and venues can change, so the app keeps a verification reminder.', ['lakbay-festivals', 'lakbay-how-to-get-here']),
 ];
 
 export const questCategories = Array.from(new Set(questQuestions.map((item) => item.category)));

@@ -1,3 +1,6 @@
+import { officialFestivals, officialPlaces, officialSources } from './official-heritage';
+import type { OfficialFestival } from './official-heritage';
+
 export type SourceStatus = 'reviewed' | 'awaiting_review';
 
 export type Source = {
@@ -35,9 +38,10 @@ export type Place = {
   municipality: string;
   type: string;
   description: string;
-  latitude: number;
-  longitude: number;
+  latitude?: number;
+  longitude?: number;
   sourceIds: string[];
+  detailUrl?: string;
 };
 
 export type Story = {
@@ -73,6 +77,7 @@ export const sources: Source[] = [
   { id: 'travel-naujan', title: 'Naujan Lake', publisher: 'Travel Oriental Mindoro', url: 'https://www.travelorientalmindoro.ph/place/naujan-lake', status: 'Source checked', use: 'Lake size ranking, Ramsar status, surrounding municipalities, fish, and water birds.' },
   { id: 'denr-tamaraw', title: 'DENR Tamaraw news alert', publisher: 'Department of Environment and Natural Resources', url: 'https://denr.gov.ph/wp-content/uploads/2023/07/DENR_News_Alerts_13_October_2020_Tuesday.pdf', status: 'Source checked', use: 'Government conservation context for the Mindoro-endemic tamaraw.' },
   { id: 'tamaraw-media', title: 'Tamaraw photograph', publisher: 'Gregg Yan / Wikimedia Commons', url: 'https://commons.wikimedia.org/wiki/File:Bubalus_mindorensis_by_Gregg_Yan_02.jpg', status: 'License checked', use: 'Offline wildlife image; CC BY-SA 3.0 attribution is shown in-app.' },
+  ...officialSources,
 ];
 
 export const lessons: Lesson[] = [
@@ -112,11 +117,15 @@ export const places: Place[] = [
   { id: 'naujan-lake', name: 'Naujan Lake', municipality: 'Naujan', type: 'Environment', description: 'A significant wetland landscape connected to community life and conservation.', latitude: 13.1558, longitude: 121.3022, sourceIds: ['tourism'] },
   { id: 'mount-halcon', name: 'Mount Halcon', municipality: 'Baco', type: 'Nature', description: 'A major mountain landmark; access details should be checked before travel.', latitude: 13.2688, longitude: 121.1867, sourceIds: ['tourism'] },
   { id: 'mangyan-heritage', name: 'Mangyan heritage', municipality: 'Mindoro', type: 'Community', description: 'Explore community knowledge only with proper attribution, consent, and cultural review.', latitude: 13.0, longitude: 121.1, sourceIds: ['loc'] },
+  ...officialPlaces,
 ];
+
+export const festivals: OfficialFestival[] = officialFestivals;
 
 export const stories: Story[] = [
   { id: 'story-review', title: 'A story awaiting community review', summary: 'A private offline entry reserved for approved community content.', status: 'awaiting_review', sourceIds: [] },
   { id: 'story-landscapes', title: 'Landscapes and memory', summary: 'A place-based story slot for reviewed local voices and attribution.', status: 'awaiting_review', sourceIds: ['tourism'] },
+  { id: 'story-mhc-ambahan', title: 'Ambahan archive — permission pending', summary: 'The Mangyan Heritage Center describes a substantial ambahan archive. Text, translations, and recordings remain hidden until rights and community review are complete.', status: 'awaiting_review', sourceIds: ['mhc-library', 'mhc-projects'] },
   { id: 'story-private', title: 'Make your own private story', summary: 'A private story space that remains on this device.', status: 'private_template', sourceIds: [] },
 ];
 
@@ -125,6 +134,8 @@ export const collectionItems: CollectionItem[] = [
   { id: 'textiles', title: 'Clothing & textiles', category: 'Material culture', description: 'A respectful reference card for patterns, clothing, and textile knowledge; avoid treating living designs as decoration.', sourceIds: ['loc'] },
   { id: 'writing', title: 'Writing systems', category: 'Writing', description: 'Hanunó’o and Buhid writing systems should be taught with community-sensitive attribution.', sourceIds: ['hanunoo', 'unicode', 'loc'] },
   { id: 'nature', title: 'Nature & heritage', category: 'Environment', description: 'Mindoro wildlife and landscapes connect conservation with cultural learning.', sourceIds: ['tourism', 'tamaraw-media'] },
+  { id: 'heritage-sites', title: 'Heritage places', category: 'Lakbay', description: 'Officially listed cultural places across Oriental Mindoro, kept with source links and travel verification reminders.', sourceIds: ['lakbay-cultural'] },
+  { id: 'festival-calendar', title: 'Festival calendar', category: 'Lakbay', description: 'The official annual festival calendar, presented as learning context rather than a live travel guarantee.', sourceIds: ['lakbay-festivals'] },
 ];
 
 export const storageKey = (id: string) => `pamana.lesson.${id}`;

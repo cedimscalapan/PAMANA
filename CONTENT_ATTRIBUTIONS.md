@@ -32,3 +32,9 @@ The common-word list contains Filipino vocabulary and Filipino explanations only
 ## Pronunciation recordings
 
 No community-verified Hanunó’o speaker recordings were present in the supplied repository, so no artificial or Filipino text-to-speech audio is bundled as a replacement. `src/services/pronunciation.ts` accepts local recordings only when their source and reviewer metadata are documented. Authentic recordings must be added and reviewed with knowledgeable Hanunó’o speakers before the audio catalog can be considered complete.
+
+## Official data review and import
+
+The curated Lakbay and heritage records in `src/data/official-heritage.ts` were prepared from the official [Mangyan Heritage Center](https://mangyanheritage.odoo.com/) and [Travel Oriental Mindoro](https://www.travelorientalmindoro.ph/) portals. The app imports only source-linked public place names, festival calendar entries, and conservative descriptions. User reviews, uploaded photos, accounts, check-ins, dynamic travel operations, unpublished documents, ambahan text/audio, and community-sensitive materials are not copied.
+
+The Mangyan Heritage Center's [project policy](https://mangyanheritage.odoo.com/projects) requires community approval and Free, Prior, and Informed Consent for research and collaboration. Those records remain in a review/permission queue until the appropriate agreement exists. The tourism portal's [terms](https://www.travelorientalmindoro.ph/page/terms-and-conditions) and [privacy policy](https://www.travelorientalmindoro.ph/privacy) are treated as boundaries for user-generated content and personal data.

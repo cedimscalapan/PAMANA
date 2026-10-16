@@ -11,6 +11,7 @@ Offline-first Ionic React application for learning about Oriental Mindoro's cult
 - Offline lesson catalog with category filters, source attribution, lesson detail flow, quiz feedback, lesson completion persistence, quest scoring, writing practice, place details, stories, collection state, and reset controls.
 - Native SQLite state database on Android with a localStorage fallback only for the browser preview. Sulat Pamana writing records keep metadata and original stroke vectors in SQLite and store full/thumbnail PNG files in the app's private persistent storage.
 - Complete Sulat Pamana workspace with the Unicode character inventory, source-aware Filipino sound transliteration, a searchable 20-word offline vocabulary library, guided/freehand canvas practice, Undo/Clear/Retry/Next controls, and a persistent My Writings gallery with rename, reopen, export, and delete actions.
+- Curated official heritage and tourism records from the Mangyan Heritage Center and Travel Oriental Mindoro, including source-linked cultural places, an 18-date festival calendar, and review/permission states for protected cultural material. See [DATA_IMPORT_REPORT.md](DATA_IMPORT_REPORT.md) and [DATA_RIGHTS_REGISTER.md](DATA_RIGHTS_REGISTER.md).
 - Verified-audio-only pronunciation architecture with overlap prevention and Play/Replay/Mute controls. No artificial voice is substituted when community-reviewed recordings are unavailable.
 - Locally bundled, attributed tamaraw media for the Explore and Collection modules.
 
