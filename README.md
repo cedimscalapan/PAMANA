@@ -26,6 +26,10 @@ The `Build SMART PAMANA` workflow runs `npm ci` and `npm run build` on pushes an
 
 An Android APK workflow will be added after the Capacitor Android platform and Gradle project are committed to the repository.
 
+## Android APK
+
+Use GitHub Actions → `Build SMART PAMANA Android APK` → `Run workflow`. After it completes, download the `smart-pamana-debug-apk` artifact, extract `app-debug.apk`, copy it to an Android device, enable installation from unknown sources for the file manager, and open the APK to install it.
+
 ## Cultural review note
 
 The supplied mascot board is used as a visual reference only. Cultural clothing, script glyphs, translations, stories, and place facts must be backed by cited sources and, where applicable, community or educator review before release.
