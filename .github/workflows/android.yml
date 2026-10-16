@@ -27,9 +27,9 @@ jobs:
       - name: Setup Android SDK
         uses: android-actions/setup-android@v3
       - name: Install dependencies
-        run: npm install --legacy-peer-deps --no-audit --no-fund
+        run: npm install --legacy-peer-deps --package-lock=false --no-audit --no-fund
       - name: Install Capacitor Android build tools
-        run: npm install --legacy-peer-deps --no-save --no-audit --no-fund @capacitor/cli@6.1.2 @capacitor/android@6.1.2
+        run: npm install --legacy-peer-deps --package-lock=false --no-save --no-audit --no-fund @capacitor/cli@6.1.2 @capacitor/android@6.1.2
       - name: Build web app
         run: npm run build
       - name: Add Android platform
