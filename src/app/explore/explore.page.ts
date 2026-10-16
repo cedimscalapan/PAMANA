@@ -1,0 +1,2 @@
+import { Component, inject } from '@angular/core'; import { NgFor } from '@angular/common'; import { Router } from '@angular/router'; import { IonContent } from '@ionic/angular/standalone'; import { ContentService } from '../core/content.service';
+@Component({selector:'app-explore',standalone:true,imports:[IonContent,NgFor],templateUrl:'./explore.page.html',styleUrl:'../shared/module.page.scss'}) export class ExplorePage {readonly content=inject(ContentService);private router=inject(Router);back(){this.router.navigateByUrl('/home')}}

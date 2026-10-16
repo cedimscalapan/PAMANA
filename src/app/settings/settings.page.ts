@@ -1,0 +1,2 @@
+import { Component, inject } from '@angular/core'; import { Router } from '@angular/router'; import { IonContent } from '@ionic/angular/standalone';
+@Component({selector:'app-settings',standalone:true,imports:[IonContent],templateUrl:'./settings.page.html',styleUrl:'../shared/module.page.scss'}) export class SettingsPage {private router=inject(Router);offline=true;back(){this.router.navigateByUrl('/home')}reset(){localStorage.clear();location.reload()}}

@@ -1,0 +1,2 @@
+import { Component, inject } from '@angular/core'; import { NgIf } from '@angular/common'; import { Router } from '@angular/router'; import { IonContent } from '@ionic/angular/standalone';
+@Component({selector:'app-quest',standalone:true,imports:[IonContent,NgIf],templateUrl:'./quest.page.html',styleUrl:'../shared/module.page.scss'}) export class QuestPage {private router=inject(Router);selected='';score=0;back(){this.router.navigateByUrl('/home')}answer(v:string){this.selected=v;if(v==='A')this.score=10}}

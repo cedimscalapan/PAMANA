@@ -1,0 +1,2 @@
+import { Component, inject } from '@angular/core'; import { NgFor } from '@angular/common'; import { Router } from '@angular/router'; import { IonContent } from '@ionic/angular/standalone';
+@Component({selector:'app-stories',standalone:true,imports:[IonContent,NgFor],templateUrl:'./stories.page.html',styleUrl:'../shared/module.page.scss'}) export class StoriesPage {private router=inject(Router);stories=['A story awaiting community review','Landscapes and memory','Make your own private story'];back(){this.router.navigateByUrl('/home')}}

@@ -1,0 +1,2 @@
+import { Component, inject } from '@angular/core'; import { Router } from '@angular/router'; import { IonContent } from '@ionic/angular/standalone';
+@Component({selector:'app-writing',standalone:true,imports:[IonContent],templateUrl:'./writing.page.html',styleUrl:'../shared/module.page.scss'}) export class WritingPage {private router=inject(Router);done=false;back(){this.router.navigateByUrl('/home')}finish(){this.done=true;localStorage.setItem('pamana.writingPractice','complete')}}

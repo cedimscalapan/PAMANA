@@ -1,0 +1,2 @@
+import { Component, inject } from '@angular/core'; import { NgFor } from '@angular/common'; import { Router } from '@angular/router'; import { IonContent } from '@ionic/angular/standalone';
+@Component({selector:'app-collection',standalone:true,imports:[IonContent,NgFor],templateUrl:'./collection.page.html',styleUrl:'../shared/module.page.scss'}) export class CollectionPage {private router=inject(Router);items=['Traditional crafts','Clothing and textiles','Writing systems','Nature and heritage'];back(){this.router.navigateByUrl('/home')}}
