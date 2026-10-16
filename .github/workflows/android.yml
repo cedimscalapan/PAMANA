@@ -31,9 +31,11 @@ jobs:
       - name: Build web app
         run: npm run build
       - name: Add Android platform
-        run: npx --yes @capacitor/cli@6.1.2 add android
+        run: |
+          node -e "console.log(require.resolve('@capacitor/android/package.json'))"
+          ./node_modules/.bin/cap add android
       - name: Sync Capacitor
-        run: npx --yes @capacitor/cli@6.1.2 sync android
+        run: ./node_modules/.bin/cap sync android
       - name: Build debug APK
         working-directory: android
         run: ./gradlew assembleDebug
