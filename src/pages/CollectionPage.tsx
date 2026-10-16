@@ -1,44 +1,70 @@
-import { IonButton, IonContent, IonIcon, IonPage } from '@ionic/react';
-import { albumsOutline, checkmarkCircleOutline, closeOutline, layersOutline } from 'ionicons/icons';
-import { useState } from 'react';
-import { collectionItems, CollectionItem } from '../data/content';
-import { media } from '../data/media';
-import { setStored } from '../services/storage';
-import { ModuleHeader, PageFrame } from '../components/AppChrome';
+import { IonContent, IonIcon, IonPage } from '@ionic/react';
+import { addOutline, arrowForwardOutline, folderOpenOutline, imagesOutline } from 'ionicons/icons';
+import { useEffect, useRef, useState } from 'react';
+import { Link, useHistory, useLocation } from 'react-router-dom';
+import { PageFrame } from '../components/AppChrome';
+import { DetailBack, EmptyState, HeritageHero, LocalMedia, SearchField, useLibrary } from '../components/HeritageUI';
+import { curatedFolders, curatedPhotos } from '../data/gallery';
+import { lessons } from '../data/learning';
+import { places } from '../data/content';
+import { changeLibrary, deleteMedia, importPhotos, mediaReferences, newId } from '../services/library';
 
 export default function CollectionPage() {
-  const [selected, setSelected] = useState<CollectionItem>();
-  const [collected, setCollected] = useState<string[]>(JSON.parse(localStorage.getItem('pamana.collectedItems') || '[]'));
-  const collect = (item: CollectionItem) => {
-    const next = collected.includes(item.id) ? collected : [...collected, item.id];
-    setCollected(next);
-    void setStored('pamana.collectedItems', JSON.stringify(next));
-  };
-
-  return (
-    <IonPage>
-      <IonContent fullscreen>
-        <PageFrame active="home">
-          <ModuleHeader title="Koleksyon" subtitle="Keep a respectful, offline gallery of heritage learning cards." tone="red" icon={albumsOutline} />
-          <section className="module-content collection-content">
-            <div className="module-intro-row"><div><p className="module-kicker">YOUR LOCAL GALLERY</p><h2>Mga bagay na may kuwento</h2></div><span className="module-count">{collected.length}/{collectionItems.length} saved</span></div>
-            <div className="collection-grid">
-              {collectionItems.map((item) => {
-                const isCollected = collected.includes(item.id);
-                return <article className={`collection-tile ${isCollected ? 'is-collected' : ''}`} key={item.id}>
-                  <button type="button" onClick={() => setSelected(item)} className="collection-tile-open">
-                    {item.id === 'nature' ? <img src={media.tamaraw.src} alt={media.tamaraw.alt} /> : <span className="collection-tile-symbol"><IonIcon icon={item.id === 'writing' ? layersOutline : albumsOutline} /></span>}
-                    <span className="collection-tile-category">{item.category}</span>
-                    <strong>{item.title}</strong>
-                  </button>
-                  <IonButton fill="clear" onClick={() => collect(item)}>{isCollected ? <><IonIcon icon={checkmarkCircleOutline} /> Saved</> : 'Collect'}</IonButton>
-                </article>;
-              })}
-            </div>
-            {selected && <article className="detail-card collection-detail"><div className="detail-card-topline"><span className="module-kicker">COLLECTION ITEM · {selected.category}</span><IonButton fill="clear" onClick={() => setSelected(undefined)} aria-label="Close item"><IonIcon icon={closeOutline} /></IonButton></div><h2>{selected.title}</h2><p>{selected.description}</p><div className="notice"><strong>Respect the source.</strong><br />Entries keep provenance, creator credit, and community permissions with the local record.</div></article>}
-          </section>
-        </PageFrame>
-      </IonContent>
-    </IonPage>
-  );
+  const history = useHistory(); const location = useLocation();
+  const { state, error: libraryError } = useLibrary();
+  const content = useRef<HTMLIonContentElement>(null);
+  const input = useRef<HTMLInputElement>(null);
+  const scroll = useRef(0);
+  const params = new URLSearchParams(location.search);
+  const photoId = params.get('photo'); const folderId = params.get('folder');
+  const curated = curatedPhotos.find(photo => photo.id === photoId);
+  const personal = state.media.find(item => item.id === photoId);
+  const allPhotos = { id: 'all-photos', name: 'All my photos', coverId: undefined, description: 'Every personal photo, including unfiled pictures.', tone: 'amber', curated: false };
+  const folder = [...curatedFolders, allPhotos, ...state.folders].find(folder => folder.id === folderId);
+  const [query, setQuery] = useState(''); const [sort, setSort] = useState('Name');
+  const [creating, setCreating] = useState(false); const [folderName, setFolderName] = useState('');
+  const [renaming, setRenaming] = useState(false); const [editing, setEditing] = useState(false);
+  const [title, setTitle] = useState(''); const [description, setDescription] = useState('');
+  const [targetFolder, setTargetFolder] = useState('my-memories');
+  const [zoom, setZoom] = useState(1); const [busy, setBusy] = useState(false); const [status, setStatus] = useState('');
+  useEffect(() => { setZoom(1); setEditing(false); setRenaming(false); setStatus(''); setTitle(personal?.title ?? ''); setDescription(personal?.description ?? ''); void content.current?.scrollToPoint(0, photoId || folderId ? 0 : scroll.current, 0); }, [photoId, folderId]);
+  const run = async (operation: () => Promise<unknown>, success = '') => { setBusy(true); setStatus(''); try { await operation(); setStatus(success); } catch (error) { setStatus(error instanceof Error ? error.message : 'This change could not be saved. Please try again.'); } finally { setBusy(false); } };
+  const create = (event: React.FormEvent) => { event.preventDefault(); const name = folderName.trim(); if (!name) return; void run(async () => { await changeLibrary(state => ({ ...state, folders: [...state.folders, { id: newId(), name, createdAt: new Date().toISOString() }] })); setCreating(false); setFolderName(''); }, 'Folder created.'); };
+  const openPhoto = (id: string, parent?: string) => history.push(`/collection?${parent ? `folder=${encodeURIComponent(parent)}&` : ''}photo=${id}`);
+  const backToFolder = () => history.replace(`/collection${folderId ? `?folder=${encodeURIComponent(folderId)}` : curated ? `?folder=${curated.folderId}` : ''}`);
+  const visiblePhotos = [...curatedPhotos.filter(photo => (!folderId || photo.folderId === folderId) && `${photo.title} ${photo.description}`.toLowerCase().includes(query.toLowerCase())), ...state.media.filter(item => item.kind === 'photo' && (!folderId || folderId === 'all-photos' || item.folderIds.includes(folderId)) && `${item.title} ${item.description}`.toLowerCase().includes(query.toLowerCase()))].sort((a, b) => sort === 'Name' ? a.title.localeCompare(b.title) : ('createdAt' in b ? b.createdAt : '').localeCompare('createdAt' in a ? a.createdAt : ''));
+  const allFolders = [...curatedFolders.map(folder => ({ ...folder, curated: true })), allPhotos, ...state.folders.map(folder => ({ ...folder, tone: 'amber', description: folder.id === 'my-memories' ? 'Photos from your own journey.' : 'Your personal photo folder.', curated: false }))];
+  const refs = personal ? mediaReferences(state, personal.id) : [];
+  return <IonPage><IonContent ref={content} scrollEvents onIonScroll={event => { if (!photoId && !folderId) scroll.current = event.detail.scrollTop; }}><PageFrame active="collection">
+    {curated || personal ? <article className="heritage-body photo-detail reading-page">
+      <DetailBack onBack={backToFolder} label={folder?.name ?? (curated ? 'Photo folder' : 'Your folders')} /><span className="eyebrow">{curated ? 'THE SHARED HERITAGE LIBRARY' : 'YOUR PRIVATE PHOTO LIBRARY'}</span><h1>{curated?.title ?? personal?.title}</h1>
+      <div className="photo-zoom-controls"><label>Zoom <input aria-label="Photo zoom" type="range" min="1" max="3" step=".25" value={zoom} onChange={event => setZoom(Number(event.target.value))} /></label><button className="text-action" onClick={() => setZoom(1)}>Fit image</button></div><div className="photo-viewer"><div style={{ width: `${zoom * 100}%` }}>{curated ? <img src={curated.src} alt={curated.title} /> : personal && <LocalMedia item={personal} full />}</div></div>
+      <p className="reading-lead">{(curated?.description ?? personal?.description) || 'Add a caption to keep the context with this picture.'}</p>
+      {curated ? <><dl className="photo-metadata"><div><dt>Location</dt><dd>{curated.location}</dd></div><div><dt>Photographer</dt><dd>{curated.credit}</dd></div><div><dt>Usage</dt><dd><a href={curated.licenseUrl} target="_blank" rel="noreferrer">{curated.license}</a> · displayed with a cropped thumbnail; original proportions in viewer</dd></div><div><dt>Capture date</dt><dd>See the original file record; no date is inferred.</dd></div></dl><a className="secondary-action" href={curated.source} target="_blank" rel="noreferrer">Original photo &amp; attribution ↗</a><div className="related-links">{curated.lessonIds.map(id => <Link key={id} to={`/learn?lesson=${id}`}>{lessons.find(item => item.id === id)?.title}<IonIcon icon={arrowForwardOutline} /></Link>)}{curated.placeIds.map(id => <Link key={id} to={`/explore?place=${id}`}>{places.find(item => item.id === id)?.name}<IonIcon icon={arrowForwardOutline} /></Link>)}</div></> : personal && <>
+      <div className="button-row"><button className="secondary-action" onClick={() => setEditing(!editing)}>{editing ? 'Cancel editing' : 'Edit photo details'}</button><button className="danger-action" disabled={busy} onClick={() => { if (window.confirm('Delete this original photo from the device? This cannot be undone. Photos used by memories must first be removed from those memories.')) void run(async () => { await deleteMedia(personal.id); backToFolder(); }); }}>Delete original</button></div>
+      {editing && <form className="journal-fields" onSubmit={event => { event.preventDefault(); void run(async () => { await changeLibrary(state => ({ ...state, media: state.media.map(item => item.id === personal.id ? { ...item, title: title.trim() || item.title, description } : item) })); setEditing(false); }, 'Photo details saved.'); }}><label>Photo title<input required value={title} onChange={event => setTitle(event.target.value)} /></label><label>Caption<textarea value={description} onChange={event => setDescription(event.target.value)} /></label><button className="primary-action" disabled={busy}>Save photo details</button></form>}
+      <section className="folder-memberships"><h2>Keep it in a folder</h2><p>One original photo can belong to several folders.</p><div className="button-row"><select aria-label="Choose photo folder" value={targetFolder} onChange={event => setTargetFolder(event.target.value)}>{state.folders.map(folder => <option key={folder.id} value={folder.id}>{folder.name}</option>)}</select><button className="secondary-action" disabled={busy} onClick={() => void run(() => changeLibrary(state => ({ ...state, media: state.media.map(item => item.id === personal.id ? { ...item, folderIds: [...new Set([...item.folderIds, targetFolder])] } : item) })), 'Added to folder.')}>Add to folder</button></div>
+      {personal.folderIds.map(id => <div className="folder-membership-row" key={id}><Link to={`/collection?folder=${id}`}>{state.folders.find(folder => folder.id === id)?.name}</Link><button className="text-action" disabled={busy} onClick={() => void run(() => changeLibrary(state => ({ ...state, folders: state.folders.map(folder => folder.id === id && folder.coverId === personal.id ? { ...folder, coverId: undefined } : folder), media: state.media.map(item => item.id === personal.id ? { ...item, folderIds: item.folderIds.filter(value => value !== id) } : item) })), 'Removed from folder. The original photo is kept.')}>Remove from folder</button><button className="text-action" disabled={busy} onClick={() => void run(() => changeLibrary(state => ({ ...state, folders: state.folders.map(folder => folder.id === id ? { ...folder, coverId: personal.id } : folder) })), 'Folder cover updated.')}>Use as cover</button></div>)}</section>
+      <div className="related-links">{refs.map(memory => <Link key={memory.id} to={`/stories?memory=${memory.id}`}>{memory.title}<IonIcon icon={arrowForwardOutline} /></Link>)}</div><p className="quiet-note">Added {new Date(personal.createdAt).toLocaleString('en-PH')} · {(personal.bytes / 1024 / 1024).toFixed(1)} MB. This is the import date, not a claimed capture date.</p></>}
+    </article> : <>
+      {!folder ? <HeritageHero eyebrow="Every picture has a place." title="Koleksyon" description="A little library of landscapes, living heritage, and the moments you bring home." tone="amber" /> : null}
+      <section className="heritage-body">{folder && <DetailBack onBack={() => history.replace('/collection')} label="All folders" />}
+      <div className="section-heading"><div><span className="eyebrow">{folder ? 'INSIDE YOUR FOLDER' : 'ORGANIZED WITH CARE'}</span><h1 className="section-title">{folder?.name ?? 'Your photo folders'}</h1></div><button className="icon-action" aria-label={folder ? 'Add photos to this folder' : 'Create a folder'} disabled={busy || !!curatedFolders.find(item => item.id === folderId)} onClick={() => folder ? input.current?.click() : setCreating(!creating)}><IonIcon icon={addOutline} /></button></div>
+      {!folder && <p className="section-description">The same credited pictures bring Matuto and Lakbay to life. Your personal photos stay in their own folders.</p>}
+      {(creating || renaming) && <form className="inline-form" onSubmit={renaming ? event => { event.preventDefault(); void run(async () => { await changeLibrary(state => ({ ...state, folders: state.folders.map(item => item.id === folderId ? { ...item, name: folderName.trim() || item.name } : item) })); setRenaming(false); }, 'Folder renamed.'); } : create}><label className="sr-only">Folder name</label><input required autoFocus maxLength={80} placeholder="Name your folder" value={folderName} onChange={event => setFolderName(event.target.value)} /><button className="primary-action" disabled={busy}>Save</button><button type="button" className="text-action" onClick={() => { setCreating(false); setRenaming(false); }}>Cancel</button></form>}
+      {folder && !curatedFolders.some(item => item.id === folderId) && <div className="button-row"><button className="secondary-action" disabled={busy} onClick={() => input.current?.click()}>Add photos</button>{folderId !== 'all-photos' && <button className="text-action" onClick={() => { setFolderName(folder.name); setRenaming(true); }}>Rename folder</button>}</div>}
+      <input ref={input} className="sr-only" aria-hidden="true" tabIndex={-1} type="file" accept="image/*" multiple onChange={event => { const files = Array.from(event.target.files ?? []); event.target.value = ''; if (files.length) void run(() => importPhotos(files, (folderId && folderId !== 'all-photos' ? folderId : 'my-memories')), 'Photos saved in this folder.'); }} />
+      <SearchField value={query} onChange={setQuery} placeholder={folder ? 'Find a photo in this folder' : 'Find a folder or photo'} />
+      {!folder ? <><div className="folder-grid">{allFolders.filter(folder => folder.name.toLowerCase().includes(query.toLowerCase()) || curatedPhotos.some(photo => photo.folderId === folder.id && photo.title.toLowerCase().includes(query.toLowerCase())) || state.media.some(item => item.folderIds.includes(folder.id) && item.title.toLowerCase().includes(query.toLowerCase()))).map(folder => {
+        const items = folder.curated ? curatedPhotos.filter(photo => photo.folderId === folder.id) : state.media.filter(item => item.kind === 'photo' && (folder.id === 'all-photos' || item.folderIds.includes(folder.id)));
+        const cover = items.find(item => item.id === folder.coverId) ?? items[0];
+        return <button type="button" className={`photo-folder folder-${folder.tone}`} key={folder.id} onClick={() => { setQuery(''); history.push(`/collection?folder=${folder.id}`); }}><div className="folder-tab" /><div className="folder-art">{cover ? 'src' in cover ? <img src={cover.src} alt="" /> : <LocalMedia item={cover} /> : <IonIcon icon={imagesOutline} />}<span>{folder.curated ? 'HERITAGE LIBRARY' : 'PERSONAL'}</span></div><div className="folder-copy"><h2>{folder.name}</h2><span>{items.length} {items.length === 1 ? 'photo' : 'photos'} <IonIcon icon={arrowForwardOutline} /></span><p>{folder.description}</p></div></button>;
+      })}</div><div className="library-explainer"><IonIcon icon={folderOpenOutline} /><div><h3>One picture. Many connections.</h3><p>Open a heritage photo to discover its related lessons and places. Photos from Kuwento are kept in My memories.</p></div></div></> : <><div className="library-toolbar"><span>{visiblePhotos.length} photos</span><label>Sort<select value={sort} onChange={event => setSort(event.target.value)}><option>Name</option><option>Recently added</option></select></label></div><div className="photo-grid">{visiblePhotos.map(photo => <button type="button" key={photo.id} onClick={() => openPhoto(photo.id, folderId ?? undefined)}>{'src' in photo ? <img src={photo.src} alt={photo.title} loading="lazy" /> : <LocalMedia item={photo} />}<span>{photo.title}</span></button>)}</div>{!visiblePhotos.length && <EmptyState title={query ? 'No matching pictures' : 'Room for a new perspective'} description={query ? 'Try another photo title or clear your search.' : 'Add photos from your device, or capture a moment in Kuwento.'} action={<Link className="secondary-action" to="/stories?memory=new">Create a memory</Link>} />}</>}
+      {photoId && !curated && !personal && <p className="inline-status">This photo is unavailable on this device.</p>}
+      </section>
+    </>}{(status || libraryError) && <p className="inline-status" role="status">{libraryError || status}</p>}{busy && <p className="inline-status" role="status">Saving to your device…</p>}
+  </PageFrame></IonContent></IonPage>;
 }
+
+
+

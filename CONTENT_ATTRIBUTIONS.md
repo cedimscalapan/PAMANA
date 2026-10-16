@@ -14,6 +14,18 @@ The app bundles source metadata and a small amount of local media so the core le
 
 ## Open-license script font
 
+Additional offline photographs introduced in the four-module redesign:
+
+- `src/assets/media/puerto-galera.jpg` — “PH - Puerto Galera - White Beach - from sea 2”, Eugene Alvin Villar (seav), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/). [Original file and attribution](https://commons.wikimedia.org/wiki/File:PH_-_Puerto_Galera_-_White_Beach_-_from_sea_2.jpg).
+- `src/assets/media/naujan.jpg` — “Naujan Lake”, Hariboneagle927, [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/). [Original file and attribution](https://commons.wikimedia.org/wiki/File:Naujan_Lake.jpg).
+- `src/assets/media/halcon.jpg` — “Mount Halcon”, Mil Del, [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/). [Original file and attribution](https://commons.wikimedia.org/wiki/File:Mount_Halcon.jpg).
+
+The photographs were downloaded at display resolutions and may be cropped in cards. Koleksyon displays their full proportions, source links, photographer credits, and license links. Rights metadata was checked through the Wikimedia Commons file records on 17 October 2026. Personal media is kept separately and is never inserted automatically into curated lessons or destination records.
+
+The offline Mindoro coastline is derived from [geoBoundaries gbOpen PHL ADM1, revision 41af8f1](https://github.com/wmgeolab/geoBoundaries/tree/41af8f1/releaseData/gbOpen/PHL/ADM1), licensed [CC BY 3.0 IGO](https://creativecommons.org/licenses/by/3.0/igo/). `scripts/prepare-map.mjs` selects and simplifies the Mindoro coastline from the retained regional source geometry. The map does not invent a provincial boundary. Markers use reference coordinates published on the provincial destination pages; community settlement coordinates are withheld.
+
+## Script font
+
 - `src/assets/fonts/NotoSansHanunoo-Regular.ttf` — Noto Sans Hanunoo, Noto Fonts, SIL Open Font License 1.1. Source: https://github.com/notofonts/noto-fonts
 
 ## Text sources

@@ -1,4 +1,4 @@
-import { IonButton, IonContent, IonIcon, IonPage } from '@ionic/react';
+import { IonButton, IonContent, IonIcon, IonPage, useIonViewWillEnter } from '@ionic/react';
 import {
   arrowForwardOutline,
   bookOutline,
@@ -12,14 +12,16 @@ import { useHistory } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import kaPamanaIcon from '../assets/reference/ka-pamana-icon.png';
 import { PageFrame } from '../components/AppChrome';
+import { lessons } from '../data/learning';
+import { storageKey } from '../data/content';
 
 const modules = [
   { label: 'Matuto', sub: 'Learn', icon: bookOutline, tone: 'brown', path: '/learn' },
   { label: 'Sulat', sub: 'Write', icon: pencilOutline, tone: 'green', path: '/writing' },
   { label: 'Lakbay', sub: 'Explore', icon: compassOutline, tone: 'blue', path: '/explore' },
   { label: 'Quest', sub: 'Play', icon: trophyOutline, tone: 'amber', path: '/quest' },
-  { label: 'Kuwento', sub: 'Stories', icon: cameraOutline, tone: 'purple', path: '/stories' },
-  { label: 'Koleksyon', sub: 'Collect', icon: bookOutline, tone: 'red', path: '/collection' },
+  { label: 'Kuwento', sub: 'Memories', icon: cameraOutline, tone: 'purple', path: '/stories' },
+  { label: 'Koleksyon', sub: 'Photo folders', icon: bookOutline, tone: 'red', path: '/collection' },
 ];
 
 const facts = [
@@ -30,6 +32,10 @@ const facts = [
 export default function HomePage() {
   const history = useHistory();
   const [factIndex, setFactIndex] = useState(0);
+  const [, refresh] = useState(0);
+  useIonViewWillEnter(() => refresh(value => value + 1));
+  const completed = lessons.filter(lesson => localStorage.getItem(storageKey(lesson.id)) === 'complete').length;
+  const continueLesson = lessons.find(lesson => lesson.id === localStorage.getItem('pamana.lastLesson')) ?? lessons.find(lesson => localStorage.getItem(storageKey(lesson.id)) !== 'complete') ?? lessons[0];
   useEffect(() => {
     if (localStorage.getItem('pamana.onboardingComplete') !== 'true') history.replace('/onboarding');
   }, [history]);
@@ -68,13 +74,13 @@ export default function HomePage() {
               <h2>Continue learning</h2>
               <IonButton fill="clear" onClick={() => history.push('/learn')}>See all</IonButton>
             </div>
-            <button type="button" className="home-lesson-row" onClick={() => history.push('/learn')}>
+            <button type="button" className="home-lesson-row" onClick={() => history.push(`/learn?lesson=${continueLesson.id}`)}>
               <div className="home-lesson-badge"><IonIcon icon={compassOutline} /></div>
               <div className="home-lesson-copy">
-                <span className="home-meta">HISTORY &amp; GEOGRAPHY · 12 MIN</span>
-                <h3>Getting to know Oriental Mindoro</h3>
-                <div className="home-progress-track"><span /></div>
-                <small>Offline lesson · start anytime</small>
+                <span className="home-meta">{continueLesson.category} · {continueLesson.duration} MIN READ</span>
+                <h3>{continueLesson.title}</h3>
+                <div className="home-progress-track"><span style={{ width: `${completed / lessons.length * 100}%` }} /></div>
+                <small>{completed} of {lessons.length} lessons explored</small>
               </div>
               <span className="home-play"><IonIcon icon={arrowForwardOutline} /></span>
             </button>

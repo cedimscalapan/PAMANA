@@ -1,0 +1,92 @@
+{
+  "aslom-island": {
+    "latitude": 12.26635922,
+    "address": "Milagrosa, Bulalacao, Oriental MIndoro",
+    "url": "https://www.travelorientalmindoro.ph/place/aslom-island",
+    "longitude": 121.2767777
+  },
+  "muelle-cultural-heritage-park": {
+    "latitude": 13.50280264,
+    "address": "poblacion, Puerto Galera, Oriental Mindoro",
+    "url": "https://www.travelorientalmindoro.ph/place/muelle-cultural-heritage-park",
+    "longitude": 120.9537796
+  },
+  "punta-baluarte": {
+    "latitude": 13.41841375,
+    "address": "Lumangbayan, San Teodoro, Oriental Mindoro",
+    "url": "https://www.travelorientalmindoro.ph/place/punta-baluarte",
+    "longitude": 121.0338088
+  },
+  "oriental-mindoro-heritage-and-cultural-center": {
+    "latitude": null,
+    "address": "Brgy. B. del Mundo, Mansalay, Oriental Mindoro",
+    "url": "https://www.travelorientalmindoro.ph/place/oriental-mindoro-heritage-and-cultural-center",
+    "longitude": null
+  },
+  "naujan-lake": {
+    "latitude": 13.2412038,
+    "address": "bayani, naujan, Oriental Mindoro",
+    "url": "https://www.travelorientalmindoro.ph/place/naujan-lake",
+    "longitude": 121.3408508
+  },
+  "buyayao-island": {
+    "latitude": 12.38277578,
+    "address": "Buyayao, San Roque, Bulalacao, Oriental MIndoro",
+    "url": "https://www.travelorientalmindoro.ph/place/buyayao-island",
+    "longitude": 121.4184944
+  },
+  "pola-heritage-houses": {
+    "latitude": 13.1468203,
+    "address": "Poblacion, Pola, Oriental Mindoro",
+    "url": "https://www.travelorientalmindoro.ph/place/pola-heritage-houses",
+    "longitude": 121.4321944
+  },
+  "pocanil-rock-formation": {
+    "latitude": 12.3956859,
+    "address": "Pocanil, San Roque, Bulalacao, Oriental MIndoro",
+    "url": "https://www.travelorientalmindoro.ph/place/pocanil-rock-formation",
+    "longitude": 121.3951485
+  },
+  "mangyan-villages": {
+    "latitude": 12.55127672,
+    "address": "panaytayan, Mansalay, Oriental Mindoro",
+    "url": "https://www.travelorientalmindoro.ph/place/mangyan-villages",
+    "longitude": 121.3474864
+  },
+  "mangyan-cubool-cultural-booth-of-love": {
+    "latitude": 13.25604633,
+    "address": "graciano dela chica mangyan high school, san ignacio, baco, Oriental Mindoro",
+    "url": "https://www.travelorientalmindoro.ph/place/mangyan-cubool-cultural-booth-of-love",
+    "longitude": 121.0718405
+  },
+  "oriental-mindoro-heritage-museum": {
+    "latitude": 13.41496409,
+    "address": "Brgy. Ibaba East, Calapan City",
+    "url": "https://www.travelorientalmindoro.ph/place/oriental-mindoro-heritage-museum",
+    "longitude": 121.1801701
+  },
+  "clarendon-cultural-center": {
+    "latitude": null,
+    "address": "Brgy. Odiong Roxas Oriental Mindoro",
+    "url": "https://www.travelorientalmindoro.ph/place/clarendon-cultural-center",
+    "longitude": null
+  },
+  "bansud-museum": {
+    "latitude": 12.86151442,
+    "address": "Poblacion, Bansud, Oriental Mindoro",
+    "url": "https://www.travelorientalmindoro.ph/place/bansud-museum",
+    "longitude": 121.4646469
+  },
+  "m-adriatico-pottery": {
+    "latitude": 12.92145253,
+    "address": "M. Adriatico, Gloria, Oriental Mindoro",
+    "url": "https://www.travelorientalmindoro.ph/place/m-adriatico-pottery",
+    "longitude": 121.3286638
+  },
+  "pinamalayan-welcome-arch": {
+    "latitude": 13.049507,
+    "address": "Sto. Niño, Pinamalayan, Oriental Mindoro",
+    "url": "https://www.travelorientalmindoro.ph/place/pinamalayan-welcome-arch",
+    "longitude": 121.424772
+  }
+}

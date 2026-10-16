@@ -16,6 +16,7 @@ import '@ionic/react/css/flex-utils.css';
 import '@ionic/react/css/display.css';
 import './theme/variables.css';
 import './global.css';
+import './heritage.css';
 
 setupIonicReact();
 

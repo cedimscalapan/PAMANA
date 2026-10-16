@@ -12,7 +12,7 @@ export default function SettingsPage() {
   return (
     <IonPage>
       <IonContent fullscreen>
-        <PageFrame active="home">
+        <PageFrame active="settings">
           <ModuleHeader title="Settings" subtitle="Keep your learning space personal, local, and offline." tone="brown" icon={settingsOutline} />
           <section className="module-content settings-content">
             <article className="settings-status-card"><div className="settings-status-icon"><IonIcon icon={cloudOfflineOutline} /></div><div><p className="module-kicker">OFFLINE STATUS</p><h2>Ready to learn offline</h2><p>Lessons, practice state, quest score, collection state, and bundled assets are available without an account.</p><span className="settings-badge"><IonIcon icon={checkmarkCircleOutline} /> {storageInfo.nativeDatabase ? 'Native SQLite database' : 'Local web storage fallback'}</span></div></article>

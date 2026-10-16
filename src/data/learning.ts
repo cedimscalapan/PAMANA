@@ -1,4 +1,5 @@
 import type { Lesson } from './content';
+import { readingMinutes } from './lesson-articles';
 
 export type QuestDifficulty = 'easy' | 'medium' | 'hard';
 
@@ -21,7 +22,7 @@ const reviewed = '2026-10-16';
  * Every lesson is deliberately tied to a local source ID in content.ts.
  * Counts and classifications are presented with their source year where relevant.
  */
-export const lessons: Lesson[] = [
+const lessonCatalog: Lesson[] = [
   {
     id: 'l1', title: 'Oriental Mindoro at a glance', category: 'History & Geography', duration: 12,
     summary: 'Build a clear province profile before exploring its places and stories.', sourceStatus: 'reviewed', sourceIds: ['ppdo-general', 'psa-2024'], lastReviewed: reviewed,
@@ -72,13 +73,13 @@ export const lessons: Lesson[] = [
   },
   {
     id: 'l9', title: 'The Library of Congress bamboo collection', category: 'Living Traditions', duration: 15,
-    summary: 'Study a documented historical collection while keeping provenance and historical limits visible.', sourceStatus: 'reviewed', sourceIds: ['loc'], lastReviewed: reviewed,
+    summary: 'Study a documented historical collection while keeping provenance and historical limits visible.', sourceStatus: 'reviewed', sourceIds: ['loc-introduction'], lastReviewed: reviewed,
     points: ['The Library of Congress collection contains 77 bamboo items: 71 slats and 6 cylinders.', 'The collection dates approximately from 1900–1939 and includes Mangyan script writings.', 'The collection’s material was produced by authors including Luyon, Kabal, and Balik.'],
     quiz: { prompt: 'How many bamboo items are in the Library of Congress collection?', answers: ['77', '23', '48', '6'], correctIndex: 0, explanation: 'The Library of Congress describes 71 bamboo slats and 6 cylinders, totaling 77 items.' },
   },
   {
     id: 'l10', title: 'From bamboo objects to documented knowledge', category: 'Living Traditions', duration: 12,
-    summary: 'Learn how collection records, transliterations, and translations support responsible study.', sourceStatus: 'reviewed', sourceIds: ['loc'], lastReviewed: reviewed,
+    summary: 'Learn how collection records, transliterations, and translations support responsible study.', sourceStatus: 'reviewed', sourceIds: ['loc-introduction', 'loc-provenance'], lastReviewed: reviewed,
     points: ['The collection includes transliterations and translations alongside inscribed bamboo materials.', 'Luyon’s writings cover topics such as agriculture, education, and stages of life.', 'Historical records should not be presented as if they replace present-day community voices.'],
     quiz: { prompt: 'What accompanies many of the inscribed bamboo items?', answers: ['Transliterations and translations', 'Live GPS routes', 'Tourist discount cards', 'Weather forecasts'], correctIndex: 0, explanation: 'The Library of Congress describes accompanying Romanized transliterations and translations.' },
   },
@@ -119,6 +120,8 @@ export const lessons: Lesson[] = [
     quiz: { prompt: 'How many festivals are listed in the official tourism calendar?', answers: ['18', '8', '15', '36'], correctIndex: 0, explanation: 'The Travel Oriental Mindoro festival directory currently lists 18 festivals.' },
   },
 ];
+
+export const lessons: Lesson[] = lessonCatalog.map(lesson => ({ ...lesson, duration: readingMinutes(lesson.id) }));
 
 const question = (
   id: string,

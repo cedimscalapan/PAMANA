@@ -36,6 +36,7 @@ jobs:
         run: |
           node -e "console.log(require.resolve('@capacitor/android/package.json'))"
           ./node_modules/.bin/cap add android
+          node scripts/configure-android.mjs
       - name: Generate Ka-Pamana Android icon and splash
         run: |
           mkdir -p resources

@@ -1,5 +1,6 @@
 import { officialCatalogStats, officialFestivals, officialMunicipalities, officialPlaces, officialSources, travelPlanningNotes } from './official-heritage';
 import type { OfficialFestival } from './official-heritage';
+import destinationRecords from './destination-records.json';
 
 export type SourceStatus = 'reviewed' | 'awaiting_review';
 
@@ -68,7 +69,7 @@ export const sources: Source[] = [
   { id: 'ppdo', title: 'Provincial Planning and Development Office', publisher: 'Oriental Mindoro PPDO', url: 'https://ppdo.ormindoro.gov.ph', status: 'Review pending', use: 'Requested official planning reference; verify before publication.' },
   { id: 'ppdo-general', title: 'General Information', publisher: 'Oriental Mindoro PPDO', url: 'https://ppdo.ormindoro.gov.ph/provincialdata/general-information/', status: 'Source checked', use: 'Official province location, land area, boundaries, climate, capital, municipalities, and barangays.' },
   { id: 'ppdo-profile', title: 'Profile of the Province', publisher: 'Oriental Mindoro PPDO', url: 'https://ppdo.ormindoro.gov.ph/wp-content/uploads/2022/10/063021-AR-2020.pdf', status: 'Source checked', use: 'Province profile including land-area distribution by city/municipality.' },
-  { id: 'psa-2024', title: '2024 Census of Population', publisher: 'Philippine Statistics Authority', url: 'https://rssomimaropa.psa.gov.ph/content/2024-census-population-popcen-oriental-mindoro-population-counts-declared-official', status: 'Source checked', use: 'Official 2024 population counts for Oriental Mindoro and its city/municipalities.' },
+  { id: 'psa-2024', title: '2024 Census of Population', publisher: 'Philippine Statistics Authority', url: 'https://rssomimaropa.psa.gov.ph/content/highlights-oriental-mindoro-population-2024-census-population-2024-popcen', status: 'Source checked', use: 'Official 2024 population counts for Oriental Mindoro and its city/municipalities.' },
   { id: 'ncca-mangyan', title: 'Peoples of the Philippines: Mangyan', publisher: 'National Commission for Culture and the Arts', url: 'https://ncca.gov.ph/about-culture-and-arts/culture-profile/glimpses-peoples-of-the-philippines/mangyan/', status: 'Source checked', use: 'Community names, geographic groupings, writing, and ambahan context.' },
   { id: 'ncca-ginaw', title: 'Ginaw Bilog and the Ambahan Tradition', publisher: 'National Commission for Culture and the Arts', url: 'https://ncca.gov.ph/about-culture-and-arts/culture-profile/gamaba/national-living-treasures-ginaw-bilog/', status: 'Source checked', use: 'Ambahan form, performance, transmission, and Ginaw Bilog’s cultural work.' },
   { id: 'ncca-ambahan', title: 'In Focus: Ginaw Bilog and the Ambahan Tradition', publisher: 'National Commission for Culture and the Arts', url: 'https://ncca.gov.ph/about-culture-and-arts/in-focus/ginaw-bilog-and-the-ambahan-tradition/', status: 'Source checked', use: 'Seven-syllable ambahan lines, bamboo inscription, and community-sensitive context.' },
@@ -78,38 +79,12 @@ export const sources: Source[] = [
   { id: 'denr-tamaraw', title: 'DENR Tamaraw news alert', publisher: 'Department of Environment and Natural Resources', url: 'https://denr.gov.ph/wp-content/uploads/2023/07/DENR_News_Alerts_13_October_2020_Tuesday.pdf', status: 'Source checked', use: 'Government conservation context for the Mindoro-endemic tamaraw.' },
   { id: 'tamaraw-media', title: 'Tamaraw photograph', publisher: 'Gregg Yan / Wikimedia Commons', url: 'https://commons.wikimedia.org/wiki/File:Bubalus_mindorensis_by_Gregg_Yan_02.jpg', status: 'License checked', use: 'Offline wildlife image; CC BY-SA 3.0 attribution is shown in-app.' },
   ...officialSources,
+  { id: 'loc-introduction', title: 'Mangyan bamboo collection: Introduction', publisher: 'Library of Congress', url: 'https://guides.loc.gov/mangyan-bamboo-collection', status: 'Source checked 17 October 2026', use: 'Collection size, formats, and named writers.' },
+  { id: 'loc-provenance', title: 'Mangyan bamboo collection: Provenance', publisher: 'Library of Congress', url: 'https://guides.loc.gov/mangyan-bamboo-collection/provenance', status: 'Source checked 17 October 2026', use: 'Collection history, dates, contributors, and documentary uncertainties.' },
+  ...Object.entries(destinationRecords).map(([slug, record]) => ({ id: `destination-${slug}`, title: slug.split('-').map(word => word[0].toUpperCase() + word.slice(1)).join(' '), publisher: 'Oriental Mindoro Provincial Tourism Office', url: record.url, status: 'Public directory checked 17 October 2026', use: 'Place-specific description and address. Published points are orientation references; current access requires verification.' })),
 ];
 
-export const lessons: Lesson[] = [
-  {
-    id: 'l1', title: 'Getting to know Oriental Mindoro', category: 'History & Geography',
-    summary: 'An introduction to the province, its towns, landscapes, and communities.', duration: 12,
-    sourceStatus: 'reviewed', sourceIds: ['tourism'],
-    points: ['Oriental Mindoro has 15 municipalities and one city.', 'Its learning landscape includes coastal places, mountains, and wetlands.', 'Travel details should be rechecked before a trip.'],
-    quiz: { prompt: 'How many municipalities does the tourism portal list for Oriental Mindoro?', answers: ['5', '15', '25', '75'], correctIndex: 1, explanation: 'The portal describes Oriental Mindoro as having 15 municipalities and one city.' },
-  },
-  {
-    id: 'l2', title: 'Mangyan communities of Mindoro', category: 'Communities',
-    summary: 'Learn why communities grouped under “Mangyan” should be understood on their own terms.', duration: 15,
-    sourceStatus: 'reviewed', sourceIds: ['loc'],
-    points: ['Mangyan is an umbrella term for several Indigenous communities in Mindoro.', 'Communities have distinct languages and traditions.', 'Community terminology requires respectful local review.'],
-    quiz: { prompt: 'Why should the word “Mangyan” be introduced carefully?', answers: ['It names one single language', 'It is an umbrella term for distinct communities', 'It refers only to a landscape', 'It is a place name'], correctIndex: 1, explanation: 'The Library of Congress describes Mangyan as an umbrella term for several Indigenous communities.' },
-  },
-  {
-    id: 'l3', title: 'Hanunó’o script basics', category: 'Writing',
-    summary: 'Explore the abugida structure, vowel signs, and Unicode characters used in modern Hanunó’o writing.', duration: 10,
-    sourceStatus: 'reviewed', sourceIds: ['hanunoo', 'unicode'],
-    points: ['Hanunó’o is an abugida: consonants carry an inherent vowel.', 'Two combining marks represent four post-consonant vowel sounds.', 'Pamudpod marks vowel absence in modern writing.'],
-    quiz: { prompt: 'What kind of writing system is Hanunó’o?', answers: ['An abugida', 'A logographic system', 'A sign language', 'A calendar'], correctIndex: 0, explanation: 'The orthography reference describes Hanunó’o as an abugida.' },
-  },
-  {
-    id: 'l4', title: 'Living traditions and shared memory', category: 'Traditions',
-    summary: 'How culture is carried through practice, story, bamboo writing, and place.', duration: 10,
-    sourceStatus: 'reviewed', sourceIds: ['loc'],
-    points: ['Ambahan is a traditional poetic form associated with Hanunó’o practice.', 'Bamboo objects can preserve writing and memory.', 'Use attribution and permission for living cultural materials.'],
-    quiz: { prompt: 'Which material is documented in the Library of Congress collection?', answers: ['Bamboo objects', 'Modern billboards', 'Plastic toys', 'Concrete maps'], correctIndex: 0, explanation: 'The collection documents bamboo slats and cylinders with Mangyan writing and related materials.' },
-  },
-];
+export { lessons } from './learning';
 
 export const places: Place[] = [
   { id: 'puerto-galera', name: 'Puerto Galera', municipality: 'Puerto Galera', type: 'Nature & heritage', description: 'A coastal locality presented by the tourism portal as a destination for landscapes and cultural tourism.', latitude: 13.5022, longitude: 120.9547, sourceIds: ['tourism'] },
@@ -141,3 +116,4 @@ export const collectionItems: CollectionItem[] = [
 
 export const storageKey = (id: string) => `pamana.lesson.${id}`;
 export const sourceById = (id: string) => sources.find((source) => source.id === id);
+

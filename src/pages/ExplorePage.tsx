@@ -1,62 +1,69 @@
-import { IonButton, IonContent, IonIcon, IonPage } from '@ionic/react';
-import { arrowForwardOutline, calendarOutline, closeOutline, compassOutline, locationOutline, mapOutline } from 'ionicons/icons';
-import { useState } from 'react';
-import { festivals, officialCatalogStats, officialMunicipalities, places, Place, sourceById, travelPlanningNotes } from '../data/content';
-import { media } from '../data/media';
-import { ModuleHeader, PageFrame } from '../components/AppChrome';
+import { IonContent, IonIcon, IonPage } from '@ionic/react';
+import { arrowForwardOutline, calendarOutline, locationOutline } from 'ionicons/icons';
+import { useEffect, useRef, useState } from 'react';
+import { Link, useHistory, useLocation } from 'react-router-dom';
+import { PageFrame } from '../components/AppChrome';
+import { DetailBack, EmptyState, HeritageHero, SearchField, SourceNotes } from '../components/HeritageUI';
+import { festivals, officialMunicipalities } from '../data/content';
+import { destinations } from '../data/destinations';
+import { curatedPhotos, photoForPlace } from '../data/gallery';
+import { mindoroPaths, projectMindoro } from '../data/mindoro-map';
+import { setStored } from '../services/storage';
+
+const annualDate = (month: number, day: number) => new Date(2000, month - 1, day).toLocaleDateString('en-PH', { month: 'long', day: 'numeric' });
+const readSaved = (): string[] => { try { const value = JSON.parse(localStorage.getItem('pamana.savedPlaces') ?? '[]'); return Array.isArray(value) ? value.filter(item => typeof item === 'string') : []; } catch { return []; } };
 
 export default function ExplorePage() {
-  const [selected, setSelected] = useState<Place>();
-  return (
-    <IonPage>
-      <IonContent fullscreen>
-        <PageFrame active="explore">
-          <ModuleHeader title="Lakbay Pamana" subtitle="Explore places, landscapes, and living heritage offline." tone="blue" icon={mapOutline} />
-          <section className="module-content explore-content">
-            <div className="module-intro-row"><div><p className="module-kicker">OFFLINE MAP</p><h2>Discover Oriental Mindoro</h2></div><span className="module-count">{places.length} places</span></div>
-            <div className="map-card">
-              <div className="offline-map polished-map" aria-label="Illustrated offline map of learning places in Oriental Mindoro">
-                <span className="map-water">ORIENTAL MINDORO</span>
-                <span className="map-island map-island-one" /><span className="map-island map-island-two" /><span className="map-island map-island-three" />
-                {places.map((place, index) => <button className="map-pin" key={place.id} style={{ left: `${18 + (index * 16) % 68}%`, top: `${24 + (index * 13) % 48}%` }} onClick={() => setSelected(place)} aria-label={`Open ${place.name}`}><IonIcon icon={locationOutline} /><small>{place.name}</small></button>)}
-              </div>
-              <div className="map-card-footer"><span><IonIcon icon={compassOutline} /> Learning map</span><small>No GPS · no live directions</small></div>
-            </div>
-
-            <article className="catalog-snapshot">
-              <div className="home-section-heading"><h2>Official directory snapshot</h2><span className="module-count">Source linked</span></div>
-              <p className="module-note">A curated snapshot from the provincial tourism portal. Counts can change as listings are updated.</p>
-              <div className="catalog-stat-grid">{officialCatalogStats.slice(0, 6).map((stat) => <div className="catalog-stat" key={stat.id}><strong>{stat.count}</strong><span>{stat.label}</span></div>)}</div>
-              <div className="municipality-list"><small>Municipalities covered</small><div>{officialMunicipalities.map((municipality) => <span key={municipality}>{municipality}</span>)}</div></div>
-            </article>
-
-            <article className="feature-media-card">
-              <img src={media.tamaraw.src} alt={media.tamaraw.alt} />
-              <div><p className="module-kicker">WILDLIFE &amp; CONSERVATION</p><h2>Tamaraw</h2><p>Mindoro’s endemic dwarf buffalo reminds us that heritage learning includes the living landscape.</p><small>{media.tamaraw.credit}</small></div>
-            </article>
-
-            <div className="place-list">
-              <div className="home-section-heading"><h2>Places to explore</h2><span className="module-count">Tap to open</span></div>
-              {places.map((place) => <button type="button" className="place-row" key={place.id} onClick={() => setSelected(place)}><span className="place-icon"><IonIcon icon={locationOutline} /></span><span><small>{place.type} · {place.municipality}</small><strong>{place.name}</strong><em>{place.description}</em></span><IonIcon icon={arrowForwardOutline} /></button>)}
-            </div>
-
-            <div className="place-list festival-list">
-              <div className="home-section-heading"><h2>Festival calendar</h2><span className="module-count">{festivals.length} dates</span></div>
-              <p className="module-note">Annual dates are from the official tourism calendar. Confirm the current program and venue before traveling.</p>
-              {festivals.map((festival) => <article className="festival-row" key={festival.id}><span className="place-icon"><IonIcon icon={calendarOutline} /></span><span><small>{new Date(2026, festival.month - 1, festival.day).toLocaleDateString('en-PH', { month: 'short', day: 'numeric' })} · {festival.municipality}</small><strong>{festival.name}</strong><em>{festival.description}</em></span>{festival.detailUrl && <a href={festival.detailUrl} target="_blank" rel="noreferrer" aria-label={`Open source for ${festival.name}`}><IonIcon icon={arrowForwardOutline} /></a>}</article>)}
-            </div>
-
-            <article className="travel-planning-card">
-              <div className="home-section-heading"><h2>Travel planning reference</h2><span className="module-count">Approximate</span></div>
-              <p className="module-note">These are planning notes from the official portal, not live schedules. Confirm transport, weather, and access before leaving.</p>
-              {travelPlanningNotes.map((note) => <div className="travel-note-row" key={note.id}><strong>{note.label}</strong><span>{note.value}</span></div>)}
-              <div className="source-chips"><span>Source:</span><a href={sourceById('lakbay-how-to-get-here')?.url} target="_blank" rel="noreferrer">Travel Oriental Mindoro</a></div>
-            </article>
-
-            {selected && <article className="detail-card place-detail"><div className="detail-card-topline"><span className="module-kicker">SELECTED PLACE · {selected.municipality}</span><IonButton fill="clear" onClick={() => setSelected(undefined)} aria-label="Close place"><IonIcon icon={closeOutline} /></IonButton></div><h2>{selected.name}</h2><p>{selected.description}</p><div className="notice"><strong>Travel note</strong><br />Respect local guidelines and verify access information before visiting.</div><div className="source-chips"><span>Sources:</span>{selected.sourceIds.map((id) => <a key={id} href={sourceById(id)?.url} target="_blank" rel="noreferrer">{sourceById(id)?.publisher}</a>)}</div></article>}
-          </section>
-        </PageFrame>
-      </IonContent>
-    </IonPage>
-  );
+  const history = useHistory(); const location = useLocation();
+  const params = new URLSearchParams(location.search);
+  const placeId = params.get('place'); const festivalId = params.get('festival');
+  const place = destinations.find(item => item.id === placeId);
+  const festival = festivals.find(item => item.id === festivalId);
+  const content = useRef<HTMLIonContentElement>(null); const scroll = useRef(0);
+  const [view, setView] = useState('Places'); const [query, setQuery] = useState('');
+  const [municipality, setMunicipality] = useState('All municipalities'); const [category, setCategory] = useState('All types');
+  const [month, setMonth] = useState('All months'); const [savedOnly, setSavedOnly] = useState(false);
+  const [mapSelected, setMapSelected] = useState(''); const [saved, setSaved] = useState<string[]>(readSaved);
+  const [error, setError] = useState('');
+  useEffect(() => { void content.current?.scrollToPoint(0, placeId || festivalId ? 0 : scroll.current, 0); setError(''); }, [placeId, festivalId]);
+  const filtered = destinations.filter(item => `${item.name} ${item.description} ${item.municipality}`.toLowerCase().includes(query.toLowerCase()) && (municipality === 'All municipalities' || municipality === item.municipality) && (category === 'All types' || category === item.type) && (!savedOnly || saved.includes(item.id)));
+  const mapped = filtered.filter(item => item.latitude !== undefined && item.longitude !== undefined);
+  const visibleFestivals = festivals.filter(item => `${item.name} ${item.municipality}`.toLowerCase().includes(query.toLowerCase()) && (municipality === 'All municipalities' || municipality === item.municipality) && (month === 'All months' || item.month === Number(month)));
+  const back = () => history.replace('/explore');
+  const toggleSave = async () => { if (!place) return; try { const next = saved.includes(place.id) ? saved.filter(id => id !== place.id) : [...saved, place.id]; await setStored('pamana.savedPlaces', JSON.stringify(next)); setSaved(next); } catch { setError('Your saved places could not be updated. Please try again.'); } };
+  const image = place && photoForPlace(place.id);
+  return <IonPage><IonContent ref={content} scrollEvents onIonScroll={event => { if (!placeId && !festivalId) scroll.current = event.detail.scrollTop; }}><PageFrame active="explore">
+    {place ? <article className="heritage-body reading-page"><DetailBack onBack={back} label="Explore Oriental Mindoro" /><span className="eyebrow">{place.type} · {place.municipality}</span><h1>{place.name}</h1><p className="reading-lead">{place.description}</p>
+      {image && <figure className="article-photo"><img src={image.src} alt={image.title} /><figcaption>{image.title} · {image.credit} · {image.license} <Link to={`/collection?photo=${image.id}`}>View in Koleksyon ↗</Link></figcaption></figure>}
+      <div className="place-facts"><div><small>LOCATION</small><strong>{place.address}</strong></div><div><small>REFERENCE REVIEW</small><strong>{new Date(`${place.verifiedAt}T12:00:00`).toLocaleDateString('en-PH', { dateStyle: 'long' })}</strong></div></div>
+      <section className="place-information"><span className="eyebrow">GET TO KNOW THE PLACE</span><h2>A little more context</h2><p>{place.background}</p></section><section className="place-information"><h2>What to pay attention to</h2><ul>{place.focus.map(item => <li key={item}>{item}</li>)}</ul></section>
+      <aside className="visit-note"><strong>{place.protectedCommunity ? 'Community permission comes first' : 'Before you go'}</strong>{place.notice}</aside><p className="quiet-note">Hours, fees, transport, weather, and access conditions are not live information. Confirm them with the destination or responsible local office before travelling.</p>
+      <div className="button-row"><button className="primary-action" onClick={toggleSave}>{saved.includes(place.id) ? 'Remove from saved places' : 'Save this place'}</button><a className="secondary-action" href={place.sourceUrl} target="_blank" rel="noreferrer">Official reference ↗</a></div>
+      {place.latitude !== undefined && <p className="quiet-note">Publisher’s location reference: {place.latitude.toFixed(5)}, {place.longitude?.toFixed(5)}. This is an orientation point, not a verified entrance or live route.</p>}
+      <SourceNotes ids={place.sourceIds} /><div className="related-links"><Link to="/stories?memory=new">Keep a memory of your visit<IonIcon icon={arrowForwardOutline} /></Link>{image && image.lessonIds.map(id => <Link key={id} to={`/learn?lesson=${id}`}>Explore the related lesson<IonIcon icon={arrowForwardOutline} /></Link>)}</div>
+    </article> : festival ? <article className="heritage-body reading-page"><DetailBack onBack={back} label="Festival calendar" /><span className="eyebrow">ANNUAL OBSERVANCE · {festival.municipality}</span><h1>{festival.name}</h1><p className="reading-lead">{annualDate(festival.month, festival.day)} · recurring directory date</p><section className="place-information"><h2>The celebration</h2><p>{festival.description}</p></section>{festival.highlights?.length ? <section className="place-information"><h2>Documented highlights</h2><ul>{festival.highlights.map(item => <li key={item}>{item}</li>)}</ul></section> : <section className="place-information"><h2>Read the occasion in context</h2><p>This annual entry records the celebration’s name, locality, and date from the provincial calendar. A date alone does not establish the meaning of a performance or the activities for a particular year. Use the organizer’s current announcement and the official background page when planning or describing a visit.</p></section>}
+      <aside className="visit-note"><strong>Check this year’s program</strong>The annual date is not confirmation of a particular year’s event. Verify the venue, activity times, admission arrangements, and recording rules with the organizers.</aside><div className="button-row"><a className="secondary-action" href={festival.detailUrl ?? 'https://www.travelorientalmindoro.ph/festivals'} target="_blank" rel="noreferrer">Official festival reference ↗</a><Link className="primary-action" to="/stories?memory=new">Create a memory</Link></div><SourceNotes ids={festival.sourceIds} />
+    </article> : <>
+      <HeritageHero eyebrow="There’s a story beyond every view." title="Lakbay Pamana" description="Follow your curiosity through Oriental Mindoro’s landscapes, heritage places, and celebrations." tone="blue" image={curatedPhotos[0].src} />
+      <section className="heritage-body"><p className="quiet-note">Cover: White Beach, Puerto Galera · Eugene Alvin Villar · CC BY-SA 4.0. <Link to="/collection?photo=puerto">Photo details ↗</Link></p>
+      <div className="module-switch" role="group" aria-label="Explore view">{['Places', 'Map', 'Festivals'].map(item => <button key={item} type="button" aria-pressed={view === item} onClick={() => { setView(item); setQuery(''); }}>{item}</button>)}</div>
+      <div className="section-heading"><div><span className="eyebrow">{view === 'Festivals' ? 'A YEAR OF CELEBRATIONS' : 'FIND YOUR NEXT DISCOVERY'}</span><h2>{view === 'Festivals' ? 'The festival calendar' : view === 'Map' ? 'Put a place to the name' : 'Places with a story'}</h2></div><span>{view === 'Festivals' ? visibleFestivals.length : filtered.length} {view === 'Festivals' ? 'occasions' : 'places'}</span></div>
+      <SearchField value={query} onChange={setQuery} placeholder={view === 'Festivals' ? 'Find a festival or municipality' : 'Find a place, landscape, or town'} />
+      <div className="destination-filters"><label>Municipality<select value={municipality} onChange={event => setMunicipality(event.target.value)}><option>All municipalities</option>{officialMunicipalities.map(item => <option key={item}>{item}</option>)}</select></label>{view === 'Festivals' ? <label>Month<select value={month} onChange={event => setMonth(event.target.value)}><option>All months</option>{Array.from({ length: 12 }, (_, index) => <option key={index} value={index + 1}>{new Date(2000, index, 1).toLocaleDateString('en-PH', { month: 'long' })}</option>)}</select></label> : <label>Type<select value={category} onChange={event => setCategory(event.target.value)}><option>All types</option>{[...new Set(destinations.map(item => item.type))].map(item => <option key={item}>{item}</option>)}</select></label>}</div>
+      {view !== 'Festivals' && <label className="saved-places-toggle"><input type="checkbox" checked={savedOnly} onChange={event => setSavedOnly(event.target.checked)} /> Show my saved places</label>}
+      {view === 'Map' && <><div className="geographic-map"><svg viewBox="0 0 380 420" role="group" aria-label="Geographic map of Mindoro with published destination reference points"><defs><pattern id="map-grid" width="55" height="55" patternUnits="userSpaceOnUse"><path d="M55 0H0V55" fill="none" stroke="#b3ceca" strokeWidth=".5" /></pattern></defs><rect width="380" height="420" fill="url(#map-grid)" />{mindoroPaths.map((path, index) => <path className="land" key={index} d={path} />)}<text x="20" y="25">VERDE ISLAND PASSAGE</text><text className="island-name" x="90" y="205" transform="rotate(29 90 205)">MINDORO</text><text x="275" y="180" transform="rotate(90 275 180)">TABLAS STRAIT</text><text x="344" y="29">N ↑</text>{mapped.map((item, index) => {
+        const [x, y] = projectMindoro(item.longitude!, item.latitude!);
+        const select = () => setMapSelected(item.id);
+        return <g className={`map-marker ${mapSelected === item.id ? 'selected' : ''}`} key={item.id} role="button" tabIndex={0} aria-label={`Show ${item.name}`} onClick={select} onKeyDown={event => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); select(); } }}><title>{item.name}</title><circle cx={x} cy={y} r="23" fill="transparent" stroke="none" style={{ fill: 'transparent', stroke: 'none' }} /><circle cx={x} cy={y} r={mapSelected === item.id ? 13 : 10} /><text x={x} y={y + 3.5}>{index + 1}</text></g>;
+      })}</svg><div className="map-reference"><span>Mindoro coastline · geographic orientation<br />{mapped.length} published points · no live directions</span><a href="https://www.geoboundaries.org/" target="_blank" rel="noreferrer">geoBoundaries<br />CC BY 3.0 IGO ↗</a></div></div><p className="quiet-note">Numbered points correspond to the list below. Unmapped places remain in the list. Nearby markers are easier to select from their list entries.</p></>}
+      {view === 'Festivals' ? <><p className="quiet-note">Annual dates from the provincial directory. Confirm the current year’s program before making travel plans.</p><div className="festival-cards">{visibleFestivals.map(item => <button className="festival-card" key={item.id} onClick={() => history.push(`/explore?festival=${item.id}`)}><span className="festival-date"><small>{new Date(2000, item.month - 1, item.day).toLocaleDateString('en-PH', { month: 'short' })}</small><strong>{item.day}</strong></span><span><small>{item.municipality} · Annual</small><h3>{item.name}</h3><p>Explore the celebration and its context</p></span><IonIcon icon={arrowForwardOutline} /></button>)}</div>{!visibleFestivals.length && <EmptyState title="No occasions match" description="Try another month, municipality, or search term." />}</> : <div className="destination-list">{[...filtered].sort((a, b) => Number(b.id === mapSelected && view === 'Map') - Number(a.id === mapSelected && view === 'Map')).map(item => {
+        const cover = photoForPlace(item.id); const number = mapped.findIndex(place => place.id === item.id) + 1;
+        return <button className={`destination-card ${mapSelected === item.id && view === 'Map' ? 'map-selected' : ''}`} key={item.id} onClick={() => history.push(`/explore?place=${item.id}`)}><span className="destination-cover">{cover ? <img src={cover.src} alt="" loading="lazy" /> : <IonIcon icon={locationOutline} />}</span><span className="destination-card-copy"><small>{view === 'Map' && number ? `${number} · ` : ''}{item.municipality}</small><h3>{item.name}</h3><p>{item.description}</p></span><IonIcon className="arrow" icon={arrowForwardOutline} /></button>;
+      })}</div>}
+      {view !== 'Festivals' && !filtered.length && <EmptyState title="There’s more to discover" description="Try a different municipality or clear your search and saved filter." action={<button className="secondary-action" onClick={() => { setQuery(''); setMunicipality('All municipalities'); setCategory('All types'); setSavedOnly(false); }}>Clear filters</button>} />}
+      {(placeId || festivalId) && <p className="inline-status">This record is unavailable. Browse the directory to choose another.</p>}
+      <details className="reference-notes"><summary>A thoughtful visit starts here</summary><p>Check current weather, transport, opening hours, and access. Ask permission before photographing people or cultural material. Keep wildlife and heritage places undisturbed.</p><a href="https://www.travelorientalmindoro.ph/page/how-to-get-here" target="_blank" rel="noreferrer">Provincial travel planning reference ↗</a></details>
+      </section>
+    </>}{error && <p className="inline-status" role="alert">{error}</p>}
+  </PageFrame></IonContent></IonPage>;
 }

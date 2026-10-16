@@ -7,6 +7,8 @@ import {
   menuOutline,
   pencilOutline,
   trophyOutline,
+  albumsOutline,
+  cameraOutline,
 } from 'ionicons/icons';
 import { useHistory } from 'react-router-dom';
 import type { ReactNode } from 'react';
@@ -15,7 +17,7 @@ import kaPamanaIcon from '../assets/reference/ka-pamana-icon.png';
 type Icon = typeof homeOutline;
 
 export type ModuleTone = 'green' | 'blue' | 'amber' | 'purple' | 'red' | 'brown';
-export type ActiveTab = 'home' | 'learn' | 'writing' | 'explore' | 'quest';
+export type ActiveTab = 'home' | 'learn' | 'writing' | 'explore' | 'quest' | 'collection' | 'stories' | 'settings';
 
 type ModuleHeaderProps = {
   title: string;
@@ -67,8 +69,8 @@ const defaultNavItems: Array<{ id: ActiveTab; label: string; path: string; icon:
   { id: 'home', label: 'Home', path: '/home', icon: homeOutline },
   { id: 'learn', label: 'Matuto', path: '/learn', icon: bookOutline },
   { id: 'explore', label: 'Lakbay', path: '/explore', icon: mapOutline },
-  { id: 'quest', label: 'Quest', path: '/quest', icon: trophyOutline },
-  { id: 'home', label: 'Higit Pa', path: '/settings', icon: menuOutline },
+  { id: 'collection', label: 'Koleksyon', path: '/collection', icon: albumsOutline },
+  { id: 'stories', label: 'Kuwento', path: '/stories', icon: cameraOutline },
 ];
 
 const writingNavItems: Array<{ id: ActiveTab; label: string; path: string; icon: Icon }> = [
@@ -81,7 +83,7 @@ const writingNavItems: Array<{ id: ActiveTab; label: string; path: string; icon:
 
 export function AppBottomNav({ active }: AppBottomNavProps) {
   const history = useHistory();
-  const navItems = active === 'writing' ? writingNavItems : defaultNavItems;
+  const navItems = defaultNavItems;
   return (
     <nav className="app-bottom-nav" aria-label="Main navigation">
       {navItems.map((item) => (
@@ -89,10 +91,10 @@ export function AppBottomNav({ active }: AppBottomNavProps) {
           key={item.id}
           fill="clear"
           className={active === item.id ? 'active' : ''}
+          aria-current={active === item.id ? 'page' : undefined}
           onClick={() => history.push(item.path)}
         >
-          <IonIcon icon={item.icon} />
-          <span>{item.label}</span>
+          <span className="nav-item-content"><IonIcon icon={item.icon} /><span>{item.label}</span></span>
         </IonButton>
       ))}
     </nav>
@@ -100,5 +102,5 @@ export function AppBottomNav({ active }: AppBottomNavProps) {
 }
 
 export function PageFrame({ children, active }: { children: ReactNode; active: ActiveTab }) {
-  return <main className="page-frame">{children}<AppBottomNav active={active} /></main>;
+  return <main className={`page-frame ${['learn', 'explore', 'collection', 'stories'].includes(active) ? 'heritage-frame' : ''}`}>{children}<AppBottomNav active={active} /></main>;
 }

@@ -4,6 +4,8 @@
  * records for the offline app; they are not a mirror of either website.
  */
 
+import { festivalContexts } from './festival-context';
+
 export type OfficialSource = {
   id: string;
   title: string;
@@ -236,7 +238,7 @@ export const officialFestivals: OfficialFestival[] = [
   festival('salong-dagitab', 'Salong Dagitab', 'Calapan City', 11, 15),
   festival('mangyan-festival', 'Mangyan Festival', 'Mansalay', 11, 25, 'https://www.travelorientalmindoro.ph/festival/mangyan-festival', 'The official page describes this as Mansalay’s festival acknowledging Mangyan culture and indigenous practices.', ['Mangyan cultural presentations', 'Indigenous dances', 'Traditional crafts', 'Heritage celebration']),
   festival('masayaw', 'MASAYAW Festival', 'San Teodoro', 12, 8),
-];
+].map(item => ({ ...item, ...festivalContexts[item.id] }));
 
 export const communityReviewQueue = [
   {

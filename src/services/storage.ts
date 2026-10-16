@@ -189,12 +189,12 @@ export function initializeStorage(): Promise<void> {
 }
 
 export async function setStored(key: string, value: string): Promise<void> {
-  localStorage.setItem(key, value);
   const db = await openNativeDatabase();
   if (db) await db.run(
     'INSERT OR REPLACE INTO app_state (key, value, updated_at) VALUES (?, ?, ?)',
     [key, value, new Date().toISOString()],
   );
+  localStorage.setItem(key, value);
 }
 
 export async function removeStored(key: string): Promise<void> {
@@ -327,6 +327,8 @@ export async function exportWritingImage(record: WritingRecord): Promise<boolean
 }
 
 export async function clearStoredState(): Promise<void> {
+  const { clearMediaLibrary } = await import('./library');
+  await clearMediaLibrary();
   Object.keys(localStorage)
     .filter((key) => key.startsWith('pamana.'))
     .forEach((key) => localStorage.removeItem(key));

@@ -17,6 +17,15 @@ Offline-first Ionic React application for learning about Oriental Mindoro's cult
 
 ## Local development
 
+### Redesigned heritage modules
+
+- Matuto includes sixteen structured lesson articles, key terms, reflections, knowledge checks, and reading times calculated from the material. Reading completion is independent of quiz answers.
+- Lakbay separates destinations, a geographic offline map, and the annual festival calendar. Destination backgrounds, addresses, and published reference points link to their official sources; operational travel information still requires current verification.
+- Koleksyon is a folder-based shared photo library with credited offline heritage images, personal folders, cover selection, search, zoom, and reference-aware photo management. The same curated media is reused in lessons and destinations.
+- Kuwento is a private photo/video journal with capture and import, descriptions, optional location, editable event date/time, multiple entries, and reopening/editing. Android stores original media in private persistent files and metadata through the existing SQLite state layer. Browser previews use IndexedDB for media bytes. Original single-story records are preserved during migration.
+
+The Android workflow runs `node scripts/configure-android.mjs` after generating the platform to declare camera, microphone, and optional location capabilities. Run the same helper after `cap add android` when preparing Android locally. Physical-device camera/video capture and GPS permissions require device validation; browser preview checks do not establish Android hardware behavior.
+
 ```text
 npm install
 npm run test
