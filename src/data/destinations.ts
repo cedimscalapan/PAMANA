@@ -1,6 +1,7 @@
 import { places, Place } from './content';
 import { placeBackgrounds } from './place-details';
 import records from './destination-records.json';
+import { readingExcerpt } from './reading-utils';
 
 export type Destination = Place & { background: string; notice: string; focus: string[]; address: string; sourceUrl: string; verifiedAt: string; protectedCommunity?: boolean };
 const slugs: Record<string, string> = {
@@ -19,7 +20,7 @@ export const destinations: Destination[] = places.filter(place => place.id !== '
   };
   const detail = details ?? defaults[place.id];
   const protectedCommunity = place.id === 'mangyan-villages';
-  return { ...place, ...detail, description: detail.background.split(/(?<=\.)\s/)[0], address: record?.address || `${place.municipality}, Oriental Mindoro`,
+  return { ...place, ...detail, description: readingExcerpt(detail.background), address: record?.address || `${place.municipality}, Oriental Mindoro`,
     sourceUrl: record?.url ?? (place.id === 'calapan' ? 'https://ppdo.ormindoro.gov.ph/provincialdata/general-information/' : 'https://www.travelorientalmindoro.ph/'),
     sourceIds: [...place.sourceIds, ...(record ? [`destination-${slugs[place.id] ?? place.id}`] : [])],
     latitude: !protectedCommunity && record?.latitude ? record.latitude : undefined,

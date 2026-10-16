@@ -17,6 +17,15 @@ Offline-first Ionic React application for learning about Oriental Mindoro's cult
 
 ## Local development
 
+### Facts, shared imagery, and interactive Quest
+
+- The home card draws from 101 distinct readings with source links, locality, verification date, and reference years for dated claims. A local-calendar-day selector persists the current fact and reading history, cycles the full pool before reuse, and avoids recent semantic topics and categories when possible. “Discover another fact” advances the saved selection without requiring the internet.
+- The shared library now has 50 images: 8 licensed photographs, 18 covers from the exact official festival directory requested by the user, and 24 labeled original diagrams/location guides. Every lesson and destination has a subject-specific image or guide. Complete attribution, source URLs, dates, modifications, and unresolved assets are documented in [MEDIA_REGISTER.md](MEDIA_REGISTER.md). The portal’s Salong Dagitab cover visibly names another lantern festival and is labeled as unverified; it is excluded from fact illustrations and image games.
+- Quest offers Map Explorer, Photo Detective, Timeline Challenge, Sort & Discover, Word Builder, and Memory Pairs. The original question bank remains available as an untimed Knowledge Check. Both levels support keyboard/touch controls, hints, constructive explanations, retries, guided answers, and links back to learning records. Timeline comparisons use years and accept ties.
+- Every game action is saved through one `pamana.quest.games.v2` state record before the UI acknowledges it. Unfinished games resume with the same shuffled items, cards, and letters. Completed results stay separate by game/level; old quiz keys and all lesson/journal/library state are preserved. Unassisted checks earn 10 points, hints/retries/memory mismatches cap the activity at 5, and guided answers earn 2. The local result history retains the latest 100 games.
+- Native builds bundle every curated image and reading locally. An ordinary browser development preview requires its local server; no claim is made that a hosted browser site has a service-worker offline cache. The changes do not alter native camera/GPS behavior.
+- Focused automated checks cover pool exhaustion/day changes, storage failure recovery, tied timelines, duplicate letters, public map coordinates, scoring, resume data, source IDs, and complete image coverage. Rebuild original artwork with `node scripts/generate-learning-art.cjs` when the source records change.
+
 ### Redesigned heritage modules
 
 - Matuto includes sixteen structured lesson articles, key terms, reflections, knowledge checks, and reading times calculated from the material. Reading completion is independent of quiz answers.

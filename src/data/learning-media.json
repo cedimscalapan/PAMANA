@@ -1,0 +1,666 @@
+[
+  {
+    "id": "lesson-l1",
+    "title": "Read the island. Name the province.",
+    "filename": "lesson-l1.svg",
+    "description": "Mindoro island outline beside the provincial profile: fourteen municipalities, one component city, capital Calapan. No internal boundary is invented. Coastline: geoBoundaries gbOpen PHL ADM1, CC BY 3.0 IGO.",
+    "alt": "Mindoro island outline beside the provincial profile: fourteen municipalities, one component city, capital Calapan. No internal boundary is invented. Coastline: geoBoundaries gbOpen PHL ADM1, CC BY 3.0 IGO.",
+    "folderId": "learning",
+    "kind": "diagram",
+    "credit": "SMART PAMANA",
+    "rightsHolder": "SMART PAMANA (original layout); underlying facts retain their source attribution",
+    "source": "https://ppdo.ormindoro.gov.ph/provincialdata/general-information/",
+    "license": "CC BY 4.0 · original diagram",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+    "location": "Oriental Mindoro / source-specific learning context",
+    "lessonIds": [
+      "l1"
+    ],
+    "placeIds": [],
+    "festivalIds": [],
+    "sourceIds": [
+      "ppdo-general"
+    ],
+    "checkedAt": "2026-10-17",
+    "captureDate": "Created 17 October 2026; not a documentary photograph",
+    "changes": "Original vector diagram. Preview may crop; full viewer preserves proportions.",
+    "rightsStatus": "open-license"
+  },
+  {
+    "id": "lesson-l3",
+    "title": "Population has a reference date.",
+    "filename": "lesson-l3.svg",
+    "description": "Horizontal bars start at zero and compare 844,059 residents in 2015, 908,339 in 2020 and 919,504 in 2024.",
+    "alt": "Horizontal bars start at zero and compare 844,059 residents in 2015, 908,339 in 2020 and 919,504 in 2024.",
+    "folderId": "learning",
+    "kind": "diagram",
+    "credit": "SMART PAMANA",
+    "rightsHolder": "SMART PAMANA (original layout); underlying facts retain their source attribution",
+    "source": "https://rssomimaropa.psa.gov.ph/content/highlights-oriental-mindoro-population-2024-census-population-2024-popcen",
+    "license": "CC BY 4.0 · original diagram",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+    "location": "Oriental Mindoro / source-specific learning context",
+    "lessonIds": [
+      "l3"
+    ],
+    "placeIds": [],
+    "festivalIds": [],
+    "sourceIds": [
+      "psa-2024"
+    ],
+    "checkedAt": "2026-10-17",
+    "captureDate": "Created 17 October 2026; not a documentary photograph",
+    "changes": "Original vector diagram. Preview may crop; full viewer preserves proportions.",
+    "rightsStatus": "open-license"
+  },
+  {
+    "id": "lesson-l4",
+    "title": "Many communities. Distinct voices.",
+    "filename": "lesson-l4.svg",
+    "description": "Eight names from the Library of Congress guide, displayed equally without portraits, costumes or an inferred map of communities.",
+    "alt": "Eight names from the Library of Congress guide, displayed equally without portraits, costumes or an inferred map of communities.",
+    "folderId": "learning",
+    "kind": "diagram",
+    "credit": "SMART PAMANA",
+    "rightsHolder": "SMART PAMANA (original layout); underlying facts retain their source attribution",
+    "source": "https://guides.loc.gov/mangyan-bamboo-collection/background",
+    "license": "CC BY 4.0 · original diagram",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+    "location": "Oriental Mindoro / source-specific learning context",
+    "lessonIds": [
+      "l4"
+    ],
+    "placeIds": [],
+    "festivalIds": [],
+    "sourceIds": [
+      "loc"
+    ],
+    "checkedAt": "2026-10-17",
+    "captureDate": "Created 17 October 2026; not a documentary photograph",
+    "changes": "Original vector diagram. Preview may crop; full viewer preserves proportions.",
+    "rightsStatus": "open-license"
+  },
+  {
+    "id": "lesson-l5",
+    "title": "Letters carry sounds.",
+    "filename": "lesson-l5.svg",
+    "description": "A, I, U and KA rendered with Noto Sans Hanunoo (SIL OFL 1.1). Original teaching layout, not a reproduction of the Unicode chart.",
+    "alt": "A, I, U and KA rendered with Noto Sans Hanunoo (SIL OFL 1.1). Original teaching layout, not a reproduction of the Unicode chart.",
+    "folderId": "learning",
+    "kind": "diagram",
+    "credit": "SMART PAMANA",
+    "rightsHolder": "SMART PAMANA (original layout); underlying facts retain their source attribution",
+    "source": "https://unicode.org/charts/PDF/U1720.pdf",
+    "license": "CC BY 4.0 · original diagram",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+    "location": "Oriental Mindoro / source-specific learning context",
+    "lessonIds": [
+      "l5"
+    ],
+    "placeIds": [],
+    "festivalIds": [],
+    "sourceIds": [
+      "unicode",
+      "hanunoo"
+    ],
+    "checkedAt": "2026-10-17",
+    "captureDate": "Created 17 October 2026; not a documentary photograph",
+    "changes": "Original vector diagram. Preview may crop; full viewer preserves proportions.",
+    "rightsStatus": "open-license"
+  },
+  {
+    "id": "lesson-l6",
+    "title": "A letter, a vowel sign, pamudpod.",
+    "filename": "lesson-l6.svg",
+    "description": "The KA consonant, KA plus I/e sign, and KA plus pamudpod show ka, ki/ke, and k. Noto Sans Hanunoo is embedded under SIL OFL 1.1.",
+    "alt": "The KA consonant, KA plus I/e sign, and KA plus pamudpod show ka, ki/ke, and k. Noto Sans Hanunoo is embedded under SIL OFL 1.1.",
+    "folderId": "learning",
+    "kind": "diagram",
+    "credit": "SMART PAMANA",
+    "rightsHolder": "SMART PAMANA (original layout); underlying facts retain their source attribution",
+    "source": "https://unicode.org/charts/PDF/U1720.pdf",
+    "license": "CC BY 4.0 · original diagram",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+    "location": "Oriental Mindoro / source-specific learning context",
+    "lessonIds": [
+      "l6"
+    ],
+    "placeIds": [],
+    "festivalIds": [],
+    "sourceIds": [
+      "unicode",
+      "hanunoo"
+    ],
+    "checkedAt": "2026-10-17",
+    "captureDate": "Created 17 October 2026; not a documentary photograph",
+    "changes": "Original vector diagram. Preview may crop; full viewer preserves proportions.",
+    "rightsStatus": "open-license"
+  },
+  {
+    "id": "lesson-l7",
+    "title": "Seven syllables. A world of meaning.",
+    "filename": "lesson-l7.svg",
+    "description": "Seven numbered circles illustrate the seven-syllable line. No poem, cultural motif or performance is reproduced.",
+    "alt": "Seven numbered circles illustrate the seven-syllable line. No poem, cultural motif or performance is reproduced.",
+    "folderId": "learning",
+    "kind": "diagram",
+    "credit": "SMART PAMANA",
+    "rightsHolder": "SMART PAMANA (original layout); underlying facts retain their source attribution",
+    "source": "https://ncca.gov.ph/about-culture-and-arts/culture-profile/gamaba/national-living-treasures-ginaw-bilog/",
+    "license": "CC BY 4.0 · original diagram",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+    "location": "Oriental Mindoro / source-specific learning context",
+    "lessonIds": [
+      "l7"
+    ],
+    "placeIds": [],
+    "festivalIds": [],
+    "sourceIds": [
+      "ncca-ginaw"
+    ],
+    "checkedAt": "2026-10-17",
+    "captureDate": "Created 17 October 2026; not a documentary photograph",
+    "changes": "Original vector diagram. Preview may crop; full viewer preserves proportions.",
+    "rightsStatus": "open-license"
+  },
+  {
+    "id": "lesson-l8",
+    "title": "Knowledge carried between generations.",
+    "filename": "lesson-l8.svg",
+    "description": "A typographic learning card about Ginaw Bilog’s 1993 recognition. This is not his portrait or an award emblem.",
+    "alt": "A typographic learning card about Ginaw Bilog’s 1993 recognition. This is not his portrait or an award emblem.",
+    "folderId": "learning",
+    "kind": "diagram",
+    "credit": "SMART PAMANA",
+    "rightsHolder": "SMART PAMANA (original layout); underlying facts retain their source attribution",
+    "source": "https://ncca.gov.ph/about-culture-and-arts/culture-profile/gamaba/national-living-treasures-ginaw-bilog/",
+    "license": "CC BY 4.0 · original diagram",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+    "location": "Oriental Mindoro / source-specific learning context",
+    "lessonIds": [
+      "l8"
+    ],
+    "placeIds": [],
+    "festivalIds": [],
+    "sourceIds": [
+      "ncca-ginaw"
+    ],
+    "checkedAt": "2026-10-17",
+    "captureDate": "Created 17 October 2026; not a documentary photograph",
+    "changes": "Original vector diagram. Preview may crop; full viewer preserves proportions.",
+    "rightsStatus": "open-license"
+  },
+  {
+    "id": "lesson-l9",
+    "title": "Bamboo in two documented formats.",
+    "filename": "lesson-l9.svg",
+    "description": "Schematic examples of bamboo formats, labeled 71 slats and six cylinders. Shapes are illustrative, not one icon per item and not copies of manuscripts.",
+    "alt": "Schematic examples of bamboo formats, labeled 71 slats and six cylinders. Shapes are illustrative, not one icon per item and not copies of manuscripts.",
+    "folderId": "learning",
+    "kind": "diagram",
+    "credit": "SMART PAMANA",
+    "rightsHolder": "SMART PAMANA (original layout); underlying facts retain their source attribution",
+    "source": "https://guides.loc.gov/mangyan-bamboo-collection",
+    "license": "CC BY 4.0 · original diagram",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+    "location": "Oriental Mindoro / source-specific learning context",
+    "lessonIds": [
+      "l9"
+    ],
+    "placeIds": [],
+    "festivalIds": [],
+    "sourceIds": [
+      "loc-introduction"
+    ],
+    "checkedAt": "2026-10-17",
+    "captureDate": "Created 17 October 2026; not a documentary photograph",
+    "changes": "Original vector diagram. Preview may crop; full viewer preserves proportions.",
+    "rightsStatus": "open-license"
+  },
+  {
+    "id": "lesson-l10",
+    "title": "Keep the record with the object.",
+    "filename": "lesson-l10.svg",
+    "description": "Three labeled panels connect an object, transliteration and translation. Named contributors remain part of the historical record.",
+    "alt": "Three labeled panels connect an object, transliteration and translation. Named contributors remain part of the historical record.",
+    "folderId": "learning",
+    "kind": "diagram",
+    "credit": "SMART PAMANA",
+    "rightsHolder": "SMART PAMANA (original layout); underlying facts retain their source attribution",
+    "source": "https://guides.loc.gov/mangyan-bamboo-collection",
+    "license": "CC BY 4.0 · original diagram",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+    "location": "Oriental Mindoro / source-specific learning context",
+    "lessonIds": [
+      "l10"
+    ],
+    "placeIds": [],
+    "festivalIds": [],
+    "sourceIds": [
+      "loc-introduction",
+      "loc-provenance"
+    ],
+    "checkedAt": "2026-10-17",
+    "captureDate": "Created 17 October 2026; not a documentary photograph",
+    "changes": "Original vector diagram. Preview may crop; full viewer preserves proportions.",
+    "rightsStatus": "open-license"
+  },
+  {
+    "id": "lesson-l15",
+    "title": "Start with the named institution.",
+    "filename": "lesson-l15.svg",
+    "description": "A text guide distinguishes the museum in Calapan from the heritage and cultural center in Mansalay. No building likeness is invented.",
+    "alt": "A text guide distinguishes the museum in Calapan from the heritage and cultural center in Mansalay. No building likeness is invented.",
+    "folderId": "learning",
+    "kind": "diagram",
+    "credit": "SMART PAMANA",
+    "rightsHolder": "SMART PAMANA (original layout); underlying facts retain their source attribution",
+    "source": "https://www.travelorientalmindoro.ph/attractions/historical-cultural",
+    "license": "CC BY 4.0 · original diagram",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+    "location": "Oriental Mindoro / source-specific learning context",
+    "lessonIds": [
+      "l15"
+    ],
+    "placeIds": [],
+    "festivalIds": [],
+    "sourceIds": [
+      "lakbay-cultural"
+    ],
+    "checkedAt": "2026-10-17",
+    "captureDate": "Created 17 October 2026; not a documentary photograph",
+    "changes": "Original vector diagram. Preview may crop; full viewer preserves proportions.",
+    "rightsStatus": "open-license"
+  },
+  {
+    "id": "lesson-l16",
+    "title": "A year of public celebrations.",
+    "filename": "lesson-l16.svg",
+    "description": "Selected annual calendar entries from the provincial directory. This is a calendar illustration, not an image of a festival performance.",
+    "alt": "Selected annual calendar entries from the provincial directory. This is a calendar illustration, not an image of a festival performance.",
+    "folderId": "learning",
+    "kind": "diagram",
+    "credit": "SMART PAMANA",
+    "rightsHolder": "SMART PAMANA (original layout); underlying facts retain their source attribution",
+    "source": "https://www.travelorientalmindoro.ph/festivals",
+    "license": "CC BY 4.0 · original diagram",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+    "location": "Oriental Mindoro / source-specific learning context",
+    "lessonIds": [
+      "l16"
+    ],
+    "placeIds": [],
+    "festivalIds": [],
+    "sourceIds": [
+      "lakbay-festivals"
+    ],
+    "checkedAt": "2026-10-17",
+    "captureDate": "Created 17 October 2026; not a documentary photograph",
+    "changes": "Original vector diagram. Preview may crop; full viewer preserves proportions.",
+    "rightsStatus": "open-license"
+  },
+  {
+    "id": "place-bansud-museum",
+    "title": "Bansud Museum",
+    "filename": "place-bansud-museum.svg",
+    "description": "Bansud Museum, Poblacion, Bansud, Oriental Mindoro. Published tourism reference point shown on the Mindoro coastline; not an entrance or route. Coastline: geoBoundaries gbOpen PHL ADM1, CC BY 3.0 IGO. Not a documentary photograph.",
+    "alt": "Bansud Museum, Poblacion, Bansud, Oriental Mindoro. Published tourism reference point shown on the Mindoro coastline; not an entrance or route. Coastline: geoBoundaries gbOpen PHL ADM1, CC BY 3.0 IGO. Not a documentary photograph.",
+    "folderId": "place-guides",
+    "kind": "diagram",
+    "credit": "SMART PAMANA",
+    "rightsHolder": "SMART PAMANA (original layout); underlying facts retain their source attribution",
+    "source": "https://www.travelorientalmindoro.ph/attractions/historical-cultural",
+    "license": "CC BY 4.0 · original diagram",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+    "location": "Bansud",
+    "lessonIds": [],
+    "placeIds": [
+      "bansud-museum"
+    ],
+    "festivalIds": [],
+    "sourceIds": [
+      "lakbay-cultural",
+      "destination-bansud-museum"
+    ],
+    "checkedAt": "2026-10-17",
+    "captureDate": "Created 17 October 2026; not a documentary photograph",
+    "changes": "Original vector diagram. Preview may crop; full viewer preserves proportions.",
+    "rightsStatus": "open-license"
+  },
+  {
+    "id": "place-clarendon-cultural-center",
+    "title": "Clarendon Cultural Center",
+    "filename": "place-clarendon-cultural-center.svg",
+    "description": "Clarendon Cultural Center, Brgy. Odiong Roxas Oriental Mindoro. Text-only location guide; no community settlement or unverified point is mapped. Not a documentary photograph.",
+    "alt": "Clarendon Cultural Center, Brgy. Odiong Roxas Oriental Mindoro. Text-only location guide; no community settlement or unverified point is mapped. Not a documentary photograph.",
+    "folderId": "place-guides",
+    "kind": "diagram",
+    "credit": "SMART PAMANA",
+    "rightsHolder": "SMART PAMANA (original layout); underlying facts retain their source attribution",
+    "source": "https://www.travelorientalmindoro.ph/attractions/historical-cultural",
+    "license": "CC BY 4.0 · original diagram",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+    "location": "Roxas",
+    "lessonIds": [],
+    "placeIds": [
+      "clarendon-cultural-center"
+    ],
+    "festivalIds": [],
+    "sourceIds": [
+      "lakbay-cultural",
+      "destination-clarendon-cultural-center"
+    ],
+    "checkedAt": "2026-10-17",
+    "captureDate": "Created 17 October 2026; not a documentary photograph",
+    "changes": "Original vector diagram. Preview may crop; full viewer preserves proportions.",
+    "rightsStatus": "open-license"
+  },
+  {
+    "id": "place-m-adriatico-pottery",
+    "title": "M. Adriatico Pottery",
+    "filename": "place-m-adriatico-pottery.svg",
+    "description": "M. Adriatico Pottery, M. Adriatico, Gloria, Oriental Mindoro. Published tourism reference point shown on the Mindoro coastline; not an entrance or route. Coastline: geoBoundaries gbOpen PHL ADM1, CC BY 3.0 IGO. Not a documentary photograph.",
+    "alt": "M. Adriatico Pottery, M. Adriatico, Gloria, Oriental Mindoro. Published tourism reference point shown on the Mindoro coastline; not an entrance or route. Coastline: geoBoundaries gbOpen PHL ADM1, CC BY 3.0 IGO. Not a documentary photograph.",
+    "folderId": "place-guides",
+    "kind": "diagram",
+    "credit": "SMART PAMANA",
+    "rightsHolder": "SMART PAMANA (original layout); underlying facts retain their source attribution",
+    "source": "https://www.travelorientalmindoro.ph/attractions/historical-cultural",
+    "license": "CC BY 4.0 · original diagram",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+    "location": "Gloria",
+    "lessonIds": [],
+    "placeIds": [
+      "m-adriatico-pottery"
+    ],
+    "festivalIds": [],
+    "sourceIds": [
+      "lakbay-cultural",
+      "destination-m-adriatico-pottery"
+    ],
+    "checkedAt": "2026-10-17",
+    "captureDate": "Created 17 October 2026; not a documentary photograph",
+    "changes": "Original vector diagram. Preview may crop; full viewer preserves proportions.",
+    "rightsStatus": "open-license"
+  },
+  {
+    "id": "place-mangyan-cubool",
+    "title": "Mangyan Cubool: Cultural Booth Of Love",
+    "filename": "place-mangyan-cubool.svg",
+    "description": "Mangyan Cubool: Cultural Booth Of Love, graciano dela chica mangyan high school, san ignacio, baco, Oriental Mindoro. Published tourism reference point shown on the Mindoro coastline; not an entrance or route. Coastline: geoBoundaries gbOpen PHL ADM1, CC BY 3.0 IGO. Not a documentary photograph.",
+    "alt": "Mangyan Cubool: Cultural Booth Of Love, graciano dela chica mangyan high school, san ignacio, baco, Oriental Mindoro. Published tourism reference point shown on the Mindoro coastline; not an entrance or route. Coastline: geoBoundaries gbOpen PHL ADM1, CC BY 3.0 IGO. Not a documentary photograph.",
+    "folderId": "place-guides",
+    "kind": "diagram",
+    "credit": "SMART PAMANA",
+    "rightsHolder": "SMART PAMANA (original layout); underlying facts retain their source attribution",
+    "source": "https://www.travelorientalmindoro.ph/attractions/historical-cultural",
+    "license": "CC BY 4.0 · original diagram",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+    "location": "Baco",
+    "lessonIds": [],
+    "placeIds": [
+      "mangyan-cubool"
+    ],
+    "festivalIds": [],
+    "sourceIds": [
+      "lakbay-cultural",
+      "destination-mangyan-cubool-cultural-booth-of-love"
+    ],
+    "checkedAt": "2026-10-17",
+    "captureDate": "Created 17 October 2026; not a documentary photograph",
+    "changes": "Original vector diagram. Preview may crop; full viewer preserves proportions.",
+    "rightsStatus": "open-license"
+  },
+  {
+    "id": "place-mangyan-villages",
+    "title": "Mangyan Villages",
+    "filename": "place-mangyan-villages.svg",
+    "description": "Mangyan Villages, panaytayan, Mansalay, Oriental Mindoro. Text-only location guide; no community settlement or unverified point is mapped. Not a documentary photograph.",
+    "alt": "Mangyan Villages, panaytayan, Mansalay, Oriental Mindoro. Text-only location guide; no community settlement or unverified point is mapped. Not a documentary photograph.",
+    "folderId": "place-guides",
+    "kind": "diagram",
+    "credit": "SMART PAMANA",
+    "rightsHolder": "SMART PAMANA (original layout); underlying facts retain their source attribution",
+    "source": "https://www.travelorientalmindoro.ph/attractions/historical-cultural",
+    "license": "CC BY 4.0 · original diagram",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+    "location": "Mansalay",
+    "lessonIds": [],
+    "placeIds": [
+      "mangyan-villages"
+    ],
+    "festivalIds": [],
+    "sourceIds": [
+      "lakbay-cultural",
+      "destination-mangyan-villages"
+    ],
+    "checkedAt": "2026-10-17",
+    "captureDate": "Created 17 October 2026; not a documentary photograph",
+    "changes": "Original vector diagram. Preview may crop; full viewer preserves proportions.",
+    "rightsStatus": "open-license"
+  },
+  {
+    "id": "place-oriental-mindoro-heritage-cultural-center",
+    "title": "Oriental Mindoro Heritage and Cultural Center",
+    "filename": "place-oriental-mindoro-heritage-cultural-center.svg",
+    "description": "Oriental Mindoro Heritage and Cultural Center, Brgy. B. del Mundo, Mansalay, Oriental Mindoro. Text-only location guide; no community settlement or unverified point is mapped. Not a documentary photograph.",
+    "alt": "Oriental Mindoro Heritage and Cultural Center, Brgy. B. del Mundo, Mansalay, Oriental Mindoro. Text-only location guide; no community settlement or unverified point is mapped. Not a documentary photograph.",
+    "folderId": "place-guides",
+    "kind": "diagram",
+    "credit": "SMART PAMANA",
+    "rightsHolder": "SMART PAMANA (original layout); underlying facts retain their source attribution",
+    "source": "https://www.travelorientalmindoro.ph/attractions/historical-cultural",
+    "license": "CC BY 4.0 · original diagram",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+    "location": "Mansalay",
+    "lessonIds": [],
+    "placeIds": [
+      "oriental-mindoro-heritage-cultural-center"
+    ],
+    "festivalIds": [],
+    "sourceIds": [
+      "lakbay-cultural",
+      "destination-oriental-mindoro-heritage-and-cultural-center"
+    ],
+    "checkedAt": "2026-10-17",
+    "captureDate": "Created 17 October 2026; not a documentary photograph",
+    "changes": "Original vector diagram. Preview may crop; full viewer preserves proportions.",
+    "rightsStatus": "open-license"
+  },
+  {
+    "id": "place-oriental-mindoro-heritage-museum-calapan",
+    "title": "Oriental Mindoro Heritage Museum",
+    "filename": "place-oriental-mindoro-heritage-museum-calapan.svg",
+    "description": "Oriental Mindoro Heritage Museum, Brgy. Ibaba East, Calapan City. Published tourism reference point shown on the Mindoro coastline; not an entrance or route. Coastline: geoBoundaries gbOpen PHL ADM1, CC BY 3.0 IGO. Not a documentary photograph.",
+    "alt": "Oriental Mindoro Heritage Museum, Brgy. Ibaba East, Calapan City. Published tourism reference point shown on the Mindoro coastline; not an entrance or route. Coastline: geoBoundaries gbOpen PHL ADM1, CC BY 3.0 IGO. Not a documentary photograph.",
+    "folderId": "place-guides",
+    "kind": "diagram",
+    "credit": "SMART PAMANA",
+    "rightsHolder": "SMART PAMANA (original layout); underlying facts retain their source attribution",
+    "source": "https://www.travelorientalmindoro.ph/attractions/historical-cultural",
+    "license": "CC BY 4.0 · original diagram",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+    "location": "Calapan City",
+    "lessonIds": [],
+    "placeIds": [
+      "oriental-mindoro-heritage-museum-calapan"
+    ],
+    "festivalIds": [],
+    "sourceIds": [
+      "lakbay-cultural",
+      "destination-oriental-mindoro-heritage-museum"
+    ],
+    "checkedAt": "2026-10-17",
+    "captureDate": "Created 17 October 2026; not a documentary photograph",
+    "changes": "Original vector diagram. Preview may crop; full viewer preserves proportions.",
+    "rightsStatus": "open-license"
+  },
+  {
+    "id": "place-pinamalayan-welcome-arch",
+    "title": "Pinamalayan Welcome Arch",
+    "filename": "place-pinamalayan-welcome-arch.svg",
+    "description": "Pinamalayan Welcome Arch, Sto. Niño, Pinamalayan, Oriental Mindoro. Published tourism reference point shown on the Mindoro coastline; not an entrance or route. Coastline: geoBoundaries gbOpen PHL ADM1, CC BY 3.0 IGO. Not a documentary photograph.",
+    "alt": "Pinamalayan Welcome Arch, Sto. Niño, Pinamalayan, Oriental Mindoro. Published tourism reference point shown on the Mindoro coastline; not an entrance or route. Coastline: geoBoundaries gbOpen PHL ADM1, CC BY 3.0 IGO. Not a documentary photograph.",
+    "folderId": "place-guides",
+    "kind": "diagram",
+    "credit": "SMART PAMANA",
+    "rightsHolder": "SMART PAMANA (original layout); underlying facts retain their source attribution",
+    "source": "https://www.travelorientalmindoro.ph/attractions/historical-cultural",
+    "license": "CC BY 4.0 · original diagram",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+    "location": "Pinamalayan",
+    "lessonIds": [],
+    "placeIds": [
+      "pinamalayan-welcome-arch"
+    ],
+    "festivalIds": [],
+    "sourceIds": [
+      "lakbay-cultural",
+      "destination-pinamalayan-welcome-arch"
+    ],
+    "checkedAt": "2026-10-17",
+    "captureDate": "Created 17 October 2026; not a documentary photograph",
+    "changes": "Original vector diagram. Preview may crop; full viewer preserves proportions.",
+    "rightsStatus": "open-license"
+  },
+  {
+    "id": "place-pola-heritage-houses",
+    "title": "Pola Heritage Houses",
+    "filename": "place-pola-heritage-houses.svg",
+    "description": "Pola Heritage Houses, Poblacion, Pola, Oriental Mindoro. Published tourism reference point shown on the Mindoro coastline; not an entrance or route. Coastline: geoBoundaries gbOpen PHL ADM1, CC BY 3.0 IGO. Not a documentary photograph.",
+    "alt": "Pola Heritage Houses, Poblacion, Pola, Oriental Mindoro. Published tourism reference point shown on the Mindoro coastline; not an entrance or route. Coastline: geoBoundaries gbOpen PHL ADM1, CC BY 3.0 IGO. Not a documentary photograph.",
+    "folderId": "place-guides",
+    "kind": "diagram",
+    "credit": "SMART PAMANA",
+    "rightsHolder": "SMART PAMANA (original layout); underlying facts retain their source attribution",
+    "source": "https://www.travelorientalmindoro.ph/attractions/historical-cultural",
+    "license": "CC BY 4.0 · original diagram",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+    "location": "Pola",
+    "lessonIds": [],
+    "placeIds": [
+      "pola-heritage-houses"
+    ],
+    "festivalIds": [],
+    "sourceIds": [
+      "lakbay-cultural",
+      "destination-pola-heritage-houses"
+    ],
+    "checkedAt": "2026-10-17",
+    "captureDate": "Created 17 October 2026; not a documentary photograph",
+    "changes": "Original vector diagram. Preview may crop; full viewer preserves proportions.",
+    "rightsStatus": "open-license"
+  },
+  {
+    "id": "place-punta-baluarte",
+    "title": "Punta Baluarte",
+    "filename": "place-punta-baluarte.svg",
+    "description": "Punta Baluarte, Lumangbayan, San Teodoro, Oriental Mindoro. Published tourism reference point shown on the Mindoro coastline; not an entrance or route. Coastline: geoBoundaries gbOpen PHL ADM1, CC BY 3.0 IGO. Not a documentary photograph.",
+    "alt": "Punta Baluarte, Lumangbayan, San Teodoro, Oriental Mindoro. Published tourism reference point shown on the Mindoro coastline; not an entrance or route. Coastline: geoBoundaries gbOpen PHL ADM1, CC BY 3.0 IGO. Not a documentary photograph.",
+    "folderId": "place-guides",
+    "kind": "diagram",
+    "credit": "SMART PAMANA",
+    "rightsHolder": "SMART PAMANA (original layout); underlying facts retain their source attribution",
+    "source": "https://www.travelorientalmindoro.ph/attractions/historical-cultural",
+    "license": "CC BY 4.0 · original diagram",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+    "location": "San Teodoro",
+    "lessonIds": [],
+    "placeIds": [
+      "punta-baluarte"
+    ],
+    "festivalIds": [],
+    "sourceIds": [
+      "lakbay-cultural",
+      "destination-punta-baluarte"
+    ],
+    "checkedAt": "2026-10-17",
+    "captureDate": "Created 17 October 2026; not a documentary photograph",
+    "changes": "Original vector diagram. Preview may crop; full viewer preserves proportions.",
+    "rightsStatus": "open-license"
+  },
+  {
+    "id": "place-aslom-island",
+    "title": "Aslom Island",
+    "filename": "place-aslom-island.svg",
+    "description": "Aslom Island, Milagrosa, Bulalacao, Oriental MIndoro. Published tourism reference point shown on the Mindoro coastline; not an entrance or route. Coastline: geoBoundaries gbOpen PHL ADM1, CC BY 3.0 IGO. Not a documentary photograph.",
+    "alt": "Aslom Island, Milagrosa, Bulalacao, Oriental MIndoro. Published tourism reference point shown on the Mindoro coastline; not an entrance or route. Coastline: geoBoundaries gbOpen PHL ADM1, CC BY 3.0 IGO. Not a documentary photograph.",
+    "folderId": "place-guides",
+    "kind": "diagram",
+    "credit": "SMART PAMANA",
+    "rightsHolder": "SMART PAMANA (original layout); underlying facts retain their source attribution",
+    "source": "https://www.travelorientalmindoro.ph/",
+    "license": "CC BY 4.0 · original diagram",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+    "location": "Bulalacao",
+    "lessonIds": [],
+    "placeIds": [
+      "aslom-island"
+    ],
+    "festivalIds": [],
+    "sourceIds": [
+      "lakbay-home",
+      "destination-aslom-island"
+    ],
+    "checkedAt": "2026-10-17",
+    "captureDate": "Created 17 October 2026; not a documentary photograph",
+    "changes": "Original vector diagram. Preview may crop; full viewer preserves proportions.",
+    "rightsStatus": "open-license"
+  },
+  {
+    "id": "place-buyayao-island",
+    "title": "Buyayao Island",
+    "filename": "place-buyayao-island.svg",
+    "description": "Buyayao Island, Buyayao, San Roque, Bulalacao, Oriental MIndoro. Published tourism reference point shown on the Mindoro coastline; not an entrance or route. Coastline: geoBoundaries gbOpen PHL ADM1, CC BY 3.0 IGO. Not a documentary photograph.",
+    "alt": "Buyayao Island, Buyayao, San Roque, Bulalacao, Oriental MIndoro. Published tourism reference point shown on the Mindoro coastline; not an entrance or route. Coastline: geoBoundaries gbOpen PHL ADM1, CC BY 3.0 IGO. Not a documentary photograph.",
+    "folderId": "place-guides",
+    "kind": "diagram",
+    "credit": "SMART PAMANA",
+    "rightsHolder": "SMART PAMANA (original layout); underlying facts retain their source attribution",
+    "source": "https://www.travelorientalmindoro.ph/",
+    "license": "CC BY 4.0 · original diagram",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+    "location": "Bulalacao",
+    "lessonIds": [],
+    "placeIds": [
+      "buyayao-island"
+    ],
+    "festivalIds": [],
+    "sourceIds": [
+      "lakbay-home",
+      "destination-buyayao-island"
+    ],
+    "checkedAt": "2026-10-17",
+    "captureDate": "Created 17 October 2026; not a documentary photograph",
+    "changes": "Original vector diagram. Preview may crop; full viewer preserves proportions.",
+    "rightsStatus": "open-license"
+  },
+  {
+    "id": "place-pocanil-rock-formation",
+    "title": "Pocanil Rock Formation",
+    "filename": "place-pocanil-rock-formation.svg",
+    "description": "Pocanil Rock Formation, Pocanil, San Roque, Bulalacao, Oriental MIndoro. Published tourism reference point shown on the Mindoro coastline; not an entrance or route. Coastline: geoBoundaries gbOpen PHL ADM1, CC BY 3.0 IGO. Not a documentary photograph.",
+    "alt": "Pocanil Rock Formation, Pocanil, San Roque, Bulalacao, Oriental MIndoro. Published tourism reference point shown on the Mindoro coastline; not an entrance or route. Coastline: geoBoundaries gbOpen PHL ADM1, CC BY 3.0 IGO. Not a documentary photograph.",
+    "folderId": "place-guides",
+    "kind": "diagram",
+    "credit": "SMART PAMANA",
+    "rightsHolder": "SMART PAMANA (original layout); underlying facts retain their source attribution",
+    "source": "https://www.travelorientalmindoro.ph/",
+    "license": "CC BY 4.0 · original diagram",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+    "location": "Bulalacao",
+    "lessonIds": [],
+    "placeIds": [
+      "pocanil-rock-formation"
+    ],
+    "festivalIds": [],
+    "sourceIds": [
+      "lakbay-home",
+      "destination-pocanil-rock-formation"
+    ],
+    "checkedAt": "2026-10-17",
+    "captureDate": "Created 17 October 2026; not a documentary photograph",
+    "changes": "Original vector diagram. Preview may crop; full viewer preserves proportions.",
+    "rightsStatus": "open-license"
+  }
+]

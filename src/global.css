@@ -393,3 +393,4 @@ ion-button { --border-radius: 14px; text-transform: none; font-weight: 700; }
   .sulat-canvas-tools { grid-template-columns: repeat(2, 1fr); }
   .sulat-convert-form > div { grid-template-columns: 1fr; }
 }
+.onboarding-page{position:relative}.onboarding-skip{position:absolute;z-index:3;min-width:44px;min-height:44px;top:8px;right:14px}

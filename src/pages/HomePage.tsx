@@ -5,7 +5,6 @@ import {
   cameraOutline,
   compassOutline,
   pencilOutline,
-  refreshOutline,
   trophyOutline,
 } from 'ionicons/icons';
 import { useHistory } from 'react-router-dom';
@@ -14,6 +13,8 @@ import kaPamanaIcon from '../assets/reference/ka-pamana-icon.png';
 import { PageFrame } from '../components/AppChrome';
 import { lessons } from '../data/learning';
 import { storageKey } from '../data/content';
+import CulturalFactCard from '../components/CulturalFactCard';
+import { photoForLesson } from '../data/gallery';
 
 const modules = [
   { label: 'Matuto', sub: 'Learn', icon: bookOutline, tone: 'brown', path: '/learn' },
@@ -24,18 +25,13 @@ const modules = [
   { label: 'Koleksyon', sub: 'Photo folders', icon: bookOutline, tone: 'red', path: '/collection' },
 ];
 
-const facts = [
-  'Ang pamana ay tumutukoy sa mga bagay na tinatanggap, inaalagaan, at ipinapasa sa susunod na henerasyon.',
-  'Ang Oriental Mindoro ay tahanan ng magkakaibang Mangyan communities, languages, at living traditions.',
-];
-
 export default function HomePage() {
   const history = useHistory();
-  const [factIndex, setFactIndex] = useState(0);
   const [, refresh] = useState(0);
   useIonViewWillEnter(() => refresh(value => value + 1));
   const completed = lessons.filter(lesson => localStorage.getItem(storageKey(lesson.id)) === 'complete').length;
   const continueLesson = lessons.find(lesson => lesson.id === localStorage.getItem('pamana.lastLesson')) ?? lessons.find(lesson => localStorage.getItem(storageKey(lesson.id)) !== 'complete') ?? lessons[0];
+  const lessonImage = photoForLesson(continueLesson.id);
   useEffect(() => {
     if (localStorage.getItem('pamana.onboardingComplete') !== 'true') history.replace('/onboarding');
   }, [history]);
@@ -75,7 +71,7 @@ export default function HomePage() {
               <IonButton fill="clear" onClick={() => history.push('/learn')}>See all</IonButton>
             </div>
             <button type="button" className="home-lesson-row" onClick={() => history.push(`/learn?lesson=${continueLesson.id}`)}>
-              <div className="home-lesson-badge"><IonIcon icon={compassOutline} /></div>
+              <div className="home-lesson-badge">{lessonImage ? <img src={lessonImage.src} alt="" /> : <IonIcon icon={compassOutline} />}</div>
               <div className="home-lesson-copy">
                 <span className="home-meta">{continueLesson.category} · {continueLesson.duration} MIN READ</span>
                 <h3>{continueLesson.title}</h3>
@@ -99,15 +95,7 @@ export default function HomePage() {
             </div>
           </section>
 
-          <section className="home-fact-card">
-            <div>
-              <p className="home-brand">DAILY CULTURAL FACT</p>
-              <p>{facts[factIndex]}</p>
-            </div>
-            <IonButton fill="clear" onClick={() => setFactIndex((value) => (value + 1) % facts.length)} aria-label="Next cultural fact">
-              <IonIcon icon={refreshOutline} />
-            </IonButton>
-          </section>
+          <CulturalFactCard />
         </PageFrame>
       </IonContent>
     </IonPage>

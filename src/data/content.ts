@@ -1,6 +1,7 @@
 import { officialCatalogStats, officialFestivals, officialMunicipalities, officialPlaces, officialSources, travelPlanningNotes } from './official-heritage';
 import type { OfficialFestival } from './official-heritage';
 import destinationRecords from './destination-records.json';
+import { researchSources } from './research-sources';
 
 export type SourceStatus = 'reviewed' | 'awaiting_review';
 
@@ -62,6 +63,7 @@ export type CollectionItem = {
 };
 
 export const sources: Source[] = [
+  ...researchSources,
   { id: 'tourism', title: 'Travel Oriental Mindoro', publisher: 'Oriental Mindoro tourism portal', url: 'https://www.travelorientalmindoro.ph/', status: 'Source checked', use: 'Province overview, towns, attractions, and travel context.' },
   { id: 'loc', title: 'Mangyan Bamboo Collection: Background', publisher: 'Library of Congress', url: 'https://guides.loc.gov/mangyan-bamboo-collection/background', status: 'Source checked', use: 'Mangyan communities, ambahan, bamboo collection, and writing traditions.' },
   { id: 'hanunoo', title: 'Hanunó’o orthography notes', publisher: 'Richard Ishida / r12a', url: 'https://r12a.github.io/scripts/hano/hnn.html', status: 'Source checked', use: 'Unicode, abugida structure, vowel signs, and pamudpod reference.' },
@@ -79,6 +81,7 @@ export const sources: Source[] = [
   { id: 'denr-tamaraw', title: 'DENR Tamaraw news alert', publisher: 'Department of Environment and Natural Resources', url: 'https://denr.gov.ph/wp-content/uploads/2023/07/DENR_News_Alerts_13_October_2020_Tuesday.pdf', status: 'Source checked', use: 'Government conservation context for the Mindoro-endemic tamaraw.' },
   { id: 'tamaraw-media', title: 'Tamaraw photograph', publisher: 'Gregg Yan / Wikimedia Commons', url: 'https://commons.wikimedia.org/wiki/File:Bubalus_mindorensis_by_Gregg_Yan_02.jpg', status: 'License checked', use: 'Offline wildlife image; CC BY-SA 3.0 attribution is shown in-app.' },
   ...officialSources,
+  ...officialFestivals.map(festival => ({ id: `festival-${festival.id}`, title: festival.name, publisher: 'Oriental Mindoro Provincial Tourism Office', url: festival.detailUrl ?? 'https://www.travelorientalmindoro.ph/festivals', status: 'Official festival page checked 17 October 2026', use: 'Festival-specific public description. Not a cultural recording or image reuse license.' })),
   { id: 'loc-introduction', title: 'Mangyan bamboo collection: Introduction', publisher: 'Library of Congress', url: 'https://guides.loc.gov/mangyan-bamboo-collection', status: 'Source checked 17 October 2026', use: 'Collection size, formats, and named writers.' },
   { id: 'loc-provenance', title: 'Mangyan bamboo collection: Provenance', publisher: 'Library of Congress', url: 'https://guides.loc.gov/mangyan-bamboo-collection/provenance', status: 'Source checked 17 October 2026', use: 'Collection history, dates, contributors, and documentary uncertainties.' },
   ...Object.entries(destinationRecords).map(([slug, record]) => ({ id: `destination-${slug}`, title: slug.split('-').map(word => word[0].toUpperCase() + word.slice(1)).join(' '), publisher: 'Oriental Mindoro Provincial Tourism Office', url: record.url, status: 'Public directory checked 17 October 2026', use: 'Place-specific description and address. Published points are orientation references; current access requires verification.' })),

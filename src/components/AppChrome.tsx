@@ -102,5 +102,5 @@ export function AppBottomNav({ active }: AppBottomNavProps) {
 }
 
 export function PageFrame({ children, active }: { children: ReactNode; active: ActiveTab }) {
-  return <main className={`page-frame ${['learn', 'explore', 'collection', 'stories'].includes(active) ? 'heritage-frame' : ''}`}>{children}<AppBottomNav active={active} /></main>;
+  return <main className={`page-frame ${['learn', 'explore', 'collection', 'stories', 'quest'].includes(active) ? 'heritage-frame' : ''}`}>{children}<AppBottomNav active={active} /></main>;
 }

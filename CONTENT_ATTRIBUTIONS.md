@@ -2,6 +2,10 @@
 
 The app bundles source metadata and a small amount of local media so the core learning flows work without a network connection.
 
+The current complete inventory is [MEDIA_REGISTER.md](MEDIA_REGISTER.md): 8 licensed documentary photographs, 18 user-requested official festival covers, and 24 original teaching/location diagrams. Each shared record retains its source, creator or missing-creator statement, capture date, license or unresolved reuse status, modifications, and related pages. Festival covers do **not** carry an inferred Creative Commons license. The Salong Dagitab cover has an explicit subject-mismatch note.
+
+The expanded learning pack contains 101 distinct, source-linked daily readings. Primary references include the provincial PPDO/tourism office, PSA, NCCA, Mangyan Heritage Center, Library of Congress, UNESCO, DENR/Ramsar, and original Philippine historical issuances. Dates were checked on 17 October 2026. UNESCO records **1998 submission / 1999 registration**; RA 505 records **13 June 1950 approval / 15 November 1950 effectivity**. Existing source summaries that conflated these dates are not used as the deciding evidence. Archive catalog metadata is used without republishing poems, translations, or recordings.
+
 ## Owner-provided assets
 
 - `src/assets/reference/ka-pamana-icon.png` — supplied by the project owner and used for the Android launcher icon, onboarding guide, avatar, and dashboard mascot.

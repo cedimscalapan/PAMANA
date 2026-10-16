@@ -114,7 +114,7 @@ export const officialSources: OfficialSource[] = [
     id: 'lakbay-festivals',
     title: 'Festivals of Oriental Mindoro',
     publisher: 'Oriental Mindoro Provincial Tourism Office',
-    url: 'https://www.travelorientalmindoro.ph/Festivals/',
+    url: 'https://www.travelorientalmindoro.ph/festivals',
     status: 'Source checked',
     use: 'Annual festival names, municipalities, and calendar dates; verify details before travel.',
   },
@@ -238,7 +238,7 @@ export const officialFestivals: OfficialFestival[] = [
   festival('salong-dagitab', 'Salong Dagitab', 'Calapan City', 11, 15),
   festival('mangyan-festival', 'Mangyan Festival', 'Mansalay', 11, 25, 'https://www.travelorientalmindoro.ph/festival/mangyan-festival', 'The official page describes this as Mansalay’s festival acknowledging Mangyan culture and indigenous practices.', ['Mangyan cultural presentations', 'Indigenous dances', 'Traditional crafts', 'Heritage celebration']),
   festival('masayaw', 'MASAYAW Festival', 'San Teodoro', 12, 8),
-].map(item => ({ ...item, ...festivalContexts[item.id] }));
+].map(item => ({ ...item, ...festivalContexts[item.id], sourceIds: [...item.sourceIds, `festival-${item.id}`] }));
 
 export const communityReviewQueue = [
   {

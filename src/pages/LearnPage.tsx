@@ -7,6 +7,7 @@ import { DetailBack, EmptyState, FilterChips, HeritageHero, SearchField, SourceN
 import { lessons } from '../data/learning';
 import { lessonArticles, readingMinutes } from '../data/lesson-articles';
 import { photoForLesson } from '../data/gallery';
+import { MediaFigure } from '../components/MediaFigure';
 import { storageKey } from '../data/content';
 import { setStored } from '../services/storage';
 
@@ -61,7 +62,7 @@ export default function LearnPage() {
       </section>
     </> : <article className="heritage-body reading-page">
       <DetailBack onBack={back} label="All lessons" /><span className="eyebrow">{selected.category} · {readingMinutes(selected.id)} MIN READ</span><h1>{selected.title}</h1><p className="reading-lead">{selected.summary}</p>
-      {photo && <figure className="article-photo"><img src={photo.src} alt={photo.title} /><figcaption>{photo.title} · {photo.credit} · {photo.license} <Link to={`/collection?photo=${photo.id}`}>View in Koleksyon ↗</Link></figcaption></figure>}
+      {photo && <MediaFigure image={photo} />}
       {article && <><aside className="learning-objective"><span className="eyebrow">BY THE END OF THIS LESSON</span><p>{article.objective}</p></aside><nav className="article-outline" aria-label="Lesson sections">{article.sections.map((section, index) => <a key={section.heading} href={`#lesson-section-${index}`} onClick={event => { event.preventDefault(); document.getElementById(`lesson-section-${index}`)?.scrollIntoView({ behavior: 'smooth', block: 'start' }); }}>{String(index + 1).padStart(2, '0')} {section.heading}</a>)}</nav>
       {article.sections.map((section, index) => <section className="article-section" id={`lesson-section-${index}`} key={section.heading}><span className="section-number">{String(index + 1).padStart(2, '0')}</span><h2>{section.heading}</h2><p>{section.text}</p></section>)}
       <section className="key-terms"><h2>Words to keep</h2><dl>{article.terms.map(([term, definition]) => <div key={term}><dt>{term}</dt><dd>{definition}</dd></div>)}</dl></section></>}
