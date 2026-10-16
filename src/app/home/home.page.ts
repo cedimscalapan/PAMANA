@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, HostListener, inject } from '@angular/core';
 import { NgFor } from '@angular/common';
 import { IonContent, IonIcon } from '@ionic/angular/standalone';
 import { Router, RouterLink } from '@angular/router';
@@ -15,6 +15,13 @@ export class HomePage {
   ];
   readonly facts = ['The word pamana means heritage—what we receive, care for, and pass on.', 'Oriental Mindoro is home to distinct Mangyan communities with their own languages and traditions.'];
   fact = this.facts[0];
+  @HostListener('click', ['$event']) handleModuleClick(event: Event): void {
+    const button = (event.target as HTMLElement).closest('button.module');
+    if (!button) return;
+    const index = Array.from(button.parentElement?.children ?? []).indexOf(button);
+    const routes = ['learn', 'writing', 'explore', 'quest', 'stories', 'collection'];
+    if (index >= 0 && index < routes.length) this.router.navigateByUrl('/' + routes[index]);
+  }
   rotateFact(): void { this.fact = this.facts[this.facts.indexOf(this.fact) === 0 ? 1 : 0]; }
   openModule(index: number): void { const routes = ['learn', 'writing', 'explore', 'quest', 'stories', 'collection']; this.router.navigateByUrl('/' + routes[index]); }
 }
