@@ -1,3 +1,28 @@
-import { IonButton, IonCard, IonCardContent, IonContent, IonHeader, IonItem, IonLabel, IonList, IonPage, IonTitle, IonToolbar } from '@ionic/react'; import { useHistory } from 'react-router-dom'; import { sources } from '../data/content'; import { localAssets } from '../data/asset-catalog';
+import { IonButton, IonContent, IonIcon, IonPage } from '@ionic/react';
+import { checkmarkCircleOutline, cloudOfflineOutline, informationCircleOutline, linkOutline, refreshOutline, settingsOutline } from 'ionicons/icons';
+import { useHistory } from 'react-router-dom';
+import { sources } from '../data/content';
+import { localAssets } from '../data/asset-catalog';
 import { clearStoredState, storageInfo } from '../services/storage';
-export default function SettingsPage(){const history=useHistory();const reset=async()=>{await clearStoredState();history.replace('/onboarding')};return <IonPage><IonHeader><IonToolbar><IonButton slot="start" fill="clear" aria-label="Back to home" onClick={()=>history.push('/home')}>‹</IonButton><IonTitle>Settings</IonTitle></IonToolbar></IonHeader><IonContent><main className="module-page"><IonCard className="list-card"><IonCardContent><h2>Offline status</h2><p>Lessons, practice state, quest score, collection state, source notes, and bundled assets are available without an account or network connection.</p><span className="meta">{storageInfo.nativeDatabase?'NATIVE SQLITE DATABASE':'LOCAL WEB STORAGE FALLBACK'}</span></IonCardContent></IonCard><IonCard className="list-card"><IonCardContent><h2>About SMART PAMANA</h2><p>Kultura ng Mindoro, Buhay sa Bawat Henerasyon.</p><p>Community-sensitive entries are marked until appropriate review and permission.</p></IonCardContent></IonCard><IonCard className="list-card"><IonCardContent><h2>Bundled visual assets</h2><IonList>{localAssets.map(asset=><IonItem key={asset.id}><IonLabel><strong>{asset.id}</strong><p>{asset.purpose}</p><small>{asset.rights === 'provided_by_project_owner' ? 'Provided by project owner' : asset.attribution}</small></IonLabel></IonItem>)}</IonList></IonCardContent></IonCard><IonCard className="list-card"><IonCardContent><h2>Content references</h2><IonList>{sources.map(source=><IonItem key={source.id}><IonLabel><strong>{source.title}</strong><p>{source.publisher} · {source.status}</p><small>{source.use}</small><br/><a href={source.url} target="_blank" rel="noreferrer">Open source reference</a></IonLabel></IonItem>)}</IonList></IonCardContent></IonCard><IonCard className="list-card"><IonCardContent><h2>Reset local state</h2><p>Remove onboarding, progress, practice, quest, private story, and collection data from this device.</p><IonButton color="danger" onClick={reset}>Reset local state</IonButton></IonCardContent></IonCard></main></IonContent></IonPage>}
+import { ModuleHeader, PageFrame } from '../components/AppChrome';
+
+export default function SettingsPage() {
+  const history = useHistory();
+  const reset = async () => { await clearStoredState(); history.replace('/onboarding'); };
+  return (
+    <IonPage>
+      <IonContent fullscreen>
+        <PageFrame active="home">
+          <ModuleHeader title="Settings" subtitle="Keep your learning space personal, local, and offline." tone="brown" icon={settingsOutline} />
+          <section className="module-content settings-content">
+            <article className="settings-status-card"><div className="settings-status-icon"><IonIcon icon={cloudOfflineOutline} /></div><div><p className="module-kicker">OFFLINE STATUS</p><h2>Ready to learn offline</h2><p>Lessons, practice state, quest score, collection state, and bundled assets are available without an account.</p><span className="settings-badge"><IonIcon icon={checkmarkCircleOutline} /> {storageInfo.nativeDatabase ? 'Native SQLite database' : 'Local web storage fallback'}</span></div></article>
+            <article className="settings-card"><div className="settings-card-title"><IonIcon icon={informationCircleOutline} /><h2>About SMART PAMANA</h2></div><p>Kultura ng Mindoro, Buhay sa Bawat Henerasyon.</p><p>Community-sensitive entries are marked until appropriate review and permission.</p></article>
+            <article className="settings-card"><div className="settings-card-title"><IonIcon icon={linkOutline} /><h2>Bundled visual assets</h2></div><div className="settings-list">{localAssets.map((asset) => <div className="settings-list-row" key={asset.id}><strong>{asset.id}</strong><span>{asset.purpose}</span><small>{asset.rights === 'provided_by_project_owner' ? 'Provided by project owner' : asset.attribution}</small></div>)}</div></article>
+            <article className="settings-card"><div className="settings-card-title"><IonIcon icon={linkOutline} /><h2>Content references</h2></div><div className="settings-list">{sources.map((source) => <div className="settings-list-row" key={source.id}><strong>{source.title}</strong><span>{source.publisher} · {source.status}</span><small>{source.use}</small><a href={source.url} target="_blank" rel="noreferrer">Open source reference</a></div>)}</div></article>
+            <article className="settings-card settings-danger"><div className="settings-card-title"><IonIcon icon={refreshOutline} /><h2>Reset local state</h2></div><p>Remove onboarding, progress, practice, quest, private story, and collection data from this device.</p><IonButton color="danger" fill="outline" onClick={reset}>Reset local state</IonButton></article>
+          </section>
+        </PageFrame>
+      </IonContent>
+    </IonPage>
+  );
+}

@@ -7,22 +7,16 @@ import {
   IonSegmentButton,
 } from '@ionic/react';
 import {
-  arrowBackOutline,
-  bookOutline,
   checkmarkCircleOutline,
   chevronBackOutline,
   chevronForwardOutline,
-  homeOutline,
-  mapOutline,
   pencilOutline,
   refreshOutline,
-  trophyOutline,
   volumeHighOutline,
 } from 'ionicons/icons';
-import { useHistory } from 'react-router-dom';
 import { useEffect, useRef, useState } from 'react';
 import type { PointerEvent as ReactPointerEvent } from 'react';
-import kaPamanaIcon from '../assets/reference/ka-pamana-icon.png';
+import { ModuleHeader, PageFrame } from '../components/AppChrome';
 import { hanunooCharacters } from '../data/hanunoo';
 import { removeStored, setStored } from '../services/storage';
 
@@ -124,7 +118,6 @@ function TracePad({ glyph, resetKey, onTrace }: TracePadProps) {
 }
 
 export default function WritingPage() {
-  const history = useHistory();
   const savedPractice = localStorage.getItem('pamana.writingPractice');
   const savedIndex = Number(localStorage.getItem('pamana.writing.index') || 0);
   const initialIndex = savedPractice === 'complete' ? practiceCharacters.length - 1 : clampIndex(savedIndex);
@@ -215,33 +208,8 @@ export default function WritingPage() {
   return (
     <IonPage>
       <IonContent fullscreen>
-        <main className="writing-page">
-          <section className="writing-hero">
-            <div className="writing-topbar">
-              <IonButton
-                className="writing-back-button"
-                fill="clear"
-                onClick={() => history.push('/home')}
-                aria-label="Back to home"
-              >
-                <IonIcon icon={arrowBackOutline} />
-              </IonButton>
-              <span>SMART PAMANA</span>
-              <button
-                type="button"
-                className="writing-avatar"
-                style={{ backgroundImage: `url(${kaPamanaIcon})` }}
-                onClick={() => history.push('/home')}
-                aria-label="Open Ka-Pamana home"
-              />
-            </div>
-            <div className="writing-hero-copy">
-              <p className="writing-kicker">SULAT PAMANA</p>
-              <h1>Indigenous Writing Systems</h1>
-              <p>Sulat. Tanda. Pamana. Para sa Mas Maliwanag na Kinabukasan.</p>
-            </div>
-          </section>
-
+        <PageFrame active="writing">
+          <ModuleHeader title="Sulat Pamana" subtitle="Practice indigenous writing systems through guided tracing and voice." icon={pencilOutline} />
           <section className="writing-body">
             <IonSegment
               className="writing-script-tabs"
@@ -357,24 +325,7 @@ export default function WritingPage() {
             )}
           </section>
 
-          <nav className="writing-bottom-nav" aria-label="Main navigation">
-            <IonButton fill="clear" onClick={() => history.push('/home')}>
-              <IonIcon icon={homeOutline} /><span>Home</span>
-            </IonButton>
-            <IonButton fill="clear" onClick={() => history.push('/learn')}>
-              <IonIcon icon={bookOutline} /><span>Matuto</span>
-            </IonButton>
-            <IonButton fill="clear" className="active">
-              <IonIcon icon={pencilOutline} /><span>Sulat</span>
-            </IonButton>
-            <IonButton fill="clear" onClick={() => history.push('/explore')}>
-              <IonIcon icon={mapOutline} /><span>Lakbay</span>
-            </IonButton>
-            <IonButton fill="clear" onClick={() => history.push('/quest')}>
-              <IonIcon icon={trophyOutline} /><span>Quest</span>
-            </IonButton>
-          </nav>
-        </main>
+        </PageFrame>
       </IonContent>
     </IonPage>
   );

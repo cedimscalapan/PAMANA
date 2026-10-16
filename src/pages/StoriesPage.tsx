@@ -1,11 +1,11 @@
-import { IonButton, IonCard, IonCardContent, IonContent, IonHeader, IonInput, IonItem, IonLabel, IonList, IonPage, IonTextarea, IonTitle, IonToolbar } from '@ionic/react';
-import { useHistory } from 'react-router-dom';
+import { IonButton, IonContent, IonIcon, IonInput, IonPage, IonTextarea } from '@ionic/react';
+import { cameraOutline, closeOutline, lockClosedOutline, playCircleOutline } from 'ionicons/icons';
 import { useState } from 'react';
 import { stories, Story } from '../data/content';
 import { setStored } from '../services/storage';
+import { ModuleHeader, PageFrame } from '../components/AppChrome';
 
 export default function StoriesPage() {
-  const history = useHistory();
   const [selected, setSelected] = useState<Story>();
   const [title, setTitle] = useState('');
   const [body, setBody] = useState('');
@@ -17,10 +17,24 @@ export default function StoriesPage() {
     void setStored('pamana.privateStory.body', body.trim());
     setSaved(true);
   };
-  return <IonPage><IonHeader><IonToolbar><IonButton slot="start" fill="clear" aria-label="Back to home" onClick={() => history.push('/home')}>‹</IonButton><IonTitle>Kuwento Pamana</IonTitle></IonToolbar></IonHeader><IonContent><main className="module-page">
-    <p className="lead">Read approved local stories and keep your own recordings private on this device.</p><p className="notice">Personal stories are private by default and are not automatically published or shared.</p>
-    <IonList>{stories.map((story) => <IonItem key={story.id}><IonLabel><span className="meta">{story.status === 'private_template' ? 'PRIVATE SPACE' : 'OFFLINE STORY'}</span><h2>{story.title}</h2><p>{story.summary}</p></IonLabel><IonButton slot="end" onClick={() => setSelected(story)}>Open</IonButton></IonItem>)}</IonList>
-    {selected?.id === 'story-private' && <IonCard className="list-card"><IonCardContent><IonButton fill="clear" onClick={() => setSelected(undefined)}>Close</IonButton><span className="meta">PRIVATE STORY · DEVICE ONLY</span><IonItem><IonInput label="Title" labelPlacement="stacked" value={title} onIonInput={(event) => setTitle(String(event.detail.value ?? ''))} /></IonItem><IonItem><IonTextarea label="Your memory" labelPlacement="stacked" autoGrow value={body} onIonInput={(event) => setBody(String(event.detail.value ?? ''))} /></IonItem><IonButton expand="block" onClick={saveStory} disabled={!title.trim() || !body.trim()}>{saved ? 'Saved locally' : 'Save private story'}</IonButton></IonCardContent></IonCard>}
-    {selected && selected.id !== 'story-private' && <IonCard className="list-card"><IonCardContent><IonButton fill="clear" onClick={() => setSelected(undefined)}>Close</IonButton><span className="meta">STORY PREVIEW</span><h2>{selected.title}</h2><p>{selected.summary} Content remains local until text, creator attribution, and permission records are approved.</p></IonCardContent></IonCard>}
-  </main></IonContent></IonPage>;
+
+  return (
+    <IonPage>
+      <IonContent fullscreen>
+        <PageFrame active="home">
+          <ModuleHeader title="Kuwento Pamana" subtitle="Listen, remember, and keep your own story safe offline." tone="purple" icon={cameraOutline} />
+          <section className="module-content stories-content">
+            <div className="module-intro-row"><div><p className="module-kicker">STORIES &amp; MEMORY</p><h2>Mga kuwentong ipinapasa</h2></div><span className="module-count">Offline</span></div>
+            <div className="notice stories-notice"><IonIcon icon={lockClosedOutline} /><span>Personal stories are private by default and remain on this device.</span></div>
+            <div className="story-list">
+              {stories.map((story) => <button type="button" className="story-row" key={story.id} onClick={() => setSelected(story)}><span className="story-row-icon"><IonIcon icon={story.id === 'story-private' ? lockClosedOutline : playCircleOutline} /></span><span><small>{story.status === 'private_template' ? 'PRIVATE SPACE' : 'OFFLINE STORY'}</small><strong>{story.title}</strong><em>{story.summary}</em></span><IonIcon icon={playCircleOutline} /></button>)}
+            </div>
+
+            {selected?.id === 'story-private' && <article className="detail-card story-editor"><div className="detail-card-topline"><span className="module-kicker">PRIVATE STORY · DEVICE ONLY</span><IonButton fill="clear" onClick={() => setSelected(undefined)} aria-label="Close editor"><IonIcon icon={closeOutline} /></IonButton></div><h2>Write your own memory</h2><div className="field-card"><IonInput label="Title" labelPlacement="stacked" placeholder="Give your memory a title" value={title} onIonInput={(event) => setTitle(String(event.detail.value ?? ''))} /><IonTextarea label="Your memory" labelPlacement="stacked" placeholder="What do you want to remember?" autoGrow value={body} onIonInput={(event) => setBody(String(event.detail.value ?? ''))} /></div><IonButton className="full-primary-button" expand="block" onClick={saveStory} disabled={!title.trim() || !body.trim()}>{saved ? 'Saved locally' : 'Save private story'}</IonButton></article>}
+            {selected && selected.id !== 'story-private' && <article className="detail-card"><div className="detail-card-topline"><span className="module-kicker">STORY PREVIEW</span><IonButton fill="clear" onClick={() => setSelected(undefined)} aria-label="Close story"><IonIcon icon={closeOutline} /></IonButton></div><h2>{selected.title}</h2><p>{selected.summary}</p><div className="notice">Content remains local until text, creator attribution, and permission records are approved.</div></article>}
+          </section>
+        </PageFrame>
+      </IonContent>
+    </IonPage>
+  );
 }

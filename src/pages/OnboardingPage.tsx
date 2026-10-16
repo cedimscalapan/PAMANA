@@ -1,7 +1,34 @@
-import { IonButton, IonContent, IonPage } from '@ionic/react';
+import { IonButton, IonContent, IonIcon, IonPage } from '@ionic/react';
+import { arrowForwardOutline, bookOutline, compassOutline, cloudOfflineOutline } from 'ionicons/icons';
 import { useHistory } from 'react-router-dom';
 import { useState } from 'react';
 import kaPamanaIcon from '../assets/reference/ka-pamana-icon.png';
 import { setStored } from '../services/storage';
-const slides=[['Discover Oriental Mindoro','Meet Pamana and explore the people, places, and living traditions of Mindoro.','✦'],['Learn our heritage','Build your knowledge through local lessons, writing practice, and stories.','⌁'],['Explore and play','Visit heritage places, answer quests, and earn badges as you learn.','★'],['Learn anywhere, anytime','Everything you need is stored on your device and works offline.','◌']];
-export default function OnboardingPage(){const history=useHistory();const [step,setStep]=useState(0);const start=()=>{void setStored('pamana.onboardingComplete','true');history.replace('/home')};return <IonPage><IonContent fullscreen><main className="module-page" style={{minHeight:'100vh',textAlign:'center',paddingTop:48}}><IonButton fill="clear" onClick={start} style={{float:'right'}}>Skip</IonButton><div className="mini-mascot" style={{position:'relative',margin:'50px auto 30px',right:'auto',bottom:'auto',backgroundImage:`url(${kaPamanaIcon})`}}/><p className="eyebrow">{step+1} / {slides.length} · YOUR CULTURAL LEARNING GUIDE</p><h1>{slides[step][0]}</h1><p className="lead">{slides[step][1]}</p><div style={{fontSize:30,margin:24}}>{slides[step][2]}</div><IonButton expand="block" onClick={()=>step<slides.length-1?setStep(step+1):start()}>{step===slides.length-1?'Get started':'Continue'} →</IonButton></main></IonContent></IonPage>}
+
+const slides = [
+  { title: 'Discover Oriental Mindoro', body: 'Meet Ka-Pamana and explore the people, places, and living traditions of Mindoro.', icon: compassOutline },
+  { title: 'Learn our heritage', body: 'Build your knowledge through short lessons, writing practice, and stories.', icon: bookOutline },
+  { title: 'Everything works offline', body: 'Your lessons, progress, and activities stay on your device so you can learn anywhere.', icon: cloudOfflineOutline },
+];
+
+export default function OnboardingPage() {
+  const history = useHistory();
+  const [step, setStep] = useState(0);
+  const slide = slides[step];
+  const start = () => { void setStored('pamana.onboardingComplete', 'true'); history.replace('/home'); };
+  return (
+    <IonPage>
+      <IonContent fullscreen>
+        <main className="onboarding-page">
+          <button type="button" className="onboarding-skip" onClick={start}>Skip</button>
+          <section className="onboarding-hero">
+            <p className="home-brand">SMART PAMANA</p>
+            <div className="onboarding-mascot" style={{ backgroundImage: `url(${kaPamanaIcon})` }} />
+            <span className="onboarding-spark onboarding-spark-one">✦</span><span className="onboarding-spark onboarding-spark-two">✦</span>
+          </section>
+          <section className="onboarding-copy"><p className="module-kicker">{step + 1} / {slides.length} · YOUR CULTURAL LEARNING GUIDE</p><h1>{slide.title}</h1><p>{slide.body}</p><div className="onboarding-slide-icon"><IonIcon icon={slide.icon} /></div><div className="onboarding-dots">{slides.map((item, index) => <button type="button" key={item.title} className={index === step ? 'active' : ''} onClick={() => setStep(index)} aria-label={`Go to slide ${index + 1}`} />)}</div><IonButton className="full-primary-button" expand="block" onClick={() => step < slides.length - 1 ? setStep(step + 1) : start()}>{step === slides.length - 1 ? 'Get started' : 'Continue'} <IonIcon icon={arrowForwardOutline} slot="end" /></IonButton></section>
+        </main>
+      </IonContent>
+    </IonPage>
+  );
+}
