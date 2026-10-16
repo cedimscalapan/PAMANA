@@ -32,6 +32,8 @@ jobs:
         run: npm run build
       - name: Add Android platform
         run: npx cap add android
+      - name: Generate Ka-Pamana launcher icon
+        run: npx capacitor-assets generate --android
       - name: Sync Capacitor
         run: npx cap sync android
       - name: Build debug APK
