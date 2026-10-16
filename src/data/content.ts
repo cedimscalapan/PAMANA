@@ -1,4 +1,4 @@
-import { officialFestivals, officialPlaces, officialSources } from './official-heritage';
+import { officialCatalogStats, officialFestivals, officialMunicipalities, officialPlaces, officialSources, travelPlanningNotes } from './official-heritage';
 import type { OfficialFestival } from './official-heritage';
 
 export type SourceStatus = 'reviewed' | 'awaiting_review';
@@ -121,6 +121,7 @@ export const places: Place[] = [
 ];
 
 export const festivals: OfficialFestival[] = officialFestivals;
+export { officialCatalogStats, officialMunicipalities, travelPlanningNotes };
 
 export const stories: Story[] = [
   { id: 'story-review', title: 'A story awaiting community review', summary: 'A private offline entry reserved for approved community content.', status: 'awaiting_review', sourceIds: [] },

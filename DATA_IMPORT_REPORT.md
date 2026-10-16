@@ -11,6 +11,7 @@ This import adds a small, source-linked offline learning layer. It does not mirr
 - Public historical/cultural place names from the Travel Oriental Mindoro directory.
 - Three featured Bulalacao destinations shown by the tourism portal.
 - The 18 annual festival names, municipalities, and calendar dates shown by the official festival directory.
+- A labelled directory snapshot for the province, municipalities, selected tourism categories, and approximate travel-planning notes.
 - Selected public descriptions for Mangyan Villages, the Oriental Mindoro Heritage and Cultural Center, Kapakyanan Festival, Kaaldawan-Iraya Festival, Mangyan Festival, Pandang Gitab, and Fiesta MAHAL TANA.
 - Source-linked lessons and quest questions that teach learners to verify current access and event details.
 

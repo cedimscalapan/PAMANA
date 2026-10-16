@@ -4,6 +4,7 @@
 | --- | --- | --- | --- |
 | Travel Oriental Mindoro public place names | Curated Lakbay place cards | Source checked | Keep attribution, source URL, and verification date. |
 | Travel Oriental Mindoro festival calendar | Offline festival learning cards and quests | Source checked / dynamic | Recheck dates and programs before each content release. |
+| Travel Oriental Mindoro directory counts and municipality list | Labelled offline directory snapshot | Source checked / dynamic | Present as a dated snapshot, not a live guarantee. |
 | Travel Oriental Mindoro user reviews, photos, check-ins, and accounts | Not imported | Excluded | Do not copy or process without a separate rights and privacy agreement. |
 | Travel Oriental Mindoro travel schedules and advisories | Not bundled as authoritative data | Dynamic | Add only through a maintained official feed or refresh workflow. |
 | Mangyan Heritage Center institutional context | Source-linked review notes | Review pending | Request permission for any expanded reproduction or partnership content. |

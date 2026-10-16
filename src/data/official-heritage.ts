@@ -37,6 +37,20 @@ export type OfficialFestival = {
   detailUrl?: string;
 };
 
+export type OfficialCatalogStat = {
+  id: string;
+  label: string;
+  count: number;
+  sourceIds: string[];
+};
+
+export type TravelPlanningNote = {
+  id: string;
+  label: string;
+  value: string;
+  sourceIds: string[];
+};
+
 export const officialSources: OfficialSource[] = [
   {
     id: 'mhc-home',
@@ -246,4 +260,32 @@ export const communityReviewQueue = [
     status: 'permission_required' as const,
     sourceIds: ['mhc-crafts', 'mhc-projects'],
   },
+];
+
+/**
+ * Directory snapshot from the official portal. Counts are intentionally
+ * labelled as a snapshot because the portal's listings can change.
+ */
+export const officialCatalogStats: OfficialCatalogStat[] = [
+  { id: 'catalog-places', label: 'Listed places', count: 698, sourceIds: ['lakbay-home'] },
+  { id: 'catalog-municipalities', label: 'Towns and one city', count: 15, sourceIds: ['lakbay-home'] },
+  { id: 'catalog-cultural', label: 'Historical & cultural sites', count: 14, sourceIds: ['lakbay-cultural'] },
+  { id: 'catalog-festivals', label: 'Annual festivals', count: 18, sourceIds: ['lakbay-festivals'] },
+  { id: 'catalog-beaches', label: 'Beaches & islands', count: 57, sourceIds: ['lakbay-home'] },
+  { id: 'catalog-waterfalls', label: 'Waterfalls & springs', count: 41, sourceIds: ['lakbay-home'] },
+  { id: 'catalog-parks', label: 'Parks & nature reserves', count: 11, sourceIds: ['lakbay-home'] },
+  { id: 'catalog-accommodation', label: 'Hotels & resorts', count: 278, sourceIds: ['lakbay-home'] },
+  { id: 'catalog-restaurants', label: 'Restaurants', count: 156, sourceIds: ['lakbay-home'] },
+];
+
+export const officialMunicipalities = [
+  'Baco', 'Bansud', 'Bongabong', 'Bulalacao', 'Calapan City', 'Gloria', 'Mansalay',
+  'Naujan', 'Pinamalayan', 'Pola', 'Puerto Galera', 'Roxas', 'San Teodoro', 'Socorro', 'Victoria',
+];
+
+export const travelPlanningNotes: TravelPlanningNote[] = [
+  { id: 'manila-batangas', label: 'Manila to Batangas Port', value: 'About 2–3 hours by bus or car', sourceIds: ['lakbay-how-to-get-here'] },
+  { id: 'batangas-puerto-galera', label: 'Batangas to Puerto Galera', value: 'About 1–1.5 hours by ferry or fastcraft', sourceIds: ['lakbay-how-to-get-here'] },
+  { id: 'batangas-calapan', label: 'Batangas to Calapan', value: 'About 2–3 hours by RoRo ferry', sourceIds: ['lakbay-how-to-get-here'] },
+  { id: 'getting-around', label: 'Getting around', value: 'Jeepneys, vans, tricycles, motorcycles, cars, and boats are listed options', sourceIds: ['lakbay-how-to-get-here'] },
 ];
