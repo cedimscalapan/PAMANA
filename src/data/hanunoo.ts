@@ -15,12 +15,13 @@ export type HanunooCharacter = {
   unicodeName: string;
   category: HanunooCategory;
   reading?: string;
+  voiceGuide: string;
   note: string;
 };
 
 const character = (codePoint: string, unicodeName: string, category: HanunooCategory, reading: string | undefined, note: string, combining = false): HanunooCharacter => {
   const glyph = String.fromCodePoint(Number.parseInt(codePoint, 16));
-  return { codePoint: `U+${codePoint}`, glyph, displayGlyph: combining ? `◌${glyph}` : glyph, unicodeName, category, reading, note };
+  return { codePoint: `U+${codePoint}`, glyph, displayGlyph: combining ? `◌${glyph}` : glyph, unicodeName, category, reading, voiceGuide: reading ?? 'silent mark', note };
 };
 
 export const hanunooIndependentVowels: HanunooCharacter[] = [
@@ -47,7 +48,16 @@ const consonantDefinitions: Array<[string, string, string]> = [
   ['1731', 'HANUNOO LETTER HA', 'h'],
 ];
 
-export const hanunooConsonants: HanunooCharacter[] = consonantDefinitions.map(([codePoint, unicodeName, reading]) => character(codePoint, unicodeName, 'consonant', reading, 'Consonant with an inherent a vowel.'));
+const consonantVoiceGuides: Record<string, string> = {
+  'U+1723': 'ka', 'U+1724': 'ga', 'U+1725': 'nga', 'U+1726': 'ta', 'U+1727': 'da',
+  'U+1728': 'na', 'U+1729': 'pa', 'U+172A': 'ba', 'U+172B': 'ma', 'U+172C': 'ya',
+  'U+172D': 'ra', 'U+172E': 'la', 'U+172F': 'wa', 'U+1730': 'sa', 'U+1731': 'ha',
+};
+
+export const hanunooConsonants: HanunooCharacter[] = consonantDefinitions.map(([codePoint, unicodeName, reading]) => {
+  const item = character(codePoint, unicodeName, 'consonant', reading, 'Consonant with an inherent a vowel.');
+  return { ...item, voiceGuide: consonantVoiceGuides[item.codePoint] };
+});
 
 export const hanunooVowelSigns: HanunooCharacter[] = [
   character('1732', 'HANUNOO VOWEL SIGN I', 'vowel_sign', 'i or e', 'Combining mark placed above the base consonant.', true),

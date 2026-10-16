@@ -85,3 +85,63 @@ ion-button { --border-radius: 14px; text-transform: none; font-weight: 700; }
 @media (min-width: 700px) {
   .home, .module-page { max-width: 720px; margin: 0 auto; }
 }
+
+/* Sulat Pamana guided practice */
+.writing-page { min-height: 100%; padding-bottom: 82px; background: var(--cream); color: var(--ink); }
+.writing-hero { padding: 16px 18px 24px; background: linear-gradient(150deg, #1f573f 0%, #2f7657 72%, #3b8062 100%); color: #fffdf7; border-radius: 0 0 30px 30px; box-shadow: 0 8px 24px rgba(38, 74, 54, .18); }
+.writing-topbar { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.writing-topbar > span { font-size: 11px; font-weight: 800; letter-spacing: 1.8px; opacity: .9; }
+.writing-back-button { --color: #fffdf7; --padding-start: 0; --padding-end: 0; margin: 0; font-size: 22px; }
+.writing-avatar { width: 44px; height: 44px; border: 3px solid rgba(255, 253, 247, .88); border-radius: 50%; background-color: #e6c184; background-position: center; background-size: cover; background-repeat: no-repeat; box-shadow: 0 4px 10px rgba(0,0,0,.16); cursor: pointer; }
+.writing-hero-copy { padding: 26px 4px 0; }
+.writing-kicker { margin: 0 0 7px; color: #f3d58e; font-size: 11px; font-weight: 900; letter-spacing: 2px; }
+.writing-hero h1 { margin: 0; max-width: 300px; color: #fffdf7; font: 700 30px/1.08 var(--heading); }
+.writing-hero-copy > p:last-child { margin: 12px 0 0; max-width: 330px; color: rgba(255, 253, 247, .82); font-size: 13px; line-height: 1.45; }
+.writing-body { max-width: 720px; margin: 0 auto; padding: 18px 18px 0; }
+.writing-script-tabs { --background: #f5ead9; --indicator-color: var(--terracotta); --color: #735b48; --color-checked: #fffdf7; border-radius: 18px; padding: 4px; box-shadow: inset 0 0 0 1px #eadfce; }
+.writing-script-tabs ion-segment-button { --color: #735b48; --color-checked: #fffdf7; --indicator-color: var(--terracotta); min-height: 42px; font-size: 12px; font-weight: 800; text-transform: none; }
+.writing-progress { margin: 20px 2px 13px; }
+.writing-progress > div:first-child { display: flex; justify-content: space-between; align-items: center; color: var(--green); font-size: 10px; font-weight: 900; letter-spacing: 1.1px; }
+.writing-progress > div:first-child strong { color: var(--terracotta); font-size: 12px; letter-spacing: 0; }
+.writing-progress-line { height: 7px; margin-top: 8px; overflow: hidden; border-radius: 8px; background: #e4d8c6; }
+.writing-progress-line span { display: block; height: 100%; border-radius: inherit; background: linear-gradient(90deg, #d49b32, #b96742); transition: width .25s ease; }
+.writing-reference { padding: 17px; margin-bottom: 14px; text-align: center; }
+.writing-reference-top, .trace-card-heading { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+.writing-step-buttons { display: flex; gap: 0; margin: -9px -9px 0 0; }
+.writing-step-buttons ion-button { --color: var(--green); --padding-start: 5px; --padding-end: 5px; margin: 0; font-size: 17px; }
+.writing-reference-glyph { min-height: 170px; display: grid; place-items: center; margin: 4px 0 4px; color: var(--brown); font-size: 128px; line-height: 1; }
+.writing-reference h2 { margin: 0; color: var(--brown); font: 700 22px var(--heading); }
+.writing-reference > p { max-width: 330px; margin: 7px auto 14px; color: var(--muted); font-size: 11px; line-height: 1.45; }
+.voice-button { --border-color: #e1c9a7; --color: var(--brown); --border-radius: 16px; margin: 0 auto; font-size: 12px; font-weight: 800; }
+.voice-button span { margin-left: 3px; color: var(--muted); font-size: 10px; font-weight: 500; }
+.voice-message { display: block; margin-top: 8px; color: var(--green); font-size: 11px; }
+.trace-card { padding: 17px; margin-bottom: 14px; }
+.trace-card-heading h2 { margin: 4px 0 0; color: var(--brown); font: 700 21px var(--heading); }
+.trace-number { padding: 7px 10px; border-radius: 12px; background: #f6e4c3; color: var(--brown); font-size: 11px; font-weight: 900; }
+.trace-pad-wrap { position: relative; margin: 15px 0 12px; border: 2px dashed #d8c8b0; border-radius: 19px; background: #fffdf7; overflow: hidden; touch-action: none; }
+.trace-pad-canvas { display: block; width: 100%; height: auto; min-height: 190px; cursor: crosshair; touch-action: none; }
+.trace-pad-hint { position: absolute; bottom: 10px; left: 0; right: 0; color: #ae9c85; text-align: center; font-size: 10px; pointer-events: none; }
+.writing-actions { display: grid; grid-template-columns: .85fr 1.45fr; gap: 9px; }
+.writing-actions ion-button { --border-radius: 15px; margin: 0; min-height: 45px; font-size: 12px; font-weight: 800; }
+.writing-actions ion-button:first-child { --border-color: #dfccb0; --color: var(--brown); }
+.primary-writing-action { --background: var(--green); --background-activated: #194732; --color: #fffdf7; }
+.success-banner { display: flex; align-items: center; gap: 14px; padding: 18px; margin: 15px 0; border: 1px solid #cfe7d0; border-radius: 20px; background: linear-gradient(135deg, #e9f7e7, #fff9e8); box-shadow: 0 7px 20px rgba(62, 119, 72, .08); }
+.success-icon { flex: 0 0 54px; display: grid; place-items: center; width: 54px; height: 54px; border-radius: 50%; background: #86c861; color: #fff; font-size: 39px; box-shadow: 0 0 0 8px rgba(134, 200, 97, .16); }
+.success-banner h2 { margin: 3px 0 3px; color: var(--green); font: 700 22px var(--heading); }
+.success-banner p { margin: 0; color: var(--muted); font-size: 11px; line-height: 1.4; }
+.writing-source-note { padding: 0 4px 8px; color: var(--muted); font-size: 10px; line-height: 1.5; }
+.buhid-gate { margin-top: 20px; padding: 22px 18px; }
+.buhid-gate h2 { margin: 5px 0 8px; color: var(--brown); font: 700 22px var(--heading); }
+.buhid-gate p { margin: 0 0 18px; color: var(--muted); font-size: 13px; line-height: 1.5; }
+.buhid-gate ion-button { --border-color: #d8c4a4; --color: var(--brown); --border-radius: 15px; margin: 0; font-size: 12px; font-weight: 800; }
+.writing-bottom-nav { position: fixed; right: 0; bottom: 0; left: 0; z-index: 5; display: flex; justify-content: space-around; padding: 6px 4px max(7px, env(safe-area-inset-bottom)); border-top: 1px solid #eadfce; background: rgba(255, 253, 247, .97); box-shadow: 0 -5px 18px rgba(93, 65, 40, .06); }
+.writing-bottom-nav ion-button { --color: #968d80; --padding-start: 8px; --padding-end: 8px; min-width: 54px; margin: 0; font-size: 10px; }
+.writing-bottom-nav ion-button ion-icon { display: block; margin: 0 auto 3px; font-size: 20px; }
+.writing-bottom-nav ion-button span { display: block; }
+.writing-bottom-nav ion-button.active { --color: var(--green); font-weight: 800; }
+
+@media (min-width: 700px) {
+  .writing-page { max-width: 720px; margin: 0 auto; }
+  .writing-hero { border-radius: 0 0 34px 34px; }
+  .writing-bottom-nav { max-width: 720px; right: auto; left: 50%; width: 100%; transform: translateX(-50%); }
+}
