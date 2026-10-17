@@ -42,3 +42,5 @@
 .pamana-stamp-grid article.locked{opacity:.72}.pamana-family-prompts{margin:15px 0;padding:14px;border:1px solid #d7cdbb;border-radius:16px;background:var(--pamana-panel,#fffdf8)}
 .pamana-family-prompts summary{font-weight:750;color:var(--brown);cursor:pointer}.pamana-family-prompts p{font-size:13px;color:var(--muted)}
 .pamana-family-prompts>div{display:flex;flex-wrap:wrap;gap:8px}.pamana-family-prompts button{padding:9px 12px;border:1px solid #b6ab96;border-radius:12px;background:var(--pamana-input,#fff);color:var(--ink);text-align:left;cursor:pointer}
+
+.pamana-avatar-emoji{font-size:29px;display:grid;place-items:center;width:100%;height:100%}
