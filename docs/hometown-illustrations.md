@@ -1,28 +1,18 @@
-# SMART PAMANA — Actual Generated Hometown Artwork
+# SMART PAMANA — Image-free hometown personalization
 
-The app uses the **previously AI-generated 15-hometown concept illustrations** for the theme previews, personalized homepage banner, and Lakbay discovery cards.
+The previously generated 15-panel illustration sprite was removed from the application after feedback that the images were blurry and hard to read. The old low-resolution SVG theme scenes are also retired.
 
-## Source and format
+## Current design
 
-- The artwork comes from the generated Oriental Mindoro 3 × 5 concept panel illustrated earlier.
-- Scenic sections are cropped to remove embedded text and color samples, then bundled as one optimized `generated-hometown-sprite.avif`.
-- `src/components/HometownScene.tsx` displays one crop per locality using the 5-column, 3-row sprite positions.
-- The original lightweight SVG hometown scenes remain as **fallbacks** if AVIF decoding is not supported.
-- Alternative Calapan festival color themes reuse the same Calapan artwork. All festival theme colors remain selectable independently of hometown.
+- Every hometown and festival theme uses a **resolution-independent, CSS-drawn decorative motif**, plus a crisp emoji symbol and locally defined color palette.
+- The municipality name and festival name remain real accessible text, never embedded inside a picture.
+- The visual tokens are in `src/data/festival-artwork.ts`, based on the existing curated `festival-themes.ts` registry.
+- These appear in the profile theme picker, first-run onboarding, the home hometown banner and Lakbay.
+- Hometown and theme remain independent settings. Calapan's additional festival variants remain available.
+- All decorations work offline without introducing new image libraries or extra permissions.
 
-## Where they appear
+**Important:** Festival-inspired palettes are original UI designs, not official logos, community-approved cultural motifs or photographs of heritage locations. Original licensed heritage photographs in Matuto and Lakbay are unaffected.
 
-1. Profile theme selection and editing.
-2. Onboarding festival-theme selection.
-3. Hometown banner on Home.
-4. The 15-town illustrated gallery in Lakbay.
+## Interface improvements
 
-## Source quality and trade-offs
-
-The bundled sheet is optimized for offline storage and app bundle size, so the illustrated previews are smaller than the downloadable original high-resolution artwork. Use the separate generated image pack for full-size visual assets if higher fidelity is desired.
-
-These are creative AI illustrations **not verified photographs, official municipal branding, or approved representations of Indigenous heritage**. The existing sourced heritage lessons and photo credits remain separate and authoritative.
-
-## Testing
-
-`src/data/festival-artwork.test.ts` checks that all fifteen localities have distinct sprite positions and that unknown hometowns preserve the fallback image.
+See `src/theme/pamana-refresh.css` and the new More page. The layout preserves every existing learning, writing, memory, map, quiz and collection feature while unifying typography, navigation, card components and responsive spacing.
