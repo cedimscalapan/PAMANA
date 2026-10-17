@@ -17,6 +17,7 @@ import CulturalFactCard from '../components/CulturalFactCard';
 import { photoForLesson } from '../data/gallery';
 import { readProfile } from '../services/personalization';
 import { resolveTheme } from '../data/festival-themes';
+import { artworkForTheme } from '../data/festival-artwork';
 import { officialFestivals } from '../data/official-heritage';
 
 const modules = [
@@ -60,7 +61,7 @@ export default function HomePage() {
             >{profile.avatar === 'mascot' ? null : <span className="pamana-avatar-emoji" aria-hidden="true">{({leaf:'🌿',star:'✨',book:'📚',art:'🎨'} as Record<string,string>)[profile.avatar]}</span>}</button>
           </header>
 
-          <section className="pamana-home-highlight"><div><p>MY HERITAGE JOURNEY</p><h2>{profile.hometown || "Discover Oriental Mindoro"}</h2><p>{hometownFestival?.name || theme.name} · {theme.motif}</p><button type="button" onClick={() => history.push(hometownFestival ? "/explore?festival=" + hometownFestival.id : "/profile")}>{hometownFestival ? "Discover my festival" : "Edit my profile"}</button></div><span aria-hidden="true">{theme.emoji}</span></section>
+          <section className="pamana-home-highlight"><img className="pamana-home-art" src={artworkForTheme(theme)} alt="" aria-hidden="true" /><div className="pamana-home-caption"><p>MY HERITAGE JOURNEY</p><h2>{profile.hometown || "Discover Oriental Mindoro"}</h2><p>{hometownFestival?.name || theme.name} · {theme.motif}</p><button type="button" onClick={() => history.push(hometownFestival ? "/explore?festival=" + hometownFestival.id : "/profile")}>{hometownFestival ? "Discover my festival" : "Edit my profile"}</button></div><span className="pamana-hero-token" aria-hidden="true">{theme.emoji}</span></section>
           <section className="home-hero-card">
             <div className="home-hero-copy">
               <p className="home-hero-kicker">TUKLASIN · PAGYAMANIN · IPAGPATULOY</p>
