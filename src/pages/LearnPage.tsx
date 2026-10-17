@@ -10,6 +10,8 @@ import { photoForLesson } from '../data/gallery';
 import { MediaFigure } from '../components/MediaFigure';
 import { storageKey } from '../data/content';
 import { setStored } from '../services/storage';
+import { learningStages,getReadingPlan,type LearningStage } from '../data/learning-levels';
+import { readProfile,saveProfile } from '../services/personalization';
 
 export default function LearnPage() {
   const history = useHistory();
@@ -19,6 +21,7 @@ export default function LearnPage() {
   const content = useRef<HTMLIonContentElement>(null);
   const browseScroll = useRef(0);
   const [category, setCategory] = useState('All');
+  const [stage,setStage] = useState<LearningStage>(()=>readProfile().learningStage);
   const [query, setQuery] = useState('');
   const [answer, setAnswer] = useState<number>();
   const [reflection, setReflection] = useState('');
@@ -42,6 +45,7 @@ export default function LearnPage() {
   };
   const article = selected && lessonArticles[selected.id];
   const photo = selected && photoForLesson(selected.id);
+  const plan = article && getReadingPlan(stage,article.sections.length,article.terms.length);
   return <IonPage><IonContent ref={content} scrollEvents onIonScroll={event => { if (!selected) browseScroll.current = event.detail.scrollTop; }}><PageFrame active="learn">
     {!selected ? <>
       <HeritageHero eyebrow="A little curiosity. A deeper connection." title="Matuto" description="Get to know the places, people, and living heritage of Oriental Mindoro." />
@@ -62,13 +66,15 @@ export default function LearnPage() {
       </section>
     </> : <article className="heritage-body reading-page">
       <DetailBack onBack={back} label="All lessons" /><span className="eyebrow">{selected.category} · {readingMinutes(selected.id)} MIN READ</span><h1>{selected.title}</h1><p className="reading-lead">{selected.summary}</p>
+      <div className="pamana-reader-control"><label htmlFor="pamana-reading-mode">Reading experience</label><select id="pamana-reading-mode" value={stage} onChange={e=>{const next=e.target.value as LearningStage;setStage(next);void saveProfile({learningStage:next}).catch(()=>setError("Your reading setting could not be saved."));}}>{learningStages.map(s=><option key={s.id} value={s.id}>{s.name}</option>)}</select></div>
+      <p className="quiet-note">Reading modes display selected original, source-backed sections. The facts are not automatically rewritten.</p>
       {photo && <MediaFigure image={photo} />}
-      {article && <><aside className="learning-objective"><span className="eyebrow">BY THE END OF THIS LESSON</span><p>{article.objective}</p></aside><nav className="article-outline" aria-label="Lesson sections">{article.sections.map((section, index) => <a key={section.heading} href={`#lesson-section-${index}`} onClick={event => { event.preventDefault(); document.getElementById(`lesson-section-${index}`)?.scrollIntoView({ behavior: 'smooth', block: 'start' }); }}>{String(index + 1).padStart(2, '0')} {section.heading}</a>)}</nav>
-      {article.sections.map((section, index) => <section className="article-section" id={`lesson-section-${index}`} key={section.heading}><span className="section-number">{String(index + 1).padStart(2, '0')}</span><h2>{section.heading}</h2><p>{section.text}</p></section>)}
-      <section className="key-terms"><h2>Words to keep</h2><dl>{article.terms.map(([term, definition]) => <div key={term}><dt>{term}</dt><dd>{definition}</dd></div>)}</dl></section></>}
+      {article && <><aside className="learning-objective"><span className="eyebrow">BY THE END OF THIS LESSON</span><p>{article.objective}</p></aside><nav className="article-outline" aria-label="Lesson sections">{article.sections.slice(0,plan?.sections ?? article.sections.length).map((section, index) => <a key={section.heading} href={`#lesson-section-${index}`} onClick={event => { event.preventDefault(); document.getElementById(`lesson-section-${index}`)?.scrollIntoView({ behavior: 'smooth', block: 'start' }); }}>{String(index + 1).padStart(2, '0')} {section.heading}</a>)}</nav>
+      {article.sections.slice(0,plan?.sections ?? article.sections.length).map((section, index) => <section className="article-section" id={`lesson-section-${index}`} key={section.heading}><span className="section-number">{String(index + 1).padStart(2, '0')}</span><h2>{section.heading}</h2><p>{section.text}</p></section>)}
+      <section className="key-terms"><h2>Words to keep</h2><dl>{article.terms.slice(0,plan?.terms ?? article.terms.length).map(([term, definition]) => <div key={term}><dt>{term}</dt><dd>{definition}</dd></div>)}</dl></section></>}
       <section className="lesson-recap"><span className="eyebrow">TAKE IT WITH YOU</span><h2>The key ideas</h2><ul>{selected.points.map(point => <li key={point}>{point}</li>)}</ul></section>
       <section className="knowledge-check"><span className="eyebrow">CHECK YOUR UNDERSTANDING</span><h2>{selected.quiz.prompt}</h2><div className="quiz-options">{selected.quiz.answers.map((option, index) => <button type="button" key={option} className={`quiz-option ${answer === index ? 'selected' : ''} ${answer !== undefined && index === selected.quiz.correctIndex ? 'correct' : ''}`} onClick={() => setAnswer(index)} aria-pressed={answer === index}><span>{String.fromCharCode(65 + index)}</span>{option}</button>)}</div>{answer !== undefined && <div role="status" className={`feedback ${answer === selected.quiz.correctIndex ? 'success' : ''}`}><strong>{answer === selected.quiz.correctIndex ? 'Tama! You’ve got it.' : 'Let’s look at that again.'}</strong><p>{selected.quiz.explanation}</p></div>}</section>
-      {article && <section className="reflection-box"><h2>Make the connection</h2><p>{article.reflection}</p><label>Your reflection <span>Optional · private on this device</span><textarea value={reflection} onChange={event => setReflection(event.target.value)} placeholder="What stood out to you?" /></label><button className="secondary-action" onClick={async () => { try { await setStored(`pamana.reflection.${selected.id}`, reflection); setError('Reflection saved on this device.'); } catch { setError('Your reflection could not be saved. Try again.'); } }}>Save reflection</button></section>}
+      {article && plan?.showReflection && <section className="reflection-box"><h2>Make the connection</h2><p>{article.reflection}</p><label>Your reflection <span>Optional · private on this device</span><textarea value={reflection} onChange={event => setReflection(event.target.value)} placeholder="What stood out to you?" /></label><button className="secondary-action" onClick={async () => { try { await setStored(`pamana.reflection.${selected.id}`, reflection); setError('Reflection saved on this device.'); } catch { setError('Your reflection could not be saved. Try again.'); } }}>Save reflection</button></section>}
       <SourceNotes ids={selected.sourceIds} />{error && <p role="status" className="inline-status">{error}</p>}
       <button type="button" className="primary-action wide" onClick={finish}><IonIcon icon={checkmarkCircleOutline} />{progress[selected.id] ? 'Reading complete' : 'Mark reading complete'}</button><p className="quiet-note">Reading progress is separate from your practice answers.</p>
       <div className="related-links"><Link to="/explore">Explore the places <IonIcon icon={arrowForwardOutline} /></Link>{selected.category === 'Writing & Language' && <Link to="/writing">Practice in Sulat <IonIcon icon={arrowForwardOutline} /></Link>}<Link to="/quest">Try a Quest <IonIcon icon={arrowForwardOutline} /></Link></div>
