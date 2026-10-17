@@ -4,7 +4,7 @@ import {useState} from 'react';
 import mascot from '../assets/reference/ka-pamana-icon.png';
 import {festivalThemes,municipalities,themeForHometown} from '../data/festival-themes';
 import {learningStages} from '../data/learning-levels';
-import { artworkForTheme } from '../data/festival-artwork';
+import HometownScene from '../components/HometownScene';
 import {defaultProfile,nextHometownProfile,type AvatarId,type LocalProfile} from '../data/personalization';
 import {readProfile,saveProfile} from '../services/personalization';
 import {setStored} from '../services/storage';
@@ -23,7 +23,7 @@ export default function OnboardingPage(){
     {step===1&&<><p>No real name or account needed. Choose a nickname and avatar.</p><label>Nickname<input maxLength={32} value={draft.nickname} onChange={e=>update({nickname:e.target.value})}/></label><div className="pamana-avatar-grid">{avatars.map(([id,emoji])=><button type="button" key={id} aria-pressed={draft.avatar===id} onClick={()=>update({avatar:id})}>{emoji} {id}</button>)}</div></>}
     {step===2&&<><p>Pick your hometown to see related festival and heritage discoveries. This is optional.</p><label>My hometown<select value={draft.hometown} onChange={e=>setDraft(old=>nextHometownProfile(old,e.target.value))}><option value="">Prefer not to say</option>{municipalities.map(t=><option key={t}>{t}</option>)}</select></label></>}
     {step===3&&<><p>Everyone can choose any reading experience at any age.</p><div className="pamana-level-grid">{learningStages.map(s=><button type="button" key={s.id} aria-pressed={draft.learningStage===s.id} onClick={()=>update({learningStage:s.id})}><strong>{s.name}</strong><small>{s.detail}</small></button>)}</div></>}
-    {step===4&&<><p>Suggested for your hometown: {themeForHometown(draft.hometown).name}. Original palettes, not official festival designs.</p><div className="pamana-theme-grid">{festivalThemes.map(t=><button type="button" key={t.id} aria-pressed={draft.themeId===t.id} style={{background:t.canvas,color:'#25251f',borderColor:draft.themeId===t.id?t.primary:'transparent'}} onClick={()=>update({themeId:t.id})}><img className="pamana-theme-art" src={artworkForTheme(t)} alt="" loading="lazy"/><strong>{t.name}</strong></button>)}</div></>}
+    {step===4&&<><p>Suggested for your hometown: {themeForHometown(draft.hometown).name}. Original palettes, not official festival designs.</p><div className="pamana-theme-grid">{festivalThemes.map(t=><button type="button" key={t.id} aria-pressed={draft.themeId===t.id} style={{background:t.canvas,color:'#25251f',borderColor:draft.themeId===t.id?t.primary:'transparent'}} onClick={()=>update({themeId:t.id})}><HometownScene className="pamana-theme-art" hometown={t.municipality}/><strong>{t.name}</strong></button>)}</div></>}
     {step===5&&<><p>Welcome, <strong>{draft.nickname||'Ka-Pamana'}</strong>!</p><p>{draft.hometown||'Oriental Mindoro'} · {learningStages.find(s=>s.id===draft.learningStage)?.name} · {festivalThemes.find(t=>t.id===draft.themeId)?.name}</p><p>Your profile stays on this device and can be edited in Aking Pamana.</p></>}
     <div className="pamana-steps"><IonButton fill="clear" disabled={busy} onClick={()=>step===0?void finish():setStep(n=>n-1)}>{step===0?'Skip setup':'Back'}</IonButton><IonButton disabled={busy} onClick={()=>step<steps.length-1?setStep(n=>n+1):void finish()}>{busy?'Saving…':step===steps.length-1?'Start exploring':'Continue'}</IonButton></div>
     {error&&<p role="alert">{error}</p>}

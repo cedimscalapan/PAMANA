@@ -4,7 +4,7 @@ import {personCircleOutline} from 'ionicons/icons';
 import {PageFrame,ModuleHeader} from '../components/AppChrome';
 import {festivalThemes,municipalities,themeForHometown} from '../data/festival-themes';
 import {learningStages} from '../data/learning-levels';
-import { artworkForTheme } from '../data/festival-artwork';
+import HometownScene from '../components/HometownScene';
 import {type LocalProfile,nextHometownProfile} from '../data/personalization';
 import {readProfile,saveProfile} from '../services/personalization';
 const avatars=[['mascot','🌟'],['leaf','🌿'],['star','✨'],['book','📚'],['art','🎨']] as const;
@@ -26,7 +26,7 @@ export default function ProfilePage(){
    </section>
    <section className="pamana-panel"><h2>My festival theme</h2><p>Original color palettes inspired by festivals, not official festival branding. Choose any theme.</p>
     <p>Hometown suggestion: {themeForHometown(profile.hometown).name}</p>
-    <div className="pamana-theme-grid">{festivalThemes.map(t=><button key={t.id} type="button" aria-pressed={profile.themeId===t.id} style={{background:t.canvas,color:'#25251F',borderColor:profile.themeId===t.id?t.primary:'transparent'}} onClick={()=>update({themeId:t.id})}><img className="pamana-theme-art" src={artworkForTheme(t)} alt="" loading="lazy"/><strong>{t.name}</strong><small>{t.municipality||'Classic PAMANA'}</small></button>)}</div>
+    <div className="pamana-theme-grid">{festivalThemes.map(t=><button key={t.id} type="button" aria-pressed={profile.themeId===t.id} style={{background:t.canvas,color:'#25251F',borderColor:profile.themeId===t.id?t.primary:'transparent'}} onClick={()=>update({themeId:t.id})}><HometownScene className="pamana-theme-art" hometown={t.municipality}/><strong>{t.name}</strong><small>{t.municipality||'Classic PAMANA'}</small></button>)}</div>
     <label>Favorite festival<select value={profile.favoriteFestivalId} onChange={e=>update({favoriteFestivalId:e.target.value})}><option value="">No preference</option>{festivalThemes.filter(t=>t.municipality).map(t=><option value={t.id} key={t.id}>{t.name} — {t.municipality}</option>)}</select></label>
    </section>
    <section className="pamana-panel"><h2>Learning experience</h2><p>Any learner can use any reading level, at any age.</p>

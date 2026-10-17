@@ -67,3 +67,14 @@
 .pamana-hometown-artcard[aria-pressed=true]{border-color:var(--pamana-theme-primary,#245a43);box-shadow:0 0 0 1px var(--pamana-theme-primary,#245a43)}
 .pamana-hometown-artcard:focus-visible{outline:3px solid #a76f28;outline-offset:3px}
 @media(max-width:450px){.pamana-home-caption{max-width:85%}.pamana-hero-token{width:43px;height:43px;font-size:28px!important}.pamana-hometown-artcard{width:148px;min-width:148px;flex-basis:148px}}
+
+
+/* Actual previously generated hometown art, cropped by sprite position.
+   Each illustrated region is one of 5 columns x 3 rows. The former SVG art is
+   retained as a graceful fallback when AVIF decoding is unsupported. */
+.pamana-generated-scene{overflow:hidden;background-size:cover;background-position:center;background-repeat:no-repeat}
+.pamana-generated-scene-layer{position:absolute;inset:0;width:100%;height:100%;background-repeat:no-repeat;background-size:500% 300%}
+.pamana-home-art.pamana-generated-scene{position:absolute;inset:0}
+.pamana-theme-art.pamana-generated-scene{position:relative;display:block}
+.pamana-hometown-card-art.pamana-generated-scene{position:relative;width:100%;height:95px;flex:none}
+@media(max-width:450px){.pamana-hometown-card-art.pamana-generated-scene{height:95px}}
