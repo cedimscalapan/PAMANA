@@ -1,0 +1,341 @@
+
+/* SMART PAMANA — Cohesive 2026 interface refresh.
+ * Offline system fonts, accessible contrast, no generated bitmap themes.
+ * Loads after legacy CSS so no working module has to be rewritten.
+ */
+:root {
+  --heading: system-ui,-apple-system,"Segoe UI",sans-serif;
+  --body: system-ui,-apple-system,"Segoe UI",sans-serif;
+  --pamana-surface:#fff; --pamana-border:#DCE7DE;
+  --pamana-shadow:0 8px 26px rgba(31,67,47,.055);
+  --pamana-radius:20px;
+}
+*,*::before,*::after { box-sizing:border-box }
+html,body,#root,ion-app,ion-content { font-family:var(--body); color:var(--ink) }
+html { font-size:calc(16px * var(--pamana-text-scale,1)); }
+body,ion-content { background:var(--cream); }
+button,select,input,textarea { font-family:inherit; }
+button { -webkit-tap-highlight-color:transparent; }
+:where(button,a,input,textarea,select,[role="button"]):focus-visible {
+  outline:3px solid #DB9948!important; outline-offset:3px;
+}
+button:disabled { cursor:not-allowed; }
+a { text-underline-offset:3px; }
+h1,h2,h3,h4{letter-spacing:-.025em;text-wrap:pretty}
+p { text-wrap:pretty; }
+.page-frame,.page-frame.heritage-frame {
+  --paper:var(--pamana-surface); --line:var(--pamana-border);
+  background:var(--cream);color:var(--ink);font-family:var(--body);
+  min-height:100%;max-width:980px;margin:0 auto;
+  padding-bottom:calc(98px + env(safe-area-inset-bottom,0px));
+}
+.page-frame .heritage-body{max-width:900px;padding:clamp(18px,4vw,32px);padding-bottom:28px}
+.page-frame .heritage-body .eyebrow,
+.pamana-eyebrow {color:var(--green);font-size:.70rem;font-weight:850;letter-spacing:.09em;line-height:1.4}
+.page-frame .section-heading{margin:28px 0 15px;gap:12px}
+.page-frame .section-heading h2,.page-frame .section-title,
+.page-frame .sulat-title-row h2,.page-frame .game-hub h2{
+  color:var(--ink);font-family:var(--heading);font-weight:770;
+  font-size:clamp(1.3rem,3.5vw,1.85rem);line-height:1.25;
+}
+.page-frame .section-description,.page-frame .lead,.page-frame .reading-lead {
+  color:var(--muted);line-height:1.65;font-size:1rem;
+}
+/* One reliable navigation bar, with all other modules in More. */
+.page-frame .app-bottom-nav {
+ position:fixed;z-index:30;bottom:0;left:50%;right:auto;
+ transform:translateX(-50%);width:100%;max-width:980px;
+ display:grid;grid-template-columns:repeat(5,minmax(0,1fr));
+ align-items:stretch;gap:2px;padding:8px 10px max(9px,env(safe-area-inset-bottom,0px));
+ border:1px solid var(--pamana-border);border-bottom:0;
+ border-radius:22px 22px 0 0;background:var(--pamana-surface);
+ box-shadow:0 -5px 30px rgba(17,54,32,.08);
+}
+.page-frame .app-bottom-nav button{
+ display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;
+ min-width:0;min-height:57px;padding:6px 1px;border:0;border-radius:14px;
+ background:transparent;color:var(--muted);font-size:.71rem;font-weight:740;cursor:pointer;
+}
+.page-frame .app-bottom-nav button ion-icon{font-size:1.35rem;flex-shrink:0;}
+.page-frame .app-bottom-nav button.active{background:var(--beige);color:var(--green);}
+.page-frame .app-bottom-nav button:active{transform:scale(.97);}
+@media(min-width:980px){.page-frame .app-bottom-nav{border-radius:22px 22px 0 0;bottom:9px;border-bottom:1px solid var(--pamana-border)}}
+/* Unified, concise section headers. Preserve documentary photographs on heritage pages. */
+.page-frame .module-hero,.page-frame .heritage-hero {
+ border-radius:0 0 27px 27px;border-bottom:1px solid var(--pamana-border);
+ background:var(--pamana-surface);box-shadow:none;color:var(--ink);
+ padding:22px clamp(18px,4vw,34px) 28px;
+}
+.page-frame .module-hero::after,.page-frame .heritage-hero::after{display:none;}
+.page-frame .module-hero-topline,.page-frame .heritage-topbar{margin-bottom:19px;}
+.page-frame .module-hero-topline>span,.page-frame .heritage-brand{
+ font-weight:850;letter-spacing:.04em;color:var(--green);
+}
+.page-frame .module-hero h1,.page-frame .heritage-hero h1{
+ color:var(--ink);font:770 clamp(1.85rem,5vw,2.55rem)/1.13 var(--heading);
+ margin:5px 0 9px;
+}
+.page-frame .module-hero p,.page-frame .heritage-hero p{color:var(--muted);line-height:1.55}
+.page-frame .module-hero-kicker,.page-frame .heritage-hero .eyebrow{color:var(--green);}
+.page-frame .module-hero-icon{display:grid;place-items:center;background:var(--beige);color:var(--green);border-radius:20px;width:65px;height:65px;}
+.page-frame .module-hero-back,.page-frame .module-hero-avatar,.page-frame .heritage-topbar .round-action {
+ background:var(--beige);color:var(--green);border:0;border-radius:15px;
+ display:grid;place-items:center;min-width:44px;min-height:44px;box-shadow:none;
+}
+.page-frame .module-hero-back{--color:var(--green);}
+.page-frame .heritage-hero.with-photo{
+ background-color:#244C3D;min-height:292px;color:#fff;
+ border-bottom:0;
+}
+.page-frame .heritage-hero.with-photo h1,.page-frame .heritage-hero.with-photo p,
+.page-frame .heritage-hero.with-photo .eyebrow,.page-frame .heritage-hero.with-photo .heritage-brand{color:#fff;}
+.page-frame .heritage-hero.with-photo .offline-label{color:#fff;}
+/* Surface system across every existing learning, writing and collection module. */
+.page-frame .card,.page-frame .list-card,.page-frame .learning-card,
+.page-frame .destination-card,.page-frame .festival-card,
+.page-frame .game-tile,.page-frame .settings-card,.page-frame .settings-status-card,
+.page-frame .home-continue-card,.page-frame .home-fact-card,.page-frame .pamana-panel,
+.page-frame .game-finished,.page-frame .lesson-detail-card,
+.page-frame .sulat-practice-card,.page-frame .sulat-practice-reference,
+.page-frame .memory-card,.page-frame .photo-folder {
+ background:var(--pamana-surface);color:var(--ink);
+ border:1px solid var(--pamana-border);border-radius:var(--pamana-radius);
+ box-shadow:var(--pamana-shadow);
+}
+.page-frame .card h2,.page-frame .list-card h2,.page-frame .learning-card h3,
+.page-frame .destination-card h3,.page-frame .festival-card h3,
+.page-frame .game-tile h3,.page-frame .settings-card h2,
+.page-frame .photo-folder h2,.page-frame .pamana-panel h2 {color:var(--ink);font-family:var(--heading);}
+.page-frame .game-tile p,.page-frame .learning-card p,.page-frame .destination-card p,
+.page-frame .festival-card p,.page-frame .list-card p{color:var(--muted);line-height:1.6;}
+.page-frame :is(.primary-action,.secondary-action,.text-action,.filter-chips button,
+  .module-switch button,.pamana-reader-control select,.destination-filters select,
+  .library-toolbar select,.game-choice,.quiz-option) {min-height:44px;border-radius:13px;}
+.page-frame .primary-action{background:#245A43;border:1px solid #245A43;color:#fff;padding:12px 17px;font-weight:780}
+.page-frame .secondary-action{background:var(--beige);border:1px solid var(--pamana-border);color:var(--green);padding:12px 17px;font-weight:760}
+.page-frame .text-action {color:var(--green);font-weight:760}
+.page-frame :is(.filter-chips,.module-switch) button[aria-pressed=true],
+.page-frame .filter-chips button.chosen{background:#245A43;color:#fff;border-color:#245A43}
+.page-frame .heritage-search{background:var(--pamana-surface);border-color:var(--pamana-border);border-radius:16px;min-height:54px;}
+.page-frame .heritage-search input,.page-frame select,.page-frame textarea,
+.page-frame input:not([type=checkbox]):not([type=radio]):not([type=range]){color:var(--ink);}
+.page-frame input::placeholder,.page-frame textarea::placeholder{color:var(--muted);opacity:.75;}
+.page-frame progress,.page-frame .home-progress-track{accent-color:#245A43;}
+.page-frame .source-note,.page-frame .quiet-note{color:var(--muted);line-height:1.6;}
+/* Home — calm editorial style and meaningful hierarchy. */
+.page-frame .home-topbar{padding:clamp(20px,4vw,30px) clamp(18px,4vw,34px) 18px;align-items:center;}
+.page-frame .home-brand{font-size:.75rem;color:var(--green);letter-spacing:.08em;}
+.page-frame .home-brand span{color:var(--muted);letter-spacing:.03em;font-weight:700}
+.page-frame .home-topbar h1{font:790 clamp(1.6rem,4.7vw,2.4rem)/1.14 var(--heading);color:var(--ink);}
+.page-frame .home-topbar h1 span{color:var(--green);}
+.page-frame .home-avatar{background-color:var(--beige);box-shadow:none;border:3px solid var(--pamana-surface);outline:1px solid var(--pamana-border);width:56px;height:56px;flex-basis:56px;}
+.page-frame .pamana-home-highlight{margin:0 clamp(18px,4vw,34px) 17px;min-height:206px;
+  background:#245A43;isolation:isolate;border:0;border-radius:24px;box-shadow:var(--pamana-shadow);
+  position:relative;padding:clamp(20px,4vw,30px);overflow:hidden;}
+.page-frame .pamana-home-highlight::before{display:none}
+.page-frame .pamana-home-art{opacity:.19;z-index:-1;position:absolute;inset:0;width:100%;height:100%;border-radius:0}
+.page-frame .pamana-home-caption{z-index:1;position:relative;max-width:min(85%,570px);}
+.page-frame .pamana-home-highlight .pamana-eyebrow{color:#D5ECDC;margin:0 0 10px;font-size:.7rem;font-weight:850}
+.page-frame .pamana-home-highlight h2{font:810 clamp(1.65rem,4vw,2.4rem)/1.15 var(--heading);margin:0 0 8px;color:#fff;}
+.page-frame .pamana-home-highlight p{color:#E1F4EA;font-size:.92rem;line-height:1.45}
+.page-frame .pamana-home-highlight button{
+ color:#245A43;background:#FFF;border:0;display:inline-flex;align-items:center;gap:8px;
+ border-radius:13px;min-height:44px;padding:9px 13px;margin-top:14px;font-weight:800;font-size:.86rem;
+}
+.page-frame .home-continue-card{margin:0 clamp(18px,4vw,34px) 18px;padding:clamp(18px,4vw,23px)}
+.page-frame .home-section-heading h2{font:780 1.3rem/1.25 var(--heading);margin:3px 0;color:var(--ink);}
+.pamana-progress-pill{background:var(--beige);color:var(--green);border-radius:999px;font-size:.8rem;font-weight:800;padding:8px 11px;white-space:nowrap;}
+.page-frame .home-lesson-row{min-height:105px;gap:13px;align-items:center;}
+.page-frame .home-lesson-badge{border-radius:16px;overflow:hidden;width:87px;min-width:87px;height:88px;flex:0 0 87px;background:var(--beige);}
+.page-frame .home-lesson-badge img{height:100%;width:100%;object-fit:cover}
+.page-frame .home-lesson-copy h3{color:var(--ink);font:760 1.04rem/1.32 var(--heading);}
+.page-frame .home-lesson-copy small{color:var(--muted);font-size:.78rem}
+.page-frame .home-play{background:var(--beige);color:var(--green);border-radius:13px}
+.page-frame .home-lesson-row:hover .home-play{background:var(--green);color:#fff;}
+.pamana-home-quick{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px;margin:0 clamp(18px,4vw,34px) 22px;}
+.pamana-home-quick button{min-height:82px;padding:15px;display:flex;align-items:center;gap:10px;text-align:left;
+ background:var(--pamana-surface);border:1px solid var(--pamana-border);border-radius:18px;color:var(--ink);box-shadow:var(--pamana-shadow);cursor:pointer;}
+.pamana-home-quick button>ion-icon:first-child{font-size:1.55rem;padding:12px;background:var(--beige);color:var(--green);border-radius:14px}
+.pamana-home-quick button span{flex:1;min-width:0;display:grid;gap:4px}
+.pamana-home-quick button strong{font-size:.9rem}
+.pamana-home-quick button small{font-size:.76rem;line-height:1.3;color:var(--muted);}
+.pamana-home-quick button>ion-icon:last-child{color:var(--green);font-size:1rem;}
+.page-frame .home-module-section{padding:0 clamp(18px,4vw,34px) 15px}
+.page-frame .home-module-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.page-frame .home-module-tile{
+ min-height:147px;border:1px solid var(--pamana-border);border-radius:21px;
+ padding:16px;position:relative;box-shadow:none;color:var(--ink);
+ display:flex;align-items:flex-start;flex-direction:column;justify-content:flex-start;
+ background:var(--pamana-surface);text-align:left;gap:5px;overflow:hidden;
+}
+.page-frame .home-module-tile .pamana-module-icon{display:grid;place-items:center;width:50px;height:50px;
+ background:var(--beige);border-radius:15px;margin:0 0 6px;color:var(--green)}
+.page-frame .home-module-tile .pamana-module-icon ion-icon{font-size:1.52rem;margin:0;}
+.page-frame .home-module-tile strong{font:790 1.07rem var(--heading);color:var(--ink);}
+.page-frame .home-module-tile small{color:var(--muted);font-size:.82rem;opacity:1;}
+.page-frame .home-module-tile .pamana-module-arrow{position:absolute;right:17px;top:27px;color:var(--green);font-size:1.12rem;margin:0}
+.page-frame .home-module-tile:is(:hover,:focus-visible){border-color:var(--green);background:var(--pamana-surface)}
+.page-frame .home-module-tile.mint .pamana-module-icon{background:#E3F3E9;color:#245A43}
+.page-frame .home-module-tile.peach .pamana-module-icon{background:#FCEDDD;color:#8C5A28}
+.page-frame .home-module-tile.sky .pamana-module-icon{background:#E5F4F6;color:#276879}
+.page-frame .home-module-tile.lavender .pamana-module-icon{background:#F1EBFA;color:#765B93}
+.page-frame .home-module-tile.rose .pamana-module-icon{background:#FCEAEC;color:#AD6071}
+.page-frame .home-module-tile.cream .pamana-module-icon{background:#F2F3DE;color:#68753B}
+/* Crisp CSS decorations: no bitmap sprites, no blur, no stretched photographs. */
+.pamana-town-art{position:relative;overflow:hidden;isolation:isolate;display:block;background:
+ radial-gradient(circle at 80% 24%,var(--town-accent) 0 14%,transparent 14.3%),
+ linear-gradient(156deg,var(--town-primary) 0%,var(--town-secondary) 100%)!important}
+.pamana-town-art .pamana-town-art-sun{position:absolute;right:15%;top:17%;height:30%;aspect-ratio:1;border-radius:50%;background:var(--town-accent);opacity:.5}
+.pamana-town-art .pamana-town-art-hill{position:absolute;left:-24%;bottom:-47%;width:145%;height:103%;border-radius:50% 50% 0 0;transform:rotate(-8deg);background:#fff;opacity:.12}
+.pamana-town-art .pamana-town-art-hill.hill-front{left:13%;bottom:-60%;width:132%;height:98%;transform:rotate(13deg);opacity:.2}
+.pamana-town-art .pamana-town-art-symbol{position:absolute;right:12%;bottom:10%;font-size:clamp(2.4rem,9vw,5.8rem);line-height:1;filter:none!important}
+.pamana-home-art .pamana-town-art-symbol{font-size:6.5rem}
+.page-frame .pamana-home-art .pamana-town-art-symbol{right:7%;bottom:8%}
+/* Profile / theme choices — readable at small and enlarged text sizes. */
+.page-frame .pamana-profile{max-width:900px;padding:20px clamp(18px,4vw,32px) 35px;gap:17px}
+.page-frame .pamana-panel{padding:clamp(18px,3vw,26px);box-shadow:none;}
+.page-frame .pamana-panel h2{font:790 1.32rem/1.28 var(--heading);margin:0 0 6px}
+.page-frame .pamana-panel p{font-size:.91rem;line-height:1.6;}
+.page-frame .pamana-theme-grid,.pamana-onboarding .pamana-theme-grid{max-height:unset;overflow:visible;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}
+.page-frame .pamana-theme-grid button,.pamana-onboarding .pamana-theme-grid button{
+ display:flex;flex-direction:column;align-items:stretch;text-align:left;gap:7px;
+ min-width:0;min-height:169px;border:2px solid var(--pamana-border)!important;
+ box-shadow:none;border-radius:17px;background:var(--pamana-surface)!important;padding:8px 8px 12px;
+ color:var(--ink)!important;
+}
+.page-frame .pamana-theme-grid button[aria-pressed=true],.pamana-onboarding .pamana-theme-grid button[aria-pressed=true]{
+ border-color:var(--green)!important;background:var(--beige)!important;
+ box-shadow:0 0 0 1px var(--green);
+}
+.page-frame .pamana-theme-art,.pamana-onboarding .pamana-theme-art{height:100px;width:100%;border-radius:12px;flex-shrink:0}
+.page-frame .pamana-theme-art .pamana-town-art-symbol,.pamana-onboarding .pamana-theme-art .pamana-town-art-symbol{font-size:3.4rem}
+.page-frame .pamana-theme-grid button strong,.pamana-onboarding .pamana-theme-grid button strong{
+ color:var(--ink);font-size:.9rem;padding:0 4px;line-height:1.25
+}
+.page-frame .pamana-theme-grid button small{color:var(--muted);font-size:.72rem;padding:0 4px}
+.page-frame .pamana-avatar-grid button,.page-frame .pamana-level-grid button,
+.pamana-onboarding .pamana-avatar-grid button,.pamana-onboarding .pamana-level-grid button{
+ background:var(--pamana-surface);border:1px solid var(--pamana-border);border-radius:15px;min-height:68px;
+ padding:14px;color:var(--ink);text-align:left
+}
+.page-frame .pamana-avatar-grid button[aria-pressed=true],.page-frame .pamana-level-grid button[aria-pressed=true],
+.pamana-onboarding .pamana-avatar-grid button[aria-pressed=true],.pamana-onboarding .pamana-level-grid button[aria-pressed=true]{
+ border:2px solid var(--green);background:var(--beige);
+}
+.page-frame .pamana-profile input:not([type=checkbox]),.page-frame .pamana-profile select,
+.pamana-onboarding input,.pamana-onboarding select{border-color:var(--pamana-border);background:var(--pamana-surface);color:var(--ink);min-height:52px;}
+.page-frame .pamana-profile label,.pamana-onboarding label{font-size:.88rem}
+/* First-time setup, clear progress, and friendly next/back controls. */
+.pamana-onboarding{padding:clamp(17px,4vw,30px);min-height:100vh;max-width:710px}
+.pamana-onboarding header{display:flex;align-items:center;justify-content:center;gap:14px}
+.pamana-onboarding header img{height:74px;width:74px;object-fit:contain}
+.pamana-onboarding header .home-brand{font-size:.86rem;margin:0}
+.pamana-onboarding>section{background:var(--pamana-surface);border:1px solid var(--pamana-border);
+ border-radius:24px;padding:clamp(19px,5vw,34px);box-shadow:var(--pamana-shadow);margin:15px auto}
+.pamana-onboarding h1{font:800 clamp(1.55rem,5vw,2.25rem)/1.18 var(--heading);color:var(--ink);}
+.pamana-onboarding p{color:var(--muted);font-size:.95rem}
+.pamana-onboarding .module-kicker{color:var(--green);font-size:.73rem;letter-spacing:.12em;font-weight:850}
+.pamana-steps{position:sticky;bottom:0;background:var(--pamana-surface);border-top:1px solid var(--pamana-border);padding:14px 0 1px;gap:12px}
+.pamana-steps ion-button{flex:1;min-height:50px;--border-radius:15px;--background:#245A43;--color:#fff}
+.pamana-steps ion-button[fill="clear"]{--background:var(--beige);--color:var(--green);}
+.pamana-onboarding progress{width:100%;height:7px;accent-color:var(--green);border-radius:99px}
+/* Lakbay hometown selectors use palette cards rather than low resolution images. */
+.page-frame .pamana-hometown-gallery{margin:17px 0 22px}
+.page-frame .pamana-hometown-gallery h3{font:770 1.32rem var(--heading);}
+.page-frame .pamana-hometown-gallery-track{gap:12px}
+.page-frame .pamana-hometown-artcard{width:176px;min-width:176px;flex-basis:176px;min-height:193px;
+ background:var(--pamana-surface);border:1px solid var(--pamana-border);border-radius:17px;padding:8px;gap:6px;box-shadow:none}
+.page-frame .pamana-hometown-artcard[aria-pressed=true]{border:2px solid var(--green);}
+.page-frame .pamana-hometown-card-art{height:104px;width:100%;border-radius:12px;flex-shrink:0}
+.page-frame .pamana-hometown-card-art .pamana-town-art-symbol{font-size:3.3rem;}
+.page-frame .pamana-hometown-artcard strong,.page-frame .pamana-hometown-artcard small{padding:0 4px;}
+.page-frame .pamana-hometown-artcard strong{font-size:.96rem;color:var(--ink)}
+.page-frame .pamana-hometown-artcard small{font-size:.75rem;line-height:1.35}
+/* More: one simple destination per action, always reachable from nav. */
+.pamana-more-screen{max-width:890px;margin:auto;padding:clamp(20px,4vw,34px)}
+.pamana-more-intro h1{font:800 clamp(1.9rem,5vw,2.6rem)/1.16 var(--heading);margin:8px 0;color:var(--ink)}
+.pamana-more-intro>p{color:var(--muted);line-height:1.6;max-width:570px}
+.pamana-more-identity{display:flex;align-items:center;gap:13px;background:var(--beige);border-radius:19px;padding:14px 16px;margin:20px 0 23px}
+.pamana-more-identity>span{font-size:2rem;display:grid;place-items:center;width:48px;height:48px;border-radius:14px;background:var(--pamana-surface)}
+.pamana-more-identity>div{display:grid;gap:3px;flex:1;min-width:0}
+.pamana-more-identity strong{font-size:1rem;color:var(--ink)}
+.pamana-more-identity small{font-size:.79rem;color:var(--muted)}
+.pamana-more-identity button{border:1px solid var(--pamana-border);background:var(--pamana-surface);color:var(--green);font-weight:800;border-radius:12px;min-height:44px;padding:8px 11px}
+.pamana-more-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.pamana-more-link{display:flex;text-align:left;align-items:center;gap:13px;min-width:0;min-height:99px;padding:16px;
+ border-radius:18px;border:1px solid var(--pamana-border);background:var(--pamana-surface);color:var(--ink);}
+.pamana-more-link-icon{display:grid;place-items:center;border-radius:14px;background:var(--beige);color:var(--green);width:50px;height:50px;flex:none}
+.pamana-more-link-icon ion-icon{font-size:1.4rem}
+.pamana-more-link-copy{display:grid;flex:1;gap:4px;min-width:0}
+.pamana-more-link-copy strong{font-size:1rem}
+.pamana-more-link-copy small{color:var(--muted);line-height:1.4;font-size:.8rem}
+.pamana-more-chevron{color:var(--green);font-size:1.15rem}
+.pamana-privacy-foot{color:var(--muted);display:flex;align-items:center;gap:8px;font-size:.82rem;line-height:1.5;margin-top:23px}
+/* Improve reading and interactive modules without changing their logic. */
+.page-frame .learning-card{overflow:hidden;}
+.page-frame .learning-card .learning-card-copy{padding:17px}
+.page-frame .learning-card .learning-card-copy h3{font:770 1.17rem var(--heading)}
+.page-frame .lesson-cover{background:var(--beige);}
+.page-frame .reading-page{max-width:770px}
+.page-frame .reading-page h1{font:810 clamp(1.75rem,4vw,2.6rem)/1.19 var(--heading);color:var(--ink)}
+.page-frame .reading-page p,.page-frame .reading-page li{font-size:calc(.98rem * var(--pamana-text-scale,1));line-height:1.75;}
+.page-frame .reading-page h2{font-family:var(--heading);font-weight:770;color:var(--ink)}
+.page-frame .pamana-reader-control{background:var(--beige);border:1px solid var(--pamana-border);padding:16px}
+.page-frame .game-choice,.page-frame .quiz-option{border:1px solid var(--pamana-border);background:var(--pamana-surface);color:var(--ink)}
+.page-frame .game-choice[aria-pressed=true],.page-frame .quiz-option.selected{background:var(--beige);border-color:var(--green)}
+.page-frame .game-tile{overflow:hidden}
+.page-frame .game-tile-copy{color:var(--ink)}
+.page-frame .game-tile-art{border-radius:14px;overflow:hidden}
+.page-frame .memory-tile{border-radius:16px;}
+.page-frame .sulat-character-card,.page-frame .sulat-convert-form,.page-frame .sulat-practice-card{border-radius:17px;border-color:var(--pamana-border)}
+.page-frame .sulat-content{max-width:890px;padding:clamp(18px,4vw,32px)}
+.page-frame .sulat-character-select{min-height:146px}
+.page-frame .sulat-character-select .hanunoo-glyph{font-size:3rem}
+.page-frame .pamana-stamp-grid article{background:var(--pamana-surface);color:var(--ink);border-color:var(--pamana-border)}
+/* Dark theme extends to legacy hard-coded white surfaces. */
+:root[data-pamana-mode="dark"] .page-frame :is(.reference-notes,.learning-progress,.learning-catalog,
+ .game-hub-intro,.game-activity,.game-choice,.quiz-option,.word-puzzle,.sulat-conversion-result,
+ .sulat-record-detail,.memory-editor,.reading-page,.place-information,.lesson-recap,.key-terms,
+ .reflection-box,.knowledge-check,.heritage-search,.home-lesson-row,.game-feedback,
+ .source-chips a,.photo-folder,.festival-date,.module-switch,.filter-chips button){
+ background-color:var(--pamana-surface);color:var(--ink);border-color:var(--pamana-border);
+}
+:root[data-pamana-mode="dark"] .page-frame :is(.heritage-body,.sulat-content,.module-content,.game-hub,.game-play) p{color:var(--muted)}
+:root[data-pamana-mode="dark"] .page-frame :is(.heritage-body,.sulat-content,.module-content,.game-hub,.game-play) h2,
+:root[data-pamana-mode="dark"] .page-frame :is(.heritage-body,.sulat-content,.module-content,.game-hub,.game-play) h3{color:var(--ink)}
+:root[data-pamana-mode="dark"] .page-frame .home-module-tile{background:var(--pamana-surface)!important}
+:root[data-pamana-mode="dark"] .pamana-onboarding>section{background:var(--pamana-surface)}
+@media(max-width:540px){
+ .page-frame .home-topbar,.page-frame .heritage-body{padding-left:18px;padding-right:18px}
+ .page-frame .home-module-grid{gap:10px}
+ .page-frame .home-module-tile{min-height:137px;padding:14px}
+ .page-frame .home-module-tile .pamana-module-icon{width:44px;height:44px}
+ .pamana-home-quick{grid-template-columns:1fr}
+ .pamana-more-grid{grid-template-columns:1fr}
+ .page-frame .pamana-theme-grid,.pamana-onboarding .pamana-theme-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .page-frame .app-bottom-nav button{font-size:.70rem}
+ .page-frame .app-bottom-nav{padding-left:5px;padding-right:5px}
+}
+@media(max-width:345px){.page-frame .home-lesson-badge{width:64px;min-width:64px;flex-basis:64px;height:73px}.page-frame .home-play{display:none}
+ .page-frame .pamana-home-caption{max-width:100%}
+}
+@media(prefers-reduced-motion:reduce){
+ *,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;transition-duration:.01ms!important}
+}
+:root[data-pamana-motion="reduce"] *, :root[data-pamana-motion="reduce"] *::before,
+:root[data-pamana-motion="reduce"] *::after {scroll-behavior:auto!important;animation-duration:.01ms!important;transition-duration:.01ms!important}
+
+/* Progressive-disclosure settings: metadata remains available without dominating the page. */
+.page-frame .pamana-disclosure {margin-top:15px;padding:16px 19px}
+.page-frame .pamana-disclosure summary {display:flex;align-items:center;gap:12px;cursor:pointer;min-height:40px;
+  font-weight:780;color:var(--ink);font-size:1.02rem;list-style:none}
+.page-frame .pamana-disclosure summary::-webkit-details-marker {display:none}
+.page-frame .pamana-disclosure summary::after {content:"+";margin-left:auto;color:var(--green);font-size:1.5rem;font-weight:500}
+.page-frame .pamana-disclosure[open] summary::after {content:"−"}
+.page-frame .pamana-disclosure .settings-list {margin-top:13px;border-top:1px solid var(--pamana-border);padding-top:10px}
+.page-frame .pamana-disclosure p {font-size:.85rem;line-height:1.55;color:var(--muted)}
+/* Always give real labels enough room when large text is selected. */
+@media(min-width:720px){
+  .page-frame .home-module-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .page-frame .pamana-theme-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
