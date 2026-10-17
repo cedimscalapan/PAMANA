@@ -324,3 +324,18 @@ p { text-wrap:pretty; }
 }
 :root[data-pamana-motion="reduce"] *, :root[data-pamana-motion="reduce"] *::before,
 :root[data-pamana-motion="reduce"] *::after {scroll-behavior:auto!important;animation-duration:.01ms!important;transition-duration:.01ms!important}
+
+/* Progressive-disclosure settings: metadata remains available without dominating the page. */
+.page-frame .pamana-disclosure {margin-top:15px;padding:16px 19px}
+.page-frame .pamana-disclosure summary {display:flex;align-items:center;gap:12px;cursor:pointer;min-height:40px;
+  font-weight:780;color:var(--ink);font-size:1.02rem;list-style:none}
+.page-frame .pamana-disclosure summary::-webkit-details-marker {display:none}
+.page-frame .pamana-disclosure summary::after {content:"+";margin-left:auto;color:var(--green);font-size:1.5rem;font-weight:500}
+.page-frame .pamana-disclosure[open] summary::after {content:"−"}
+.page-frame .pamana-disclosure .settings-list {margin-top:13px;border-top:1px solid var(--pamana-border);padding-top:10px}
+.page-frame .pamana-disclosure p {font-size:.85rem;line-height:1.55;color:var(--muted)}
+/* Always give real labels enough room when large text is selected. */
+@media(min-width:720px){
+  .page-frame .home-module-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .page-frame .pamana-theme-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
