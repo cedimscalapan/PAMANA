@@ -54,10 +54,10 @@ export default function HomePage() {
             <button
               type="button"
               className="home-avatar"
-              style={{ backgroundImage: `url(${kaPamanaIcon})` }}
+              style={{ backgroundImage: profile.avatar === 'mascot' ? `url(${kaPamanaIcon})` : 'none' }}
               onClick={() => history.push('/profile')}
               aria-label="Open my profile"
-            />
+            >{profile.avatar === 'mascot' ? null : <span className="pamana-avatar-emoji" aria-hidden="true">{({leaf:'🌿',star:'✨',book:'📚',art:'🎨'} as Record<string,string>)[profile.avatar]}</span>}</button>
           </header>
 
           <section className="pamana-home-highlight"><div><p>MY HERITAGE JOURNEY</p><h2>{profile.hometown || "Discover Oriental Mindoro"}</h2><p>{hometownFestival?.name || theme.name} · {theme.motif}</p><button type="button" onClick={() => history.push(hometownFestival ? "/explore?festival=" + hometownFestival.id : "/profile")}>{hometownFestival ? "Discover my festival" : "Edit my profile"}</button></div><span aria-hidden="true">{theme.emoji}</span></section>
