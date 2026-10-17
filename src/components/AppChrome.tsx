@@ -1,7 +1,7 @@
 import { IonButton, IonIcon } from '@ionic/react';
 import {
   arrowBackOutline, bookOutline, homeOutline, mapOutline,
-  menuOutline, trophyOutline,
+  menuOutline, trophyOutline, personCircleOutline,
 } from 'ionicons/icons';
 import { useHistory } from 'react-router-dom';
 import type { ReactNode } from 'react';
@@ -24,7 +24,7 @@ export function ModuleHeader({ title, subtitle, tone = 'green', icon, onBack }: 
     <div className="module-hero-topline">
       <IonButton fill="clear" className="module-hero-back" onClick={onBack ?? (() => history.push('/home'))} aria-label="Back to home"><IonIcon icon={arrowBackOutline} /></IonButton>
       <span>SMART PAMANA</span>
-      <button className="module-hero-avatar" type="button" onClick={() => history.push('/profile')} aria-label="Open my profile"><IonIcon icon={menuOutline} /></button>
+      <button className="module-hero-avatar" type="button" onClick={() => history.push('/profile')} aria-label="Open my profile"><IonIcon icon={personCircleOutline} /></button>
     </div>
     <div className="module-hero-title-row">
       <div><p className="module-hero-kicker">DISCOVER · LEARN · PRESERVE</p><h1>{title}</h1><p>{subtitle}</p></div>
