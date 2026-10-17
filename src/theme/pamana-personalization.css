@@ -32,3 +32,13 @@
 @media(prefers-reduced-motion:reduce){.pamana-profile button,.pamana-onboarding button{transition:none!important}}
 .reading-page .article-section p,.reading-page .lesson-recap li,.reading-page .key-terms dd{font-size:calc(16px * var(--pamana-text-scale,1))}
 @media(max-width:410px){.pamana-theme-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.pamana-home-highlight h2{font-size:18px}}
+
+/* Collections and guided private story prompts. */
+.pamana-stamps{padding:16px 0 18px}.pamana-stamps h2{color:var(--brown);font:700 21px var(--heading);margin:0 0 8px}
+.pamana-stamp-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(135px,1fr));gap:10px}
+.pamana-stamp-grid article{min-height:145px;display:grid;align-content:start;gap:5px;padding:14px 11px;border:1px solid #d7cdbb;border-radius:17px;background:var(--pamana-panel,#fffdf8);color:var(--ink)}
+.pamana-stamp-grid article span{font-size:30px}.pamana-stamp-grid article strong{font-size:14px}
+.pamana-stamp-grid article small{color:var(--muted);font-size:12px;line-height:1.35}.pamana-stamp-grid article em{font-size:11px;font-style:normal;font-weight:700;color:var(--green)}
+.pamana-stamp-grid article.locked{opacity:.72}.pamana-family-prompts{margin:15px 0;padding:14px;border:1px solid #d7cdbb;border-radius:16px;background:var(--pamana-panel,#fffdf8)}
+.pamana-family-prompts summary{font-weight:750;color:var(--brown);cursor:pointer}.pamana-family-prompts p{font-size:13px;color:var(--muted)}
+.pamana-family-prompts>div{display:flex;flex-wrap:wrap;gap:8px}.pamana-family-prompts button{padding:9px 12px;border:1px solid #b6ab96;border-radius:12px;background:var(--pamana-input,#fff);color:var(--ink);text-align:left;cursor:pointer}
