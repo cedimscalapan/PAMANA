@@ -141,10 +141,9 @@ function writeBrowserWritingRecords(records: WritingRecord[]): void {
 async function openNativeDatabase(): Promise<SQLiteDBConnection | undefined> {
   if (!isNative()) return undefined;
   if (database) return database;
-  database = await sqlite.createConnection(databaseName, false, 'no-encryption', 1, false);
-  await database.open();
-  await database.execute(schema);
-  return database;
+  const candidate = await sqlite.createConnection(databaseName, false, 'no-encryption', 1, false);
+  try { await candidate.open(); await candidate.execute(schema); database = candidate; return database; }
+  catch (error) { database = undefined; throw error; }
 }
 
 async function readRows(db: SQLiteDBConnection) {
