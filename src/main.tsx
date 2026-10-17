@@ -7,6 +7,7 @@ import { IonReactRouter } from '@ionic/react-router';
 import { Redirect, Route } from 'react-router-dom';
 import App from './App';
 import { initializeStorage } from './services/storage';
+import { applyPersonalization } from './services/personalization';
 import '@ionic/react/css/core.css';
 import '@ionic/react/css/normalize.css';
 import '@ionic/react/css/structure.css';
@@ -15,6 +16,7 @@ import '@ionic/react/css/padding.css';
 import '@ionic/react/css/flex-utils.css';
 import '@ionic/react/css/display.css';
 import './theme/variables.css';
+import './theme/pamana-personalization.css';
 import './global.css';
 import './heritage.css';
 
@@ -24,7 +26,7 @@ function StorageGate({ children }: { children: React.ReactNode }) {
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
-    initializeStorage().finally(() => setReady(true));
+    initializeStorage().finally(() => { applyPersonalization(); setReady(true); });
   }, []);
 
   if (!ready) {

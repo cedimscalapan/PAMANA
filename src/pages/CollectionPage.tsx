@@ -5,6 +5,7 @@ import { Link, useHistory, useLocation } from 'react-router-dom';
 import { PageFrame } from '../components/AppChrome';
 import { DetailBack, EmptyState, HeritageHero, LocalMedia, SearchField, SourceNotes, useLibrary } from '../components/HeritageUI';
 import { curatedFolders, curatedPhotos, hanunooFontLicense } from '../data/gallery';
+import HeritageStamps from '../components/HeritageStamps';
 import { lessons } from '../data/learning';
 import { festivals, places } from '../data/content';
 import { changeLibrary, deleteMedia, importPhotos, mediaReferences, newId } from '../services/library';
@@ -51,6 +52,7 @@ export default function CollectionPage() {
       <section className="heritage-body">{folder && <DetailBack onBack={() => history.replace('/collection')} label="All folders" />}
       <div className="section-heading"><div><span className="eyebrow">{folder ? 'INSIDE YOUR FOLDER' : 'ORGANIZED WITH CARE'}</span><h1 className="section-title">{folder?.name ?? 'Your picture folders'}</h1></div><button className="icon-action" aria-label={folder ? 'Add photos to this folder' : 'Create a folder'} disabled={busy || !!curatedFolders.find(item => item.id === folderId)} onClick={() => folder ? input.current?.click() : setCreating(!creating)}><IonIcon icon={addOutline} /></button></div>
       {!folder && <p className="section-description">Photographs and labeled illustrations bring Matuto, Lakbay, facts, and games to life. Your personal photos stay in their own folders.</p>}
+      {!folder && <HeritageStamps />}
       {(creating || renaming) && <form className="inline-form" onSubmit={renaming ? event => { event.preventDefault(); void run(async () => { await changeLibrary(state => ({ ...state, folders: state.folders.map(item => item.id === folderId ? { ...item, name: folderName.trim() || item.name } : item) })); setRenaming(false); }, 'Folder renamed.'); } : create}><label className="sr-only">Folder name</label><input required autoFocus maxLength={80} placeholder="Name your folder" value={folderName} onChange={event => setFolderName(event.target.value)} /><button className="primary-action" disabled={busy}>Save</button><button type="button" className="text-action" onClick={() => { setCreating(false); setRenaming(false); }}>Cancel</button></form>}
       {folder && !curatedFolders.some(item => item.id === folderId) && <div className="button-row"><button className="secondary-action" disabled={busy} onClick={() => input.current?.click()}>Add photos</button>{folderId !== 'all-photos' && <button className="text-action" onClick={() => { setFolderName(folder.name); setRenaming(true); }}>Rename folder</button>}</div>}
       <input ref={input} className="sr-only" aria-hidden="true" tabIndex={-1} type="file" accept="image/*" multiple onChange={event => { const files = Array.from(event.target.files ?? []); event.target.value = ''; if (files.length) void run(() => importPhotos(files, (folderId && folderId !== 'all-photos' ? folderId : 'my-memories')), 'Photos saved in this folder.'); }} />
