@@ -12,14 +12,16 @@ This work enhances the existing Ionic React app without adding DepEd, curriculum
 - Preference storage for light/dark/system appearance, font scaling, reduced motion, and future interface language. Filipino translations are **not** complete; dark styling needs further device verification.
 - Lakbay quick municipality filters.
 - Confirmation before destructive reset and improved SQLite open failure handling.
-- Test coverage for profile validation, hometown palettes, theme selection and reading plans.
+- Test coverage for profile validation, hometown palettes, theme selection, reading plans and earned badge criteria.
+- Collectible heritage stamps based on saved Matuto and Quest completions, shown in Koleksyon.
+- Guided, optional family interview questions in Kuwento (stored as existing private text memories).
 
 ## Roadmap — not yet implemented
 
 - Full authored beginner/intermediate/advanced lesson rewrites based on reviewed references and offline narration.
 - Hanunó'o stroke order (requires validated sources) and authorized speaker recordings.
-- Local Quest badges, richer festival games and collection stamps.
-- Kuwento guided family interviews and consent-based audio memories.
+- Additional specialized Quest badges, richer festival games, and stamp illustrations.
+- Consent-based private audio memories and expanded family interview templates.
 - Complete backup/restore with native media, integrity validation and recovery.
 - End-to-end Android device verification.
 
