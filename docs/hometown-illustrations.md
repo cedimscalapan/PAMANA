@@ -1,22 +1,28 @@
-# Illustrated SMART PAMANA hometown themes
+# SMART PAMANA — Actual Generated Hometown Artwork
 
-There are **15 offline SVG hometown illustrations** in `src/assets/theme-scenes`, plus a neutral SMART PAMANA fallback. They are original stylized scenery, **not** documentary images, official municipal artwork, or Indigenous ceremonial art. The corresponding `src/data/festival-artwork.ts` registry maps all fifteen locality names to Vite-imported static assets.
+The app uses the **previously AI-generated 15-hometown concept illustrations** for the theme previews, personalized homepage banner, and Lakbay discovery cards.
 
-## Where images appear
+## Source and format
 
-1. **Aking Pamana profile:** each theme card shows its hometown illustration.
-2. **Onboarding:** theme selection previews the same illustrations.
-3. **Home:** the selected theme appears as an illustrated hometown banner.
-4. **Lakbay:** horizontally scrollable cards show the 15 town illustrations, with a button to filter festival records from the existing sourced festival directory.
+- The artwork comes from the generated Oriental Mindoro 3 × 5 concept panel illustrated earlier.
+- Scenic sections are cropped to remove embedded text and color samples, then bundled as one optimized `generated-hometown-sprite.avif`.
+- `src/components/HometownScene.tsx` displays one crop per locality using the 5-column, 3-row sprite positions.
+- The original lightweight SVG hometown scenes remain as **fallbacks** if AVIF decoding is not supported.
+- Alternative Calapan festival color themes reuse the same Calapan artwork. All festival theme colors remain selectable independently of hometown.
 
-The hometown and selected theme remain independent. Alternate Calapan festival themes reuse the Calapan City artwork but retain their separate color palettes.
+## Where they appear
 
-### Cultural integrity
+1. Profile theme selection and editing.
+2. Onboarding festival-theme selection.
+3. Hometown banner on Home.
+4. The 15-town illustrated gallery in Lakbay.
 
-- The art is an **original decorative interpretation** rather than a verified depiction of a particular structure or Indigenous tradition.
-- Documentary festival images and factual information continue to use the existing credited `official-heritage.ts` and photo provenance records.
-- Community-specific sacred imagery and unreviewed Hanunó’o writing are not included in the decorations.
+## Source quality and trade-offs
 
-### Technical notes
+The bundled sheet is optimized for offline storage and app bundle size, so the illustrated previews are smaller than the downloadable original high-resolution artwork. Use the separate generated image pack for full-size visual assets if higher fidelity is desired.
 
-All SVG assets are statically bundled by Vite and work offline. No network calls, extra dependencies, new permissions, or database migrations are introduced. Text in the cards is rendered as HTML rather than baked into the SVG, so labels remain accessible and translatable.
+These are creative AI illustrations **not verified photographs, official municipal branding, or approved representations of Indigenous heritage**. The existing sourced heritage lessons and photo credits remain separate and authoritative.
+
+## Testing
+
+`src/data/festival-artwork.test.ts` checks that all fifteen localities have distinct sprite positions and that unknown hometowns preserve the fallback image.
