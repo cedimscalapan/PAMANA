@@ -36,3 +36,15 @@ export const hometownArt: Record<Municipality,string> = {
 };
 export const artworkForHometown = (town:string): string => town in hometownArt ? hometownArt[town as Municipality] : heritageArt;
 export const artworkForTheme = (theme:FestivalTheme): string => artworkForHometown(theme.municipality);
+
+/* Generated from the previously created 15-panel Oriental Mindoro concept artwork.
+ * Each panel occupies one cell of the 5-column by 3-row AVIF sprite.
+ * Existing SVGs remain fallback imagery for unsupported formats or unknown towns.
+ */
+export { default as generatedHometownSprite } from '../assets/theme-scenes/generated-hometown-sprite.avif';
+import { municipalities } from './festival-themes';
+export function generatedTileForHometown(town: string): { col: number; row: number } | undefined {
+  const index = municipalities.findIndex(item => item === town);
+  if (index === -1) return undefined;
+  return { col: index % 5, row: Math.floor(index / 5) };
+}
