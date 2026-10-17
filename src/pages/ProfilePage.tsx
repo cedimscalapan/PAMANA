@@ -24,7 +24,7 @@ export default function ProfilePage(){
     <p>Avatar</p><div className="pamana-avatar-grid">{avatars.map(([id,emoji])=><button key={id} type="button" aria-pressed={profile.avatar===id} onClick={()=>update({avatar:id})}><span>{emoji}</span><small>{id}</small></button>)}</div>
     <label>Hometown<select value={profile.hometown} onChange={e=>setProfile(p=>nextHometownProfile(p,e.target.value))}><option value="">Prefer not to say</option>{municipalities.map(t=><option key={t}>{t}</option>)}</select></label>
    </section>
-   <section className="pamana-panel"><h2>My festival theme</h2><p>Original color palettes inspired by festivals, not official festival branding. Choose any theme.</p>
+   <section className="pamana-panel"><h2>My festival theme</h2><p>Choose an easy-to-read, image-free festival color palette. No blurry backgrounds or decorative photo downloads.</p>
     <p>Hometown suggestion: {themeForHometown(profile.hometown).name}</p>
     <div className="pamana-theme-grid">{festivalThemes.map(t=><button key={t.id} type="button" aria-pressed={profile.themeId===t.id} style={{background:t.canvas,color:'#25251F',borderColor:profile.themeId===t.id?t.primary:'transparent'}} onClick={()=>update({themeId:t.id})}><HometownScene className="pamana-theme-art" hometown={t.municipality}/><strong>{t.name}</strong><small>{t.municipality||'Classic PAMANA'}</small></button>)}</div>
     <label>Favorite festival<select value={profile.favoriteFestivalId} onChange={e=>update({favoriteFestivalId:e.target.value})}><option value="">No preference</option>{festivalThemes.filter(t=>t.municipality).map(t=><option value={t.id} key={t.id}>{t.name} — {t.municipality}</option>)}</select></label>
