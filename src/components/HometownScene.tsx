@@ -1,4 +1,4 @@
-import { themeForHometown } from '../data/festival-themes';
+import { hometownVisualForTown } from '../data/festival-artwork';
 
 type Props = { hometown: string; className?: string };
 
@@ -7,7 +7,7 @@ type Props = { hometown: string; className?: string };
  * Festival palettes are design interpretations, not official emblems.
  */
 export default function HometownScene({ hometown, className = '' }: Props) {
-  const theme = themeForHometown(hometown);
+  const theme = hometownVisualForTown(hometown);
   return (
     <div
       className={`${className} pamana-town-art`}
