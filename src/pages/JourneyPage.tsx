@@ -11,6 +11,8 @@ import {lessons} from '../data/learning';
 import {storageKey} from '../data/content';
 import {readProfile} from '../services/personalization';
 import kaPamana from '../assets/reference/ka-pamana-icon.png';
+import {interactiveLessonFor} from '../data/interactive-lessons';
+import {isDiscoveryComplete} from '../services/interactive-lessons';
 
 const descriptions={
  little:'Explore pictures, stories, and gentle challenges at your own pace.',
@@ -36,6 +38,8 @@ export default function JourneyPage(){
  const results=readQuestProgress().results;
  const completedLessons=new Set(lessons.filter(lesson=>localStorage.getItem(storageKey(lesson.id))==='complete').map(lesson=>lesson.id));
  const status=chapterStatus(selected,saved,completedLessons,results);
+ const discovery=interactiveLessonFor(selected.lessonId);
+ const bonusCompleted=discovery?isDiscoveryComplete(selected.lessonId):false;
  const stamps=heritageChapters.filter(chapter=>chapterStatus(chapter,saved,completedLessons,results).completed).length;
  const sorted=[...heritageChapters].sort((a,b)=>Number(b.town===profile.hometown)-Number(a.town===profile.hometown));
  const openFestival=async()=>{
@@ -83,6 +87,7 @@ export default function JourneyPage(){
        <button type="button" disabled={busy} onClick={step.onClick}>{step.done?'Open again':step.action}<IonIcon icon={arrowForwardOutline}/></button>
       </li>)}
      </ol>
+     {discovery&&<aside className="pamana-journey-bonus"><span className="pamana-journey-bonus-icon" aria-hidden="true">🌟</span><div><strong>Optional interactive discovery: {discovery.title}</strong><p>{bonusCompleted?'Completed and saved offline. Replay whenever you like.':'Two short activities with hints and feedback. Your heritage stamp does not depend on this extra activity.'}</p></div><button type="button" onClick={()=>history.push('/learn?lesson='+selected.lessonId)}>{bonusCompleted?'Replay in Matuto':'Try the discovery'} →</button></aside>}
      {status.completed?<div className="pamana-chapter-complete" role="status"><span aria-hidden="true">🏅</span><div><strong>{selected.town} Heritage Stamp</strong><p>You've opened its festival reference, completed a related lesson, and finished a linked Mindoro Quest.</p></div></div>:
        <p className="pamana-chapter-note"><IonIcon icon={lockClosedOutline}/> A stamp unlocks when all three activities are recorded. Unfinished steps stay available.</p>}
      <p className="pamana-chapter-culture">Cultural references remain available directly through Matuto and Lakbay. Games do not replace living communities, permission, or source review.</p>
