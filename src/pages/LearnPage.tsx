@@ -14,6 +14,7 @@ import { learningStages,getReadingPlan,type LearningStage } from '../data/learni
 import { readProfile,saveProfile } from '../services/personalization';
 import {interactiveLessonFor} from '../data/interactive-lessons';
 import InteractiveLesson from '../components/InteractiveLesson';
+import GlossaryMatch from '../components/GlossaryMatch';
 
 export default function LearnPage() {
   const history = useHistory();
@@ -74,7 +75,7 @@ export default function LearnPage() {
       {photo && <MediaFigure image={photo} />}
       {article && <><aside className="learning-objective"><span className="eyebrow">BY THE END OF THIS LESSON</span><p>{article.objective}</p></aside><nav className="article-outline" aria-label="Lesson sections">{article.sections.slice(0,plan?.sections ?? article.sections.length).map((section, index) => <a key={section.heading} href={`#lesson-section-${index}`} onClick={event => { event.preventDefault(); document.getElementById(`lesson-section-${index}`)?.scrollIntoView({ behavior: 'smooth', block: 'start' }); }}>{String(index + 1).padStart(2, '0')} {section.heading}</a>)}</nav>
       {article.sections.slice(0,plan?.sections ?? article.sections.length).map((section, index) => <section className="article-section" id={`lesson-section-${index}`} key={section.heading}><span className="section-number">{String(index + 1).padStart(2, '0')}</span><h2>{section.heading}</h2><p>{section.text}</p></section>)}
-      <section className="key-terms"><h2>Words to keep</h2><dl>{article.terms.slice(0,plan?.terms ?? article.terms.length).map(([term, definition]) => <div key={term}><dt>{term}</dt><dd>{definition}</dd></div>)}</dl></section></>}
+      <section className="key-terms"><h2>Words to keep</h2><dl>{article.terms.slice(0,plan?.terms ?? article.terms.length).map(([term, definition]) => <div key={term}><dt>{term}</dt><dd>{definition}</dd></div>)}</dl></section><GlossaryMatch lessonId={selected.id}/></>}
       {interactivePack&&<InteractiveLesson key={interactivePack.id} pack={interactivePack}/>}
       <section className="lesson-recap"><span className="eyebrow">TAKE IT WITH YOU</span><h2>The key ideas</h2><ul>{selected.points.map(point => <li key={point}>{point}</li>)}</ul></section>
       <section className="knowledge-check"><span className="eyebrow">CHECK YOUR UNDERSTANDING</span><h2>{selected.quiz.prompt}</h2><div className="quiz-options">{selected.quiz.answers.map((option, index) => <button type="button" key={option} className={`quiz-option ${answer === index ? 'selected' : ''} ${answer !== undefined && index === selected.quiz.correctIndex ? 'correct' : ''}`} onClick={() => setAnswer(index)} aria-pressed={answer === index}><span>{String.fromCharCode(65 + index)}</span>{option}</button>)}</div>{answer !== undefined && <div role="status" className={`feedback ${answer === selected.quiz.correctIndex ? 'success' : ''}`}><strong>{answer === selected.quiz.correctIndex ? 'Tama! You’ve got it.' : 'Let’s look at that again.'}</strong><p>{selected.quiz.explanation}</p></div>}</section>
