@@ -1,0 +1,110 @@
+/* SMART PAMANA — Phase 01 visual system. SVG/CSS only; no blurry bitmaps or network fonts.
+   Loaded after legacy styles to centralize the 2D adventure language without rewriting modules.
+*/
+:root{
+  --adventure-jade:#287653;--adventure-jade-deep:#235B46;
+  --adventure-ink:#263B36;--adventure-muted:#5D7069;
+  --adventure-cream:#FFF9EF;--adventure-mint:#E5F4E8;
+  --adventure-sky:#DDF1FB;--adventure-yellow:#FFF0BF;
+  --adventure-peach:#FBE8D9;--adventure-lavender:#EDE6FA;
+  --adventure-pink:#F9E7EE;--adventure-white:#FFF;
+  --adventure-border:#E3EAE2;
+  --adventure-radius-sm:12px;--adventure-radius:18px;--adventure-radius-lg:25px;
+  --adventure-elevation:0 6px 22px rgba(35,89,65,.07);
+  --adventure-space:clamp(15px,4vw,30px);
+  --adventure-heading:ui-rounded,"Segoe UI","Helvetica Neue",Arial,sans-serif;
+  --adventure-body:"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+}
+html,body,ion-app{color-scheme:light}
+.page-frame{--heading:var(--adventure-heading);--body:var(--adventure-body);}
+.page-frame .app-bottom-nav{
+  background:#FFF;border-color:var(--adventure-border);max-width:980px;
+  box-shadow:0 -6px 25px rgba(28,67,44,.07);
+}
+.page-frame .app-bottom-nav button{
+  min-height:60px;color:#52685C;line-height:1.2;
+  font-family:var(--adventure-body);font-weight:700;border-radius:14px;
+}
+.page-frame .app-bottom-nav button.active{
+  color:var(--adventure-jade-deep);background:var(--adventure-mint);
+}
+.page-frame .app-bottom-nav button ion-icon{font-size:1.45rem}
+.page-frame .app-bottom-nav button:focus-visible{outline:3px solid #B88D49;outline-offset:2px}
+/* Reusable decorative vector scene. Pure scenery, NEVER an accurate locality map. */
+.pamana-vector-scenery{display:block;max-width:100%;height:auto;pointer-events:none}
+.pamana2-card{
+  background:var(--adventure-white);border:1px solid var(--adventure-border);
+  border-radius:var(--adventure-radius-lg);box-shadow:var(--adventure-elevation);
+  padding:clamp(16px,3vw,24px);color:var(--adventure-ink)
+}
+.pamana2-button{
+  display:inline-flex;align-items:center;justify-content:center;gap:9px;
+  min-height:48px;padding:12px 18px;max-width:100%;font-family:var(--adventure-body);
+  font-size:.95rem;font-weight:760;line-height:1.35;letter-spacing:0;
+  border:1px solid transparent;border-radius:var(--adventure-radius-sm);
+  cursor:pointer;text-align:center;transition:background-color .16s ease,transform .16s ease,border-color .16s ease;
+}
+.pamana2-button--primary{background:var(--adventure-jade);color:#FFF;border-color:var(--adventure-jade)}
+.pamana2-button--secondary{background:#F0F8F3;color:var(--adventure-jade-deep);border-color:#CDE5D5}
+.pamana2-button--quiet{background:#FFF;color:var(--adventure-ink);border-color:var(--adventure-border)}
+.pamana2-button:focus-visible{outline:3px solid #B78A4F;outline-offset:3px}
+.pamana2-button:disabled{opacity:.58;cursor:not-allowed}
+.pamana2-button:active:not(:disabled){transform:translateY(1px)}
+.pamana2-badge{
+  display:inline-flex;align-items:center;justify-content:center;min-height:29px;
+  border-radius:999px;padding:5px 11px;line-height:1.25;font-size:.74rem;font-weight:760;letter-spacing:.02em;
+}
+.pamana2-badge--mint{background:#E5F4E8;color:#2E6449}
+.pamana2-badge--sky{background:#E5F3FB;color:#306478}
+.pamana2-badge--peach{background:#FBE8D9;color:#81562F}
+.pamana2-badge--lavender{background:#EDE6FA;color:#5F548A}
+.pamana2-badge--gold{background:#FFF0BF;color:#755722}
+.pamana2-progress{display:grid;gap:7px;min-width:0}
+.pamana2-progress progress{display:block;width:100%;height:9px;border:0;border-radius:99px;overflow:hidden;accent-color:#3E9874}
+.pamana2-progress progress::-webkit-progress-bar{background:#D8EADD;border-radius:99px}
+.pamana2-progress progress::-webkit-progress-value{background:#3E9874;border-radius:99px}
+.pamana2-progress small{font-size:.8rem;color:var(--adventure-muted);font-weight:680}
+.pamana2-illustrated-card{border-radius:var(--adventure-radius-lg);border:1px solid var(--adventure-border);
+ background:#F9FBF7;position:relative;overflow:hidden;min-height:175px;isolation:isolate}
+.pamana2-illustrated-card>.pamana-vector-scenery{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.45;z-index:-1}
+.pamana2-illustrated-content{position:relative;z-index:1;padding:clamp(17px,4vw,29px);background:linear-gradient(90deg,rgba(255,255,255,.96),rgba(255,255,255,.73))}
+.pamana2-illustrated-content h2{font:760 clamp(1.35rem,4vw,1.85rem)/1.22 var(--adventure-heading);color:var(--adventure-ink)}
+.pamana2-mascot{display:flex;gap:14px;align-items:center}
+.pamana2-mascot img{width:70px;height:82px;object-fit:contain;flex:none}
+.pamana2-mascot p{flex:1;margin:0;padding:14px 16px;background:#FFF;border:1px solid #DAEADD;
+ border-radius:18px;color:var(--adventure-ink);font-size:.94rem;line-height:1.55}
+.pamana2-mascot p span{display:block;font-size:.75rem;font-weight:850;letter-spacing:.04em;color:var(--adventure-jade);margin-bottom:4px}
+.pamana2-mascot--compact img{width:45px;height:54px}
+.pamana2-mascot--compact p{font-size:.85rem;padding:10px 13px}
+.pamana2-feedback{display:flex;align-items:flex-start;gap:10px;padding:13px 16px;
+ font-size:.91rem;line-height:1.55;border-radius:14px;border:1px solid #CDE6D7;background:#EFF9F2;color:#285C45}
+.pamana2-feedback ion-icon{font-size:1.25rem;flex:none}
+.pamana2-feedback--info{background:#EDF6FB;color:#32617A;border-color:#D0E6F2}
+.pamana2-feedback--warning{background:#FFF8EB;color:#795A30;border-color:#F1DEBD}
+.pamana2-state,.pamana2-loading{display:grid;justify-items:center;gap:8px;text-align:center;padding:32px;
+ color:var(--adventure-muted);background:#FFF;border:1px solid var(--adventure-border);border-radius:20px}
+.pamana2-state>span{font-size:2.4rem}.pamana2-state h2{font:760 1.3rem var(--adventure-heading);margin:0;color:var(--adventure-ink)}
+.pamana2-state p{margin:0;max-width:400px;font-size:.94rem;line-height:1.6}
+.pamana2-loading ion-icon{font-size:2rem;color:var(--adventure-jade)}
+.pamana2-adventure-card{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:20px}
+.pamana2-adventure-card h2{font:770 clamp(1.2rem,4vw,1.55rem)/1.3 var(--adventure-heading);margin:11px 0 8px}
+.pamana2-adventure-card p{color:var(--adventure-muted);line-height:1.6;font-size:.92rem;margin:0 0 15px}
+.pamana2-adventure-action{display:flex;align-items:center;gap:8px;color:var(--adventure-jade);font-size:1.2rem}
+.pamana2-adventure-action ion-icon{font-size:1.2rem}
+.pamana2-home-scene{position:absolute!important;z-index:0;top:0;right:0;left:auto;bottom:auto;width:100%;height:100%;
+ object-fit:cover;opacity:.35;border-radius:inherit;pointer-events:none}
+.page-frame .pamana-home-caption{position:relative;z-index:2}
+.page-frame .pamana-home-highlight .pamana-home-art{opacity:.15}
+.pamana2-journey-scene{position:absolute!important;z-index:0;inset:0;width:100%;height:100%;object-fit:cover;opacity:.33}
+.pamana-journey-header>div{position:relative;z-index:1}
+.pamana-journey-header .pamana-journey-mascot{align-self:end}
+@media (max-width:480px){
+ .pamana2-adventure-card{grid-template-columns:1fr;gap:7px}
+ .pamana2-adventure-action{justify-content:flex-start}
+ .pamana2-illustrated-card{min-height:150px}
+ .pamana2-mascot img{width:56px;height:70px}
+}
+@media (prefers-reduced-motion:reduce){
+ .pamana2-button{transition:none!important;transform:none!important}
+}
+:root[data-pamana-motion="reduce"] .pamana2-button{transition:none!important;transform:none!important}
