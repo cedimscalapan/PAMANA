@@ -14,6 +14,7 @@ export default function HometownScene({ hometown, className = '' }: Props) {
       aria-hidden="true"
       style={{
         backgroundColor: theme.canvas,
+        ['--town-canvas' as string]: theme.canvas,
         ['--town-primary' as string]: theme.primary,
         ['--town-secondary' as string]: theme.secondary,
         ['--town-accent' as string]: theme.accent,
