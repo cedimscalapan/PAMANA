@@ -1,6 +1,6 @@
 import { IonContent, IonIcon, IonPage } from '@ionic/react';
 import {
-  albumsOutline, cameraOutline, colorPaletteOutline, pencilOutline, compassOutline,
+  albumsOutline, cameraOutline, colorPaletteOutline, pencilOutline, compassOutline, mapOutline,
   settingsOutline, personCircleOutline, shieldCheckmarkOutline, chevronForwardOutline,
 } from 'ionicons/icons';
 import { useHistory } from 'react-router-dom';
@@ -10,6 +10,7 @@ import { resolveTheme } from '../data/festival-themes';
 
 const destinations = [
   { label: 'Heritage Journey', description: 'Town chapters, activities, and passport stamps', path: '/journey', icon: compassOutline, tone: 'mint' },
+  { label: 'Lakbay', description: 'Browse documented places and local festivals', path: '/explore', icon: mapOutline, tone: 'sky' },
   { label: 'Sulat Pamana', description: 'Practice Hanunó’o writing', path: '/writing', icon: pencilOutline, tone: 'mint' },
   { label: 'Kuwento', description: 'Keep family stories privately', path: '/stories', icon: cameraOutline, tone: 'peach' },
   { label: 'Koleksyon', description: 'Saved pictures and heritage stamps', path: '/collection', icon: albumsOutline, tone: 'lavender' },
