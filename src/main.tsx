@@ -23,6 +23,7 @@ import './theme/pamana-refresh.css';
 import './theme/pamana-soft-light.css';
 import './theme/pamana-journey.css';
 import './theme/pamana-discoveries.css';
+import './theme/pamana-adventure-design.css';
 
 setupIonicReact();
 
