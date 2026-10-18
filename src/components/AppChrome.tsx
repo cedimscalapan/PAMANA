@@ -1,14 +1,15 @@
 import { IonButton, IonIcon } from '@ionic/react';
 import {
-  arrowBackOutline, bookOutline, homeOutline, mapOutline,
+  arrowBackOutline, bookOutline, homeOutline, compassOutline,
   menuOutline, trophyOutline, personCircleOutline,
 } from 'ionicons/icons';
 import { useHistory } from 'react-router-dom';
 import type { ReactNode } from 'react';
+import {adventureTabs,tabForSection,type ExistingSection} from '../data/adventure-navigation';
 
 type Icon = typeof homeOutline;
 export type ModuleTone = 'green' | 'blue' | 'amber' | 'purple' | 'red' | 'brown';
-export type ActiveTab = 'home' | 'learn' | 'writing' | 'explore' | 'quest' | 'collection' | 'stories' | 'settings';
+export type ActiveTab = ExistingSection;
 
 type ModuleHeaderProps = {
   title: string;
@@ -33,18 +34,12 @@ export function ModuleHeader({ title, subtitle, tone = 'green', icon, onBack }: 
   </header>;
 }
 
-type MainTab = 'home' | 'learn' | 'explore' | 'quest' | 'more';
-const navItems: Array<{ id: MainTab; label: string; path: string; icon: Icon }> = [
-  { id: 'home', label: 'Home', path: '/home', icon: homeOutline },
-  { id: 'learn', label: 'Matuto', path: '/learn', icon: bookOutline },
-  { id: 'explore', label: 'Lakbay', path: '/explore', icon: mapOutline },
-  { id: 'quest', label: 'Quest', path: '/quest', icon: trophyOutline },
-  { id: 'more', label: 'More', path: '/more', icon: menuOutline },
-];
+const navIcons: Record<typeof adventureTabs[number]['symbol'],Icon>={home:homeOutline,compass:compassOutline,book:bookOutline,trophy:trophyOutline,menu:menuOutline};
+const navItems=adventureTabs.map(tab=>({...tab,icon:navIcons[tab.symbol]}));
 
-export function AppBottomNav({ active }: { active: ActiveTab }) {
+export function PamanaBottomNavigation({ active }: { active: ActiveTab }) {
   const history = useHistory();
-  const current: MainTab = ['writing','collection','stories','settings'].includes(active) ? 'more' : active as MainTab;
+  const current=tabForSection(active);
   return <nav className="app-bottom-nav" aria-label="Primary navigation">
     {navItems.map(item => <button
       key={item.id}
@@ -59,6 +54,7 @@ export function AppBottomNav({ active }: { active: ActiveTab }) {
   </nav>;
 }
 
+export const AppBottomNav=PamanaBottomNavigation;
 export function PageFrame({ children, active }: { children: ReactNode; active: ActiveTab }) {
-  return <main className={`page-frame ${['learn','explore','collection','stories','quest'].includes(active) ? 'heritage-frame' : ''}`}>{children}<AppBottomNav active={active} /></main>;
+  return <main className={`page-frame ${['journey','learn','explore','collection','stories','quest'].includes(active) ? 'heritage-frame' : ''}`}>{children}<PamanaBottomNavigation active={active} /></main>;
 }
