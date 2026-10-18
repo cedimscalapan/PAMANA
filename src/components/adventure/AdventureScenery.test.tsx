@@ -8,7 +8,10 @@ describe('offline resolution independent scenery',()=>{
    expect(markup).toContain('<svg');
    expect(markup).toContain('viewBox="0 0 760 300"');
    expect(markup).toContain('aria-hidden="true"');
-   expect(markup).not.toMatch(/(?:<image(?:\\s|>)|(?:src|href)=\"https?:\\/\\/|data:image\\/)/i);
+   expect(markup).not.toContain('<image');
+   expect(markup).not.toContain('data:image/');
+   expect(markup).not.toContain('src="http');
+   expect(markup).not.toContain('href="http');
   }
  });
 });
