@@ -51,3 +51,18 @@
 @media(max-width:360px){.page-frame .pamana-interactive-lesson{padding:14px}.page-frame .pamana-interactive-heading{gap:7px}.page-frame .pamana-discovery-choices button{font-size:.88rem}}
 @media(prefers-reduced-motion:reduce){.page-frame .pamana-interactive-lesson *, .page-frame .pamana-journey-bonus *{transition:none!important;animation:none!important}}
 :root[data-pamana-motion="reduce"] .page-frame .pamana-interactive-lesson * {transition:none!important;animation:none!important}
+
+/* Pair actual lesson vocabulary with its published in-app definitions. */
+.page-frame .pamana-glossary-match{margin:20px 0 28px;padding:clamp(16px,4vw,23px);background:#FFF;border:1px solid #DCE9E4;border-radius:20px;box-shadow:none;color:var(--ink)}
+.page-frame .pamana-glossary-header h3{font:750 clamp(1.17rem,3.6vw,1.4rem)/1.32 var(--heading);margin:6px 0;color:var(--ink)}
+.page-frame .pamana-glossary-header p{font-size:.88rem;line-height:1.6;margin:0 0 17px;color:var(--muted)}
+.page-frame .pamana-glossary-grid{display:grid;grid-template-columns:1fr 1.5fr;gap:12px}
+.page-frame .pamana-glossary-grid>div{display:flex;flex-direction:column;gap:9px;min-width:0}
+.page-frame .pamana-glossary-grid h4{font:740 .89rem var(--heading);margin:0 0 3px;color:var(--ink)}
+.page-frame .pamana-glossary-grid button{font-size:.88rem;line-height:1.45;text-align:left;min-height:57px;border-radius:13px;background:#F8FBF9;color:var(--ink);border:1px solid #DEE8E2;padding:12px;cursor:pointer;overflow-wrap:anywhere}
+.page-frame .pamana-glossary-terms button{font-weight:750;background:#EAF6EE;border-color:#D3E7D9;color:#2B6750}
+.page-frame .pamana-glossary-terms button.selected{background:#D5ECDD;border:2px solid #5FAD85}
+.page-frame .pamana-glossary-grid button:disabled{cursor:default;opacity:.65}
+.page-frame .pamana-glossary-grid button:focus-visible{outline:3px solid #BE905C;outline-offset:2px}
+.page-frame .pamana-glossary-feedback{font-size:.85rem;line-height:1.5;min-height:30px;margin:15px 0 8px;color:#476957}
+@media(max-width:470px){.page-frame .pamana-glossary-grid{grid-template-columns:1fr;gap:16px}.page-frame .pamana-glossary-grid>div{gap:7px}}
