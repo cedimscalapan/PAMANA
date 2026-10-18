@@ -24,7 +24,7 @@ export default function ProfilePage(){
     <p>Avatar</p><div className="pamana-avatar-grid">{avatars.map(([id,emoji])=><button key={id} type="button" aria-pressed={profile.avatar===id} onClick={()=>update({avatar:id})}><span>{emoji}</span><small>{id}</small></button>)}</div>
     <label>Hometown<select value={profile.hometown} onChange={e=>setProfile(p=>nextHometownProfile(p,e.target.value))}><option value="">Prefer not to say</option>{municipalities.map(t=><option key={t}>{t}</option>)}</select></label>
    </section>
-   <section className="pamana-panel"><h2>My festival theme</h2><p>Choose an easy-to-read, image-free festival color palette. No blurry backgrounds or decorative photo downloads.</p>
+   <section className="pamana-panel"><h2>My festival theme</h2><p>Choose a gentle festival accent. Every theme keeps clean, light reading backgrounds.</p>
     <p>Hometown suggestion: {themeForHometown(profile.hometown).name}</p>
     <div className="pamana-theme-grid">{festivalThemes.map(t=><button key={t.id} type="button" aria-pressed={profile.themeId===t.id} style={{background:t.canvas,color:'#25251F',borderColor:profile.themeId===t.id?t.primary:'transparent'}} onClick={()=>update({themeId:t.id})}><HometownScene className="pamana-theme-art" hometown={t.municipality}/><strong>{t.name}</strong><small>{t.municipality||'Classic PAMANA'}</small></button>)}</div>
     <label>Favorite festival<select value={profile.favoriteFestivalId} onChange={e=>update({favoriteFestivalId:e.target.value})}><option value="">No preference</option>{festivalThemes.filter(t=>t.municipality).map(t=><option value={t.id} key={t.id}>{t.name} — {t.municipality}</option>)}</select></label>
@@ -32,8 +32,8 @@ export default function ProfilePage(){
    <section className="pamana-panel"><h2>Learning experience</h2><p>Any learner can use any reading level, at any age.</p>
     <div className="pamana-level-grid">{learningStages.map(s=><button key={s.id} type="button" aria-pressed={profile.learningStage===s.id} onClick={()=>update({learningStage:s.id})}><strong>{s.name}</strong><small>{s.detail}</small></button>)}</div>
    </section>
-   <section className="pamana-panel"><h2>Reading & accessibility</h2>
-    <label>Appearance<select value={profile.mode} onChange={e=>update({mode:e.target.value as LocalProfile['mode']})}><option value="system">Follow device</option><option value="light">Light</option><option value="dark">Dark</option></select></label>
+   <section className="pamana-panel"><h2>Reading comfort</h2>
+    <p className="pamana-soft-light-note"><strong>Soft Light appearance is on.</strong> Bright backgrounds and gentle colors help keep stories and activities comfortable to read.</p>
     <label>Text size<select value={profile.textSize} onChange={e=>update({textSize:e.target.value as LocalProfile['textSize']})}><option value="small">Small</option><option value="default">Default</option><option value="large">Large</option><option value="extra-large">Extra large</option></select></label>
     <label>Language preference<select value={profile.language} onChange={e=>update({language:e.target.value as LocalProfile['language']})}><option value="en">English</option><option value="fil">Filipino (full UI translation pending)</option></select></label>
     <label className="pamana-checkbox"><input type="checkbox" checked={profile.reducedMotion} onChange={e=>update({reducedMotion:e.target.checked})}/>Reduce decorative motion</label>
