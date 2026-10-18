@@ -5,7 +5,8 @@ import {lessonArticles} from '../data/lesson-articles';
  * independent of lesson completion and journey stamp requirements.
  */
 export default function GlossaryMatch({lessonId}:{lessonId:string}){
- const pairs=lessonArticles[lessonId]?.terms.slice(0,Math.min(3,lessonArticles[lessonId].terms.length))??[];
+ const article=lessonArticles[lessonId];
+ const pairs=article?article.terms.slice(0,Math.min(3,article.terms.length)):[];
  const [term,setTerm]=useState('');
  const [matched,setMatched]=useState<string[]>([]);
  const [feedback,setFeedback]=useState('');
