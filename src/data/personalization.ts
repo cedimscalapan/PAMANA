@@ -3,7 +3,7 @@ import {isLearningStage,type LearningStage} from './learning-levels';
 export type AvatarId='mascot'|'leaf'|'star'|'book'|'art';
 export type LocalProfile={version:1;id:'local';nickname:string;hometown:string;avatar:AvatarId;favoriteFestivalId:string;themeId:string;learningStage:LearningStage;mode:'system'|'light'|'dark';textSize:'small'|'default'|'large'|'extra-large';reducedMotion:boolean;language:'en'|'fil'};
 export const PROFILE_KEY='pamana.profile.v1';
-export const defaultProfile:LocalProfile={version:1,id:'local',nickname:'Ka-Pamana',hometown:'',avatar:'mascot',favoriteFestivalId:'',themeId:'heritage',learningStage:'lifelong',mode:'system',textSize:'default',reducedMotion:false,language:'en'};
+export const defaultProfile:LocalProfile={version:1,id:'local',nickname:'Ka-Pamana',hometown:'',avatar:'mascot',favoriteFestivalId:'',themeId:'heritage',learningStage:'lifelong',mode:'light',textSize:'default',reducedMotion:false,language:'en'};
 const oneOf=<T extends string>(v:unknown,options:readonly T[],fallback:T):T=>typeof v==='string'&&options.includes(v as T)?v as T:fallback;
 export function sanitizeProfile(input:unknown):LocalProfile{
  const p:Record<string,unknown>=input&&typeof input==='object'&&!Array.isArray(input)?input as Record<string,unknown>:{};
@@ -14,7 +14,8 @@ export function sanitizeProfile(input:unknown):LocalProfile{
   favoriteFestivalId:typeof p.favoriteFestivalId==='string'&&festivalThemes.some(t=>t.id===p.favoriteFestivalId&&t.municipality)?p.favoriteFestivalId:'',
   themeId:typeof p.themeId==='string'?resolveTheme(p.themeId).id:themeForHometown(hometown).id,
   learningStage:isLearningStage(p.learningStage)?p.learningStage:'lifelong',
-  mode:oneOf(p.mode,['system','light','dark'] as const,'system'),
+  // Soft Light is the sole display mode in this release; old 'dark'/'system' preferences are safely normalized.
+  mode:'light',
   textSize:oneOf(p.textSize,['small','default','large','extra-large'] as const,'default'),
   reducedMotion:p.reducedMotion===true,language:oneOf(p.language,['en','fil'] as const,'en')};
 }
