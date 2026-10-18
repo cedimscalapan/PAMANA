@@ -1,0 +1,68 @@
+/* Three source-backed Matuto interactive discoveries. Consistent with Soft Light. */
+.page-frame .pamana-interactive-lesson{margin:27px 0 30px;padding:clamp(16px,4vw,25px);background:#F9FCF9;border:1px solid #DDECE3;border-radius:24px;color:var(--ink)}
+.page-frame .pamana-interactive-heading{display:flex;align-items:center;justify-content:space-between;gap:16px}
+.page-frame .pamana-interactive-heading .pamana-eyebrow{display:flex;align-items:center;gap:6px}
+.page-frame .pamana-interactive-heading h2{font:760 clamp(1.25rem,4vw,1.65rem)/1.28 var(--heading);margin:8px 0 6px;color:var(--ink)}
+.page-frame .pamana-interactive-heading p{font-size:.9rem;color:var(--muted);line-height:1.5;margin:0}
+.page-frame .pamana-interactive-symbol{display:grid;place-items:center;font-size:2.3rem;flex:0 0 63px;width:63px;height:63px;background:#E8F6EA;border-radius:18px}
+.page-frame .pamana-interactive-intro{font-size:.89rem;color:var(--muted);line-height:1.6;margin:15px 0 20px}
+.page-frame .pamana-interactive-progress{display:grid;gap:8px;color:#356D57;font-size:.82rem;font-weight:750;margin:0 0 18px}
+.page-frame .pamana-interactive-progress progress{appearance:none;border:0;width:100%;height:9px;border-radius:9px;background:#DDEDE2;accent-color:#4B9675}
+.page-frame .pamana-interactive-progress progress::-webkit-progress-bar{background:#DDEDE2;border-radius:9px}
+.page-frame .pamana-interactive-progress progress::-webkit-progress-value{background:#4B9675;border-radius:9px}
+.page-frame .pamana-observe-panel{padding:13px;background:#FFF;border:1px solid var(--pamana-border);border-radius:18px;overflow:hidden;margin:0 0 21px}
+.page-frame .pamana-observe-panel .article-photo{margin:0;padding:0;border:0;max-width:100%;box-shadow:none}
+.page-frame .pamana-observe-panel .article-photo img{width:100%;max-height:272px;object-fit:contain;background:#F2F7F4;border-radius:12px}
+.page-frame .pamana-observe-panel .article-photo figcaption{font-size:.75rem;margin:10px 0 0;color:var(--muted)}
+.page-frame .pamana-observe-symbol{display:grid;place-items:center;min-height:153px;background:linear-gradient(135deg,#EAF6EC,#FFF1E1);border-radius:13px}
+.page-frame .pamana-observe-symbol span{font-size:4.7rem;line-height:1}
+.page-frame .pamana-observe-note{font-size:.79rem!important;line-height:1.5;color:var(--muted);margin:11px 1px 0!important}
+.page-frame .pamana-discovery-question{padding:2px 0 0}
+.page-frame .pamana-discovery-question h3{font:750 clamp(1.08rem,3.5vw,1.35rem)/1.35 var(--heading);color:var(--ink);margin:8px 0 15px}
+.page-frame .pamana-discovery-choices{display:grid;gap:9px}
+.page-frame .pamana-discovery-choices button{width:100%;display:flex;align-items:center;gap:12px;text-align:left;border:1px solid #DCE7E0;border-radius:15px;background:#FFF;padding:11px 13px;min-height:59px;color:var(--ink);font-size:.94rem;line-height:1.43;cursor:pointer}
+.page-frame .pamana-discovery-choices button>span:nth-child(2){flex:1;min-width:0}
+.page-frame .pamana-discovery-choices button.selected{background:#EFF8F3;border-color:#5EA582;box-shadow:0 0 0 1px #5EA582}
+.page-frame .pamana-discovery-choices button:focus-visible{outline:3px solid #C58D53;outline-offset:3px}
+.page-frame .pamana-discovery-choices button:disabled{cursor:default;opacity:.85}
+.page-frame .pamana-discovery-choices button ion-icon{color:#267654;font-size:1.23rem}
+.page-frame .pamana-discovery-letter{display:grid;place-items:center;border-radius:10px;flex:0 0 36px;width:36px;height:36px;background:#F0F4F1;font-weight:800;color:#456A57}
+.page-frame .pamana-discovery-choices button.selected .pamana-discovery-letter{background:#D9ECDF;color:#255C44}
+.page-frame .pamana-discovery-hint,.page-frame .pamana-discovery-feedback{font-size:.87rem;line-height:1.6;padding:13px 15px;margin:13px 0 0;border-radius:13px}
+.page-frame .pamana-discovery-hint{display:flex;gap:8px;background:#FFF9EE;border:1px solid #F0E4C6;color:#745D37}
+.page-frame .pamana-discovery-hint ion-icon{flex-shrink:0;font-size:1.15rem}
+.page-frame .pamana-discovery-feedback.correct{border:1px solid #C5E5D3;background:#EAF8EF;color:#205C44}
+.page-frame .pamana-discovery-feedback.try-again{border:1px solid #F2DFC2;background:#FFF8EC;color:#705739}
+.page-frame .pamana-discovery-feedback p{color:inherit!important;margin:5px 0 0;font-size:.86rem;line-height:1.6}
+.page-frame .pamana-interactive-actions{display:flex;gap:10px;align-items:center;justify-content:flex-start;flex-wrap:wrap;margin-top:18px}
+.page-frame .pamana-interactive-actions button,.page-frame .pamana-interactive-actions a{display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:13px;min-height:46px;text-decoration:none;font-size:.89rem;line-height:1.3}
+.page-frame .pamana-discovery-source{font-size:.78rem;color:var(--muted);margin:16px 0 0;line-height:1.5}
+.page-frame .pamana-interactive-finished{background:#F0F9F3;border:1px solid #D6ECDD;border-radius:18px;padding:18px;display:grid;grid-template-columns:auto 1fr;align-items:center;gap:12px}
+.page-frame .pamana-interactive-finished>span{font-size:2.3rem}
+.page-frame .pamana-interactive-finished strong{font-size:1.11rem;font-weight:760;color:#286447}
+.page-frame .pamana-interactive-finished p{font-size:.9rem;color:#587361;line-height:1.55;margin:5px 0 0}
+.page-frame .pamana-interactive-finished .pamana-interactive-actions{grid-column:1/-1;margin-top:3px}
+.page-frame .pamana-journey-bonus{display:grid;grid-template-columns:43px 1fr auto;align-items:center;gap:12px;padding:16px;border:1px solid #E7DDBD;background:#FFF9EF;border-radius:17px;margin:17px 0;color:var(--ink)}
+.page-frame .pamana-journey-bonus-icon{display:grid;place-items:center;background:#FFF0CC;border-radius:13px;width:43px;height:43px;font-size:1.3rem}
+.page-frame .pamana-journey-bonus strong{font-size:.94rem;line-height:1.4;color:#5E4E2D}
+.page-frame .pamana-journey-bonus p{font-size:.82rem;line-height:1.5;margin:4px 0 0;color:#766748}
+.page-frame .pamana-journey-bonus button{display:inline-flex;align-items:center;justify-content:center;min-height:44px;border-radius:13px;background:#FFF;border:1px solid #E7D4AF;color:#665033;font-size:.84rem;padding:10px 13px;font-weight:760}
+@media(max-width:620px){.page-frame .pamana-journey-bonus{grid-template-columns:43px 1fr}.page-frame .pamana-journey-bonus button{grid-column:2;justify-self:start}.page-frame .pamana-interactive-actions button,.page-frame .pamana-interactive-actions a{flex:1}.page-frame .pamana-interactive-symbol{width:54px;height:54px;flex-basis:54px;font-size:1.9rem}}
+@media(max-width:360px){.page-frame .pamana-interactive-lesson{padding:14px}.page-frame .pamana-interactive-heading{gap:7px}.page-frame .pamana-discovery-choices button{font-size:.88rem}}
+@media(prefers-reduced-motion:reduce){.page-frame .pamana-interactive-lesson *, .page-frame .pamana-journey-bonus *{transition:none!important;animation:none!important}}
+:root[data-pamana-motion="reduce"] .page-frame .pamana-interactive-lesson * {transition:none!important;animation:none!important}
+
+/* Pair actual lesson vocabulary with its published in-app definitions. */
+.page-frame .pamana-glossary-match{margin:20px 0 28px;padding:clamp(16px,4vw,23px);background:#FFF;border:1px solid #DCE9E4;border-radius:20px;box-shadow:none;color:var(--ink)}
+.page-frame .pamana-glossary-header h3{font:750 clamp(1.17rem,3.6vw,1.4rem)/1.32 var(--heading);margin:6px 0;color:var(--ink)}
+.page-frame .pamana-glossary-header p{font-size:.88rem;line-height:1.6;margin:0 0 17px;color:var(--muted)}
+.page-frame .pamana-glossary-grid{display:grid;grid-template-columns:1fr 1.5fr;gap:12px}
+.page-frame .pamana-glossary-grid>div{display:flex;flex-direction:column;gap:9px;min-width:0}
+.page-frame .pamana-glossary-grid h4{font:740 .89rem var(--heading);margin:0 0 3px;color:var(--ink)}
+.page-frame .pamana-glossary-grid button{font-size:.88rem;line-height:1.45;text-align:left;min-height:57px;border-radius:13px;background:#F8FBF9;color:var(--ink);border:1px solid #DEE8E2;padding:12px;cursor:pointer;overflow-wrap:anywhere}
+.page-frame .pamana-glossary-terms button{font-weight:750;background:#EAF6EE;border-color:#D3E7D9;color:#2B6750}
+.page-frame .pamana-glossary-terms button.selected{background:#D5ECDD;border:2px solid #5FAD85}
+.page-frame .pamana-glossary-grid button:disabled{cursor:default;opacity:.65}
+.page-frame .pamana-glossary-grid button:focus-visible{outline:3px solid #BE905C;outline-offset:2px}
+.page-frame .pamana-glossary-feedback{font-size:.85rem;line-height:1.5;min-height:30px;margin:15px 0 8px;color:#476957}
+@media(max-width:470px){.page-frame .pamana-glossary-grid{grid-template-columns:1fr;gap:16px}.page-frame .pamana-glossary-grid>div{gap:7px}}

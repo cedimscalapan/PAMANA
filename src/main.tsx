@@ -22,6 +22,7 @@ import './heritage.css';
 import './theme/pamana-refresh.css';
 import './theme/pamana-soft-light.css';
 import './theme/pamana-journey.css';
+import './theme/pamana-discoveries.css';
 
 setupIonicReact();
 

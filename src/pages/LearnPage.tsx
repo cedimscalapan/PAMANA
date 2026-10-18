@@ -12,6 +12,9 @@ import { storageKey } from '../data/content';
 import { setStored } from '../services/storage';
 import { learningStages,getReadingPlan,type LearningStage } from '../data/learning-levels';
 import { readProfile,saveProfile } from '../services/personalization';
+import {interactiveLessonFor} from '../data/interactive-lessons';
+import InteractiveLesson from '../components/InteractiveLesson';
+import GlossaryMatch from '../components/GlossaryMatch';
 
 export default function LearnPage() {
   const history = useHistory();
@@ -46,6 +49,7 @@ export default function LearnPage() {
   const article = selected && lessonArticles[selected.id];
   const photo = selected && photoForLesson(selected.id);
   const plan = article && getReadingPlan(stage,article.sections.length,article.terms.length);
+  const interactivePack=selected&&interactiveLessonFor(selected.id);
   return <IonPage><IonContent ref={content} scrollEvents onIonScroll={event => { if (!selected) browseScroll.current = event.detail.scrollTop; }}><PageFrame active="learn">
     {!selected ? <>
       <HeritageHero eyebrow="A little curiosity. A deeper connection." title="Matuto" description="Get to know the places, people, and living heritage of Oriental Mindoro." />
@@ -71,7 +75,8 @@ export default function LearnPage() {
       {photo && <MediaFigure image={photo} />}
       {article && <><aside className="learning-objective"><span className="eyebrow">BY THE END OF THIS LESSON</span><p>{article.objective}</p></aside><nav className="article-outline" aria-label="Lesson sections">{article.sections.slice(0,plan?.sections ?? article.sections.length).map((section, index) => <a key={section.heading} href={`#lesson-section-${index}`} onClick={event => { event.preventDefault(); document.getElementById(`lesson-section-${index}`)?.scrollIntoView({ behavior: 'smooth', block: 'start' }); }}>{String(index + 1).padStart(2, '0')} {section.heading}</a>)}</nav>
       {article.sections.slice(0,plan?.sections ?? article.sections.length).map((section, index) => <section className="article-section" id={`lesson-section-${index}`} key={section.heading}><span className="section-number">{String(index + 1).padStart(2, '0')}</span><h2>{section.heading}</h2><p>{section.text}</p></section>)}
-      <section className="key-terms"><h2>Words to keep</h2><dl>{article.terms.slice(0,plan?.terms ?? article.terms.length).map(([term, definition]) => <div key={term}><dt>{term}</dt><dd>{definition}</dd></div>)}</dl></section></>}
+      <section className="key-terms"><h2>Words to keep</h2><dl>{article.terms.slice(0,plan?.terms ?? article.terms.length).map(([term, definition]) => <div key={term}><dt>{term}</dt><dd>{definition}</dd></div>)}</dl></section><GlossaryMatch lessonId={selected.id}/></>}
+      {interactivePack&&<InteractiveLesson key={interactivePack.id} pack={interactivePack}/>}
       <section className="lesson-recap"><span className="eyebrow">TAKE IT WITH YOU</span><h2>The key ideas</h2><ul>{selected.points.map(point => <li key={point}>{point}</li>)}</ul></section>
       <section className="knowledge-check"><span className="eyebrow">CHECK YOUR UNDERSTANDING</span><h2>{selected.quiz.prompt}</h2><div className="quiz-options">{selected.quiz.answers.map((option, index) => <button type="button" key={option} className={`quiz-option ${answer === index ? 'selected' : ''} ${answer !== undefined && index === selected.quiz.correctIndex ? 'correct' : ''}`} onClick={() => setAnswer(index)} aria-pressed={answer === index}><span>{String.fromCharCode(65 + index)}</span>{option}</button>)}</div>{answer !== undefined && <div role="status" className={`feedback ${answer === selected.quiz.correctIndex ? 'success' : ''}`}><strong>{answer === selected.quiz.correctIndex ? 'Tama! You’ve got it.' : 'Let’s look at that again.'}</strong><p>{selected.quiz.explanation}</p></div>}</section>
       {article && plan?.showReflection && <section className="reflection-box"><h2>Make the connection</h2><p>{article.reflection}</p><label>Your reflection <span>Optional · private on this device</span><textarea value={reflection} onChange={event => setReflection(event.target.value)} placeholder="What stood out to you?" /></label><button className="secondary-action" onClick={async () => { try { await setStored(`pamana.reflection.${selected.id}`, reflection); setError('Reflection saved on this device.'); } catch { setError('Your reflection could not be saved. Try again.'); } }}>Save reflection</button></section>}
