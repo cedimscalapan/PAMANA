@@ -9,6 +9,7 @@ import { storageKey } from '../data/content';
 import CulturalFactCard from '../components/CulturalFactCard';
 import { photoForLesson } from '../data/gallery';
 import { readProfile } from '../services/personalization';
+import {hasCompletedOnboarding} from '../services/onboarding';
 import { resolveTheme } from '../data/festival-themes';
 import { officialFestivals } from '../data/official-heritage';
 import HometownScene from '../components/HometownScene';
@@ -46,7 +47,7 @@ export default function HomePage() {
   const journeyStatus=chapterStatus(townChapter,readJourneyProgress(),new Set(lessons.filter(lesson=>localStorage.getItem(lessonStorageKey(lesson.id))==='complete').map(lesson=>lesson.id)),readQuestProgress().results);
 
   useEffect(() => {
-    if (localStorage.getItem('pamana.onboardingComplete') !== 'true') history.replace('/onboarding');
+    if (!hasCompletedOnboarding()) history.replace('/welcome');
   }, [history]);
 
   return <IonPage><IonContent fullscreen>

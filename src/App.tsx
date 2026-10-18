@@ -9,6 +9,7 @@ import StoriesPage from './pages/StoriesPage';
 import CollectionPage from './pages/CollectionPage';
 import SettingsPage from './pages/SettingsPage';
 import OnboardingPage from './pages/OnboardingPage';
+import WelcomePage from './pages/WelcomePage';
 import ProfilePage from './pages/ProfilePage';
 import MorePage from './pages/MorePage';
 import JourneyPage from './pages/JourneyPage';
@@ -27,6 +28,7 @@ export default function App() {
     <Route exact path="/more" component={MorePage} />
     <Route exact path="/profile" component={ProfilePage} />
     <Route exact path="/onboarding" component={OnboardingPage} />
+    <Route exact path="/welcome" component={WelcomePage} />
     <Redirect to="/home" />
   </IonRouterOutlet>;
 }
