@@ -20,6 +20,7 @@ import './theme/pamana-personalization.css';
 import './global.css';
 import './heritage.css';
 import './theme/pamana-refresh.css';
+import './theme/pamana-soft-light.css';
 
 setupIonicReact();
 
