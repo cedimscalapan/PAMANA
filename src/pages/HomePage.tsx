@@ -12,6 +12,8 @@ import { readProfile } from '../services/personalization';
 import { resolveTheme } from '../data/festival-themes';
 import { officialFestivals } from '../data/official-heritage';
 import HometownScene from '../components/HometownScene';
+import AdventureScenery from '../components/adventure/AdventureScenery';
+import {PamanaBadge,PamanaButton} from '../components/adventure/PamanaUI';
 import {heritageChapters,findChapter,townId,chapterStatus} from '../data/heritage-journey';
 import {readJourneyProgress} from '../services/heritage-journey';
 import {readQuestProgress} from '../services/quest-games';
@@ -61,14 +63,15 @@ export default function HomePage() {
       </header>
 
       <section className="pamana-home-highlight" aria-label="Your hometown theme">
+        <AdventureScenery variant="coast" className="pamana2-home-scene"/>
         <HometownScene className="pamana-home-art" hometown={theme.municipality} />
         <div className="pamana-home-caption">
-          <p className="pamana-eyebrow">YOUR HOMETOWN · YOUR STORY</p>
+          <PamanaBadge tone="mint">YOUR HOMETOWN · YOUR STORY</PamanaBadge>
           <h2>{profile.hometown || 'Discover Oriental Mindoro'}</h2>
           <p>{festival?.name ?? theme.name}</p>
-          <button type="button" onClick={() => history.push(festival ? `/explore?festival=${festival.id}` : '/profile')}>
+          <PamanaButton variant="quiet" onClick={() => history.push(festival ? `/explore?festival=${festival.id}` : '/profile')}>
             {festival ? 'Explore the celebration' : 'Choose a hometown'} <IonIcon icon={arrowForwardOutline}/>
-          </button>
+          </PamanaButton>
         </div>
       </section>
 
