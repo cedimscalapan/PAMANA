@@ -1,5 +1,5 @@
 import type {ReactNode,ButtonHTMLAttributes,HTMLAttributes} from 'react';
-import {IonIcon} from '@ionic/react';
+import {IonIcon,IonModal,IonHeader,IonToolbar,IonTitle,IonContent} from '@ionic/react';
 import {arrowForwardOutline,checkmarkCircleOutline,cloudOfflineOutline} from 'ionicons/icons';
 import mascot from '../../assets/reference/ka-pamana-icon.png';
 import AdventureScenery,{type SceneryVariant} from './AdventureScenery';
@@ -47,4 +47,16 @@ export function PamanaAdventureCard({title,description,progress,children}:{title
   {progress&&<PamanaProgress value={progress.completed} max={progress.total} label={title+' progress'}/>}</div>
   <div className="pamana2-adventure-action">{children}<IonIcon icon={arrowForwardOutline} aria-hidden="true"/></div>
  </PamanaCard>;
+}
+
+/** Controlled chip filter — clear selected and disabled states for every screen. */
+export function PamanaChip({children,selected=false,onClick,disabled=false}:{children:ReactNode;selected?:boolean;onClick:()=>void;disabled?:boolean}){
+ return <button type="button" className={`pamana2-chip ${selected?'selected':''}`} aria-pressed={selected} disabled={disabled} onClick={onClick}>{children}</button>;
+}
+/** Optional accessible dialog; Ionic handles focus containment, Escape and backdrop dismissal. */
+export function PamanaDialog({open,title,children,onClose}:{open:boolean;title:string;children:ReactNode;onClose:()=>void}){
+ return <IonModal isOpen={open} onDidDismiss={onClose} className="pamana2-dialog">
+  <IonHeader><IonToolbar><IonTitle>{title}</IonTitle><button slot="end" type="button" className="pamana2-dialog-close" aria-label="Close dialog" onClick={onClose}>Close</button></IonToolbar></IonHeader>
+  <IonContent><div className="pamana2-dialog-content">{children}</div></IonContent>
+ </IonModal>;
 }
