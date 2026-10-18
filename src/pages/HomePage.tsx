@@ -12,6 +12,10 @@ import { readProfile } from '../services/personalization';
 import { resolveTheme } from '../data/festival-themes';
 import { officialFestivals } from '../data/official-heritage';
 import HometownScene from '../components/HometownScene';
+import {heritageChapters,findChapter,townId,chapterStatus} from '../data/heritage-journey';
+import {readJourneyProgress} from '../services/heritage-journey';
+import {readQuestProgress} from '../services/quest-games';
+import {storageKey as lessonStorageKey} from '../data/content';
 
 const modules = [
   { label: 'Matuto', sub: 'Stories & lessons', icon: bookOutline, tone: 'mint', path: '/learn' },
@@ -36,6 +40,8 @@ export default function HomePage() {
     ?? lessons[0];
   const lessonImage = photoForLesson(continueLesson.id);
   const percent = Math.round(completed / lessons.length * 100);
+  const townChapter=findChapter(townId(profile.hometown))??heritageChapters[0];
+  const journeyStatus=chapterStatus(townChapter,readJourneyProgress(),new Set(lessons.filter(lesson=>localStorage.getItem(lessonStorageKey(lesson.id))==='complete').map(lesson=>lesson.id)),readQuestProgress().results);
 
   useEffect(() => {
     if (localStorage.getItem('pamana.onboardingComplete') !== 'true') history.replace('/onboarding');
@@ -66,6 +72,7 @@ export default function HomePage() {
         </div>
       </section>
 
+      <section className="pamana-home-journey"><div className="pamana-home-journey-symbol" aria-hidden="true">🧭</div><div><span className="pamana-eyebrow">NEW · INTERACTIVE HERITAGE JOURNEY</span><h2>Turn discoveries into adventures</h2><p>Choose a hometown, follow three short activities, and earn its heritage stamp. No timer, no internet.</p><div className="pamana-home-journey-progress"><span>{townChapter.town}</span><span>{journeyStatus.done}/3 discoveries</span></div></div><button type="button" onClick={()=>history.push("/journey?town="+townChapter.id)}>Start my journey <IonIcon icon={arrowForwardOutline}/></button></section>
       <section className="home-continue-card">
         <div className="home-section-heading">
           <div><span className="pamana-eyebrow">PICK UP WHERE YOU LEFT OFF</span><h2>Continue learning</h2></div>
