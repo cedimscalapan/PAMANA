@@ -1,0 +1,173 @@
+/* SMART PAMANA Phase 02 — offline illustrated splash, welcome & onboarding.
+   Scoped to first-run surfaces. Loads after Phase 01 design tokens.
+   No remote fonts/photos, screenshot backgrounds, timers or dark mode.
+*/
+.pamana-boot,.pamana-welcome,.pamana2-onboarding{
+  --onboard-green:#287653;--onboard-ink:#263B36;--onboard-muted:#5D7069;
+  --onboard-border:#DFE8DC;--onboard-cream:#FFF9EF;
+  font-family:var(--adventure-body,"Segoe UI",Arial,sans-serif);color:var(--onboard-ink);
+}
+.pamana-boot{width:100%;min-height:100vh;min-height:100dvh;display:grid;place-items:center;
+ background:#FFF9EF;padding:24px;overflow:hidden}
+.pamana-boot-content{width:min(100%,470px);display:grid;justify-items:center;text-align:center;gap:13px}
+.pamana-boot-scenery{width:100%;max-width:380px;aspect-ratio:760/300;border-radius:25px;overflow:hidden}
+.pamana-boot-scenery .pamana-vector-scenery{width:100%;height:100%}
+.pamana-boot-mascot{width:93px;height:105px;object-fit:contain;margin-top:-90px;z-index:1;
+ filter:drop-shadow(0 5px 4px rgba(42,87,53,.09))}
+.pamana-boot-brand{margin-top:10px;font-size:1.25rem;font-weight:860;letter-spacing:.085em;color:#287653}
+.pamana-boot h1{font:760 clamp(1.3rem,4vw,1.62rem)/1.27 var(--adventure-heading);margin:0;color:#263B36}
+.pamana-boot p{font-size:.92rem;line-height:1.6;color:#5D7069;margin:0;max-width:350px}
+.pamana-boot-indicator{display:flex;gap:8px;align-items:center;height:28px}
+.pamana-boot-indicator i{width:9px;height:9px;display:block;border-radius:50%;background:#63AA88;
+ animation:pamana-boot-pulse 1s ease-in-out infinite alternate;opacity:.55}
+.pamana-boot-indicator i:nth-child(2){animation-delay:.2s}
+.pamana-boot-indicator i:nth-child(3){animation-delay:.4s}
+@keyframes pamana-boot-pulse{to{opacity:1;transform:translateY(-5px)}}
+.pamana-welcome{max-width:875px;min-height:100vh;min-height:100dvh;margin:0 auto;
+ padding:clamp(14px,4vw,26px);background:#FFF9EF;display:flex;flex-direction:column;gap:16px}
+.pamana-welcome-topline{display:flex;align-items:center;justify-content:space-between;gap:12px;
+ font-size:.82rem;color:#287653;padding:5px 2px}
+.pamana-welcome-topline strong{font-weight:860;letter-spacing:.075em}
+.pamana-welcome-topline>span{display:inline-flex;gap:6px;align-items:center;
+ background:#E5F4E8;border-radius:999px;padding:8px 10px;font-size:.75rem;font-weight:750}
+.pamana-welcome-hero{position:relative;min-height:304px;overflow:hidden;isolation:isolate;
+ border-radius:27px;background:linear-gradient(126deg,#F4F9F0,#DDF1FB);
+ border:1px solid #DDEBDD;display:flex;align-items:center}
+.pamana-welcome-landscape{position:absolute;inset:0;width:100%;height:100%;z-index:-1;opacity:.9}
+.pamana-welcome-hero::after{content:"";position:absolute;inset:0;z-index:-1;
+ background:linear-gradient(90deg,rgba(255,250,241,.97),rgba(255,251,244,.89) 53%,rgba(255,251,244,.06) 100%)}
+.pamana-welcome-mascot{position:absolute;right:4%;bottom:0;width:32%;max-width:255px;height:88%;
+ display:grid;align-items:end;justify-content:center}
+.pamana-welcome-mascot img{width:100%;height:100%;object-fit:contain;object-position:center bottom;
+ filter:drop-shadow(0 7px 4px rgba(34,67,43,.12))}
+.pamana-welcome-title{position:relative;z-index:1;max-width:68%;padding:clamp(21px,5vw,39px);}
+.pamana-welcome-title h1{font:820 clamp(1.9rem,6vw,3.35rem)/1.05 var(--adventure-heading);
+ letter-spacing:-.04em;color:#263B36;margin:15px 0 13px}
+.pamana-welcome-title h1 span{color:#287653}
+.pamana-welcome-title p{font-size:clamp(.87rem,2.4vw,1.02rem);line-height:1.55;
+ color:#4C645B;max-width:410px;margin:0}
+.pamana-welcome-body{padding:8px clamp(0px,3vw,21px) 28px;display:grid;gap:9px}
+.pamana-welcome-body>h2{font:780 clamp(1.38rem,4vw,1.7rem)/1.25 var(--adventure-heading);margin:0;color:#263B36}
+.pamana-welcome-body>p:not(.pamana-welcome-privacy):not(.pamana-welcome-error){
+ margin:0;color:#5D7069;font-size:.93rem;line-height:1.6;max-width:600px}
+.pamana-welcome-activities{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:11px 0 17px}
+.pamana-welcome-activity{display:flex;align-items:center;gap:12px;padding:15px;min-width:0;
+ background:#FFF;border:1px solid #E3EAE2;border-radius:17px;box-shadow:0 3px 15px rgba(35,89,65,.035)}
+.pamana-welcome-activity-icon{flex:0 0 48px;display:grid;place-items:center;width:48px;height:48px;
+ background:#E5F4E8;color:#287653;border-radius:15px}
+.pamana-welcome-activity-icon ion-icon{font-size:1.52rem}
+.pamana-welcome-activity.learn .pamana-welcome-activity-icon{background:#DDF1FB;color:#326A89}
+.pamana-welcome-activity.play .pamana-welcome-activity-icon{background:#EDE6FA;color:#6F5692}
+.pamana-welcome-activity.preserve .pamana-welcome-activity-icon{background:#FBE8D9;color:#885D31}
+.pamana-welcome-activity strong{font-size:.97rem;font-weight:790;color:#263B36}
+.pamana-welcome-activity p{font-size:.8rem;line-height:1.45;color:#60717A;margin:4px 0 0}
+.pamana-welcome-actions{display:flex;flex-wrap:wrap;gap:10px}
+.pamana-welcome-actions .pamana2-button{flex:1;min-width:min(100%,190px);min-height:51px}
+.pamana-welcome-privacy{display:flex;gap:7px;align-items:flex-start;
+ font-size:.78rem;line-height:1.6;color:#557266;margin:9px 0 0}
+.pamana-welcome-privacy ion-icon{font-size:1.12rem;flex:none;margin-top:2px}
+.pamana-welcome-error{border-radius:12px;background:#FFF3EF;border:1px solid #EAB9AA;
+ padding:11px 14px;color:#874535;font-size:.86rem;line-height:1.55}
+.pamana2-onboarding{max-width:790px;min-height:100vh;min-height:100dvh;margin:0 auto;
+ padding:clamp(15px,4vw,27px);padding-bottom:48px;background:#FFF9EF}
+.pamana2-onboarding-header{display:flex;align-items:center;justify-content:space-between;gap:14px;
+ text-align:left!important;padding:0 clamp(2px,2vw,12px);min-height:74px}
+.pamana2-onboarding-header>div{display:flex;flex-direction:column;gap:5px}
+.pamana2-onboarding-brand{color:#287653;font-weight:850;font-size:.97rem;letter-spacing:.075em}
+.pamana2-onboarding-brand-sub{font-size:.67rem;font-weight:770;letter-spacing:.04em;color:#5D7069}
+.pamana2-onboarding-header img{width:69px!important;max-width:none!important;height:69px!important;object-fit:contain}
+.pamana2-onboarding-art{height:117px;overflow:hidden;border-radius:22px 22px 0 0;margin-top:9px;
+ border:1px solid #E4E9D9;border-bottom:0}
+.pamana2-onboarding-art .pamana-vector-scenery{width:100%;height:100%}
+.pamana2-onboarding>section.pamana2-onboarding-panel{margin:0 auto;padding:clamp(19px,4vw,32px);
+ border:1px solid #E3EAE2;border-top:0;border-radius:0 0 23px 23px;background:#FFF;
+ box-shadow:0 8px 22px rgba(35,89,65,.06);display:block;color:#263B36}
+.pamana2-onboarding-progress{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.pamana2-onboarding-progress .module-kicker{color:#287653;font-size:.76rem;margin:0;letter-spacing:.055em;font-weight:790}
+.pamana2-onboarding-step-label{font-size:.76rem;font-weight:690;color:#5D7069}
+.pamana2-onboarding-panel>progress{display:block;width:100%;height:7px;border:0;
+ accent-color:#287653;margin:12px 0 22px;border-radius:99px;overflow:hidden}
+.pamana2-onboarding-panel>progress::-webkit-progress-bar{background:#E3EFE5;border-radius:99px}
+.pamana2-onboarding-panel>progress::-webkit-progress-value{background:#489871;border-radius:99px}
+.pamana2-onboarding-panel>h1{font:780 clamp(1.65rem,5vw,2.18rem)/1.18 var(--adventure-heading);color:#263B36;margin:0 0 11px}
+.pamana2-onboarding-panel>p{font-size:.95rem;line-height:1.62;color:#5D7069;margin:0 0 19px}
+.pamana2-onboarding-panel .pamana-welcome-activities{margin-top:12px;margin-bottom:14px}
+.pamana2-onboarding-panel .pamana-welcome-activity{padding:12px;gap:9px;border-radius:14px}
+.pamana2-onboarding-panel .pamana-welcome-activity-icon{width:42px;height:42px;flex-basis:42px;border-radius:12px}
+.pamana2-onboarding-panel .pamana-welcome-activity strong{font-size:.9rem}
+.pamana2-onboarding-panel .pamana-welcome-activity p{font-size:.77rem;margin-top:3px}
+.pamana2-onboarding-panel .pamana2-onboarding-hint{font-size:.85rem;line-height:1.62;
+ color:#5A7465;background:#F2F9F3;border:1px solid #E0EDE2;border-radius:13px;
+ padding:12px 14px;margin:14px 0}
+.pamana2-onboarding-panel label{color:#263B36;font-size:.91rem;font-weight:760}
+.pamana2-onboarding-panel input,.pamana2-onboarding-panel select{min-height:53px!important;
+ border:1px solid #C5DACE!important;background:#FFF!important;color:#263B36!important;
+ border-radius:14px!important;font-size:1rem!important;padding:12px 13px!important}
+.pamana2-onboarding-panel :is(input,select):focus-visible{outline:3px solid #B58C53!important;outline-offset:2px}
+.pamana2-onboarding-panel .pamana-avatar-grid{grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;margin:11px 0}
+.pamana2-onboarding-panel .pamana-avatar-grid button{display:flex;align-items:center;justify-content:center;
+ flex-direction:column;gap:7px;min-height:91px;border:2px solid #E3EAE2;border-radius:15px;
+ background:#FFF;color:#263B36;padding:11px 5px}
+.pamana2-onboarding-panel .pamana-avatar-grid button[aria-pressed=true]{border-color:#71B293;background:#EDF8EF}
+.pamana2-onboarding-panel .pamana-avatar-grid button span{font-size:1.68rem}
+.pamana2-onboarding-panel .pamana-avatar-grid button strong{font-size:.72rem;font-weight:750}
+.pamana2-onboarding-panel .pamana-level-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:13px}
+.pamana2-onboarding-panel .pamana-level-grid button{border:2px solid #E3EAE2;border-radius:16px;
+ padding:15px;min-height:106px;background:#FFF;color:#263B36;text-align:left;display:flex;
+ flex-direction:column;align-items:stretch;justify-content:flex-start;gap:6px}
+.pamana2-onboarding-panel .pamana-level-grid button[aria-pressed=true]{border-color:#71B293;background:#F0F9F2}
+.pamana2-onboarding-panel .pamana-level-grid button strong{font-size:.94rem;font-weight:770;color:#263B36}
+.pamana2-onboarding-panel .pamana-level-grid button small{font-size:.8rem;line-height:1.47;color:#5D7069}
+.pamana2-onboarding-panel .pamana-theme-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
+ max-height:345px;overflow-y:auto;padding:2px 4px 5px;gap:10px;margin:10px 0 15px}
+.pamana2-onboarding-panel .pamana-theme-grid button{background:#FFF!important;color:#263B36!important;
+ border:2px solid #E3EAE2!important;border-radius:16px!important;padding:8px 8px 12px!important;
+ min-width:0;min-height:149px;display:flex;flex-direction:column;align-items:stretch;text-align:left;gap:6px}
+.pamana2-onboarding-panel .pamana-theme-grid button[aria-pressed=true]{border-color:#71B293!important;background:#EFF8F1!important}
+.pamana2-onboarding-panel .pamana-theme-grid button .pamana-theme-art{height:85px;border-radius:11px}
+.pamana2-onboarding-panel .pamana-theme-grid button strong{font-size:.83rem;line-height:1.28;padding:0 3px}
+.pamana2-onboarding-panel .pamana-theme-grid button small{font-size:.72rem;line-height:1.3;color:#5D7069;padding:0 3px}
+.pamana2-onboarding-summary{text-align:center;display:grid;justify-items:center;gap:12px;margin:15px 0}
+.pamana2-onboarding-celebrate{display:grid;place-items:center;width:75px;height:75px;border-radius:24px;
+ font-size:2.5rem;background:#E9F7ED}
+.pamana2-onboarding-summary>p{line-height:1.55;font-size:1rem;color:#263B36;margin:0}
+.pamana2-onboarding-summary-info{display:grid;text-align:left;gap:10px;width:min(100%,420px)}
+.pamana2-onboarding-summary-info span{min-height:45px;display:flex;align-items:center;gap:9px;
+ background:#F6FAF7;border:1px solid #E3EEE5;border-radius:13px;padding:10px 12px;
+ font-size:.88rem;font-weight:700}
+.pamana2-onboarding-summary-info ion-icon{font-size:1.15rem;color:#419673;flex:none}
+.pamana2-onboarding-panel .pamana2-onboarding-controls{margin-top:25px;position:static;
+ display:flex;align-items:stretch;gap:10px;padding:0;border:0;background:transparent}
+.pamana2-onboarding-controls ion-button{flex:1;min-height:50px;margin:0;
+ --border-radius:14px;--background:#287653;--color:#FFF;font-weight:760}
+.pamana2-onboarding-controls ion-button[fill=clear]{--background:#F0F7F2;--color:#287653;--border-radius:14px}
+.pamana2-onboarding-skip{display:block;margin:10px auto 0;min-height:44px;
+ border:0;background:transparent;color:#426F5D;font-size:.85rem;font-weight:740;
+ text-decoration:underline;text-underline-offset:3px;padding:8px 13px}
+.pamana2-onboarding-skip:disabled{opacity:.55}
+.pamana-welcome button:focus-visible,.pamana2-onboarding button:focus-visible{outline:3px solid #B88D49!important;outline-offset:3px}
+@media(max-width:620px){
+ .pamana-welcome-hero{min-height:281px}.pamana-welcome-title{max-width:76%;padding:20px}
+ .pamana-welcome-mascot{width:31%;right:1%;height:79%}
+ .pamana-welcome-activities{gap:9px}.pamana-welcome-activity{padding:11px;gap:9px}
+ .pamana-welcome-activity-icon{width:42px;height:42px;flex-basis:42px}
+ .pamana2-onboarding-panel .pamana-avatar-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+ .pamana2-onboarding-panel .pamana-theme-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:400px){
+ .pamana-welcome{gap:12px;padding:13px}
+ .pamana-welcome-topline{font-size:.76rem}
+ .pamana-welcome-hero{min-height:278px}
+ .pamana-welcome-title{max-width:83%;padding:18px}
+ .pamana-welcome-title h1{font-size:2rem}
+ .pamana-welcome-title p{font-size:.85rem;max-width:240px}
+ .pamana-welcome-mascot{width:36%;max-height:185px;opacity:.7;right:-1%}
+ .pamana-welcome-hero::after{background:linear-gradient(90deg,rgba(255,250,241,.98),rgba(255,251,244,.89) 64%,rgba(255,251,244,.32))}
+ .pamana-welcome-activities{grid-template-columns:1fr;gap:8px}
+ .pamana-welcome-activity{min-height:74px}
+ .pamana-welcome-actions{display:grid}
+ .pamana2-onboarding-panel .pamana-level-grid{grid-template-columns:1fr}
+ .pamana2-onboarding-panel .pamana-avatar-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+@media(prefers-reduced-motion:reduce){.pamana-boot-indicator i{animation:none;opacity:.82}}
+:root[data-pamana-motion="reduce"] .pamana-boot-indicator i{animation:none;opacity:.82}
