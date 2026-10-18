@@ -1,0 +1,329 @@
+/* SMART PAMANA — SOFT LIGHT, age-inclusive reading and activity skin.
+ * Placed LAST. No third-party fonts, downloads, forced dark scenes, or new data.
+ * Existing culturally sourced photographs remain unchanged.
+ */
+:root, :root[data-pamana-mode] {
+  color-scheme: light !important;
+  --heading: ui-rounded,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  --body: "Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  --cream:#FAFBF8; --beige:#EEF6F0; --ink:#273848; --muted:#60717E;
+  --brown:#2A3B4A; --green:#276D5B; --deep-green:#215847;
+  --pamana-surface:#FFF; --pamana-border:#E3EAE6;
+  --pamana-shadow:0 7px 24px rgba(40,75,63,.055);
+  --pamana-pastel-blue:#EFF6FB; --pamana-pastel-pink:#FDF1F2;
+  --pamana-pastel-peach:#FFF2E9; --pamana-pastel-lilac:#F4F0FD;
+  --ion-background-color:#FAFBF8;
+  --ion-text-color:#273848;
+  --ion-toolbar-background:#FFFFFF;
+  --ion-item-background:#FFFFFF;
+  --ion-card-background:#FFFFFF;
+  --ion-color-primary:#276D5B;
+  --ion-color-primary-rgb:39,109,91;
+  --ion-color-primary-contrast:#FFFFFF;
+}
+html, body, ion-app, ion-content {color-scheme:light!important}
+body,ion-app,ion-content, .page-frame, .page-frame.heritage-frame{
+  color:var(--ink); background-color:var(--cream);
+}
+ion-content {--background:var(--cream);--color:var(--ink)}
+ion-toolbar {--background:#FFF;--color:var(--ink)}
+ion-item {--background:#FFF;--color:var(--ink)}
+ion-card {--background:#FFF;--color:var(--ink)}
+ion-button:not([color]) {--ion-color-primary:#276D5B}
+.page-frame {font-family:var(--body)!important;--paper:#FFF;--line:var(--pamana-border);}
+.page-frame.heritage-frame {--paper:#FFF;--line:var(--pamana-border);--muted:#60717E;}
+.page-frame h1,.page-frame h2,.page-frame h3,.page-frame h4,
+.page-frame .game-hub h2,.page-frame .game-play h1,
+.page-frame .game-finished h1,.page-frame .game-tile h3 {
+  font-family:var(--heading)!important;
+  font-weight:730;letter-spacing:-.025em;
+}
+.page-frame p,.page-frame li,.page-frame label {line-height:1.6}
+.page-frame p,.page-frame li{overflow-wrap:break-word}
+.page-frame .eyebrow,.page-frame .module-kicker,.page-frame .home-brand,
+.page-frame .pamana-eyebrow{letter-spacing:.065em;font-weight:760}
+.page-frame :is(.home-brand,.module-kicker,.eyebrow,.meta,.game-tile-copy>small){text-transform:none}
+.page-frame .heritage-body{padding-bottom:38px}
+.page-frame .section-heading h2,.page-frame .section-title,
+.page-frame .home-section-heading h2,.page-frame .sulat-title-row h2,
+.page-frame .game-hub h2 {color:var(--ink);font-size:clamp(1.25rem,4vw,1.65rem);font-weight:730}
+.page-frame .section-heading>span {color:var(--muted);font-size:.82rem}
+.page-frame .section-description,.page-frame .reading-lead {font-size:1rem;line-height:1.7}
+.page-frame :is(.quiet-note,.source-note,.image-subject-note){
+ color:var(--muted);font-size:.84rem;line-height:1.65;
+}
+/* Consistent white or cream surfaces, not muted charcoal or dark forest. */
+.page-frame :is(.card,.list-card,.learning-card,.destination-card,.festival-card,
+ .game-tile,.settings-card,.settings-status-card,.pamana-panel,.home-continue-card,
+ .home-fact-card,.memory-card,.photo-folder,.game-finished,.game-activity,
+ .lesson-detail-card,.sulat-convert-form,.sulat-practice-card,
+ .sulat-practice-reference,.sulat-character-card,.sulat-record-detail,
+ .sulat-conversion-result,.reading-page .key-terms,.reflection-box,
+ .knowledge-check,.lesson-recap,.reference-notes,.game-feedback,
+ .game-choice,.game-level label,.sorting-puzzle label,.timeline-puzzle li){
+ background:#FFF;color:var(--ink);border-color:var(--pamana-border);
+ box-shadow:var(--pamana-shadow);
+}
+.page-frame :is(.card,.list-card,.learning-card,.destination-card,.festival-card,.settings-card,
+ .pamana-panel,.home-continue-card,.game-tile){border-radius:19px}
+.page-frame :is(.learning-card,.festival-card,.destination-card,.game-tile,
+ .sulat-character-card,.home-module-tile,.pamana-more-link) {
+ transition:box-shadow .18s ease, border-color .18s ease, transform .18s ease;
+}
+@media(hover:hover) {
+ .page-frame :is(.learning-card,.festival-card,.destination-card,.game-tile,
+ .sulat-character-card,.home-module-tile,.pamana-more-link):hover {
+  border-color:#A9D0BB;box-shadow:0 11px 27px rgba(40,75,63,.105);transform:translateY(-2px);
+ }
+}
+.page-frame :is(.learning-card,.festival-card,.destination-card,.game-tile) :is(h2,h3,strong){color:var(--ink)}
+.page-frame :is(.learning-card,.festival-card,.destination-card,.game-tile,.memory-card) p{
+ color:var(--muted);font-size:.93rem;line-height:1.62;
+}
+.page-frame :is(.card,.list-card,.settings-card,.pamana-panel) p{color:var(--muted);line-height:1.65}
+.page-frame .source-chips a {background:var(--beige);color:var(--green)}
+/* True light heroes, soft decorative accents. No dark photographic gradient on text. */
+.page-frame :is(.module-hero,.heritage-hero){
+ background:#FFFFFF; color:var(--ink);
+ border-bottom:1px solid var(--pamana-border);box-shadow:none;
+}
+.page-frame .module-hero::after,.page-frame .heritage-hero::after {
+ content:"";display:block;position:absolute;pointer-events:none;
+ width:188px;height:188px;right:-75px;bottom:-94px;
+ border-radius:50%;border:0;background:#E8F5F0;
+ box-shadow:0 0 0 24px rgba(232,245,240,.4);
+}
+.page-frame .module-hero h1,.page-frame .heritage-hero h1{
+ color:var(--ink);font:740 clamp(1.85rem,5vw,2.4rem)/1.16 var(--heading);
+}
+.page-frame .module-hero p,.page-frame .heritage-hero p{color:var(--muted);font-size:.95rem}
+.page-frame .module-hero-kicker,.page-frame .heritage-hero .eyebrow{color:var(--green)}
+.page-frame .module-hero-icon,.page-frame .module-hero-avatar,
+.page-frame .module-hero-back,.page-frame .heritage-topbar .round-action {
+ color:var(--green);background:var(--beige);
+ border:1px solid #E1EEE6;box-shadow:none;
+}
+.page-frame .module-hero-avatar,.page-frame .module-hero-back{border-radius:15px;}
+.page-frame .heritage-hero.with-photo{
+ background-color:#FFF!important;
+ color:var(--ink)!important;
+ background-position:center 45%;border-bottom:1px solid var(--pamana-border);
+}
+.page-frame .heritage-hero.with-photo::after{display:none}
+.page-frame .heritage-hero.with-photo :is(h1,p,.eyebrow,.offline-label,.heritage-brand){
+ color:var(--ink)!important;
+}
+.page-frame .heritage-hero.with-photo .heritage-hero-copy {max-width:660px}
+.page-frame .heritage-topbar .round-action{color:var(--green)!important}
+.page-frame .heritage-brand,.page-frame .heritage-brand b{color:var(--green)!important}
+/* Home: lavender, mint, sky and peach accents on clean white surfaces. */
+.page-frame .home-topbar {padding-bottom:20px}
+.page-frame .home-topbar h1{color:var(--ink);font:750 clamp(1.7rem,5vw,2.24rem)/1.15 var(--heading);}
+.page-frame .home-topbar h1 span{color:var(--green)}
+.page-frame .home-brand{color:var(--green);font-size:.74rem}
+.page-frame .home-avatar{box-shadow:0 3px 11px rgba(42,79,56,.07)}
+.page-frame .pamana-home-highlight{
+ background:linear-gradient(128deg,#E7F5EE 0%,#F3FAF4 61%,#FDF4E8 100%);
+ border:1px solid #DDEBE0;min-height:202px;
+ box-shadow:0 8px 25px rgba(38,87,62,.055);
+}
+.page-frame .pamana-home-highlight::before{display:none}
+.page-frame .pamana-home-art{
+ width:48%;left:auto;right:0;opacity:1;z-index:0;
+ background:transparent!important;pointer-events:none;
+}
+.page-frame .pamana-home-art .pamana-town-art-hill{opacity:.13}
+.page-frame .pamana-home-caption{max-width:81%;z-index:1}
+.page-frame .pamana-home-highlight :is(h2,p){color:var(--ink)}
+.page-frame .pamana-home-highlight h2{
+ font-size:clamp(1.55rem,4.5vw,2.2rem);line-height:1.18;font-weight:770;
+}
+.page-frame .pamana-home-highlight .pamana-eyebrow{color:var(--green);font-size:.72rem;letter-spacing:.06em}
+.page-frame .pamana-home-highlight p{color:#546879;font-size:.91rem}
+.page-frame .pamana-home-highlight button {
+ background:#FFF;color:#245D4B;min-height:45px;border:1px solid #CFE2D6;
+ box-shadow:0 2px 5px rgba(28,73,52,.05);font-size:.86rem;font-weight:750;
+}
+.page-frame .pamana-home-highlight button ion-icon{font-size:1rem}
+.page-frame .pamana-home-highlight button:active{background:#EAF5ED}
+.page-frame .pamana-home-art .pamana-town-art-symbol{font-size:4.3rem;opacity:.88;right:8%;bottom:25%}
+.page-frame .home-section-heading h2{font-size:1.22rem;line-height:1.3;font-weight:740}
+.page-frame .home-continue-card{box-shadow:none;}
+.page-frame .home-lesson-row{color:var(--ink)}
+.page-frame .home-lesson-copy h3{color:var(--ink);font-weight:730}
+.page-frame .home-lesson-copy small{color:var(--muted)}
+.pamana-progress-pill{background:#EBF7EE;color:#266A58;font-weight:750}
+.page-frame .home-module-tile{background:#FFF;color:var(--ink);min-height:142px;box-shadow:none;}
+.page-frame .home-module-tile strong{font-size:1.04rem;font-weight:740}
+.page-frame .home-module-tile small{color:var(--muted);font-size:.84rem}
+.page-frame .home-module-tile .pamana-module-icon{border-radius:16px}
+.page-frame .home-module-tile.mint .pamana-module-icon{background:#E4F6ED;color:#2D7561}
+.page-frame .home-module-tile.peach .pamana-module-icon{background:#FFF0E4;color:#94673B}
+.page-frame .home-module-tile.sky .pamana-module-icon{background:#E9F5FD;color:#377A9D}
+.page-frame .home-module-tile.lavender .pamana-module-icon{background:#F1EDFC;color:#7865A8}
+.page-frame .home-module-tile.rose .pamana-module-icon{background:#FFEFF2;color:#A9687E}
+.page-frame .home-module-tile.cream .pamana-module-icon{background:#FFF6E4;color:#997443}
+.page-frame .pamana-home-quick button{background:#FFF;box-shadow:none;color:var(--ink);min-height:85px}
+.page-frame .pamana-home-quick button strong{font-weight:730}
+.page-frame .pamana-home-quick button small{color:var(--muted)}
+/* Critically: old festival primary/secondary palettes must NOT paint whole cards dark. */
+.page-frame .pamana-town-art, .pamana-onboarding .pamana-town-art{
+ background:linear-gradient(140deg,var(--town-canvas,#F5FAF4),#FFFFFF)!important;
+ border:1px solid rgba(80,120,90,.095);
+}
+.page-frame .pamana-town-art .pamana-town-art-sun,
+.pamana-onboarding .pamana-town-art .pamana-town-art-sun{
+ background:var(--town-accent);opacity:.23;
+}
+.page-frame .pamana-town-art .pamana-town-art-hill,
+.pamana-onboarding .pamana-town-art .pamana-town-art-hill{
+ background:var(--town-primary);opacity:.09;
+}
+.page-frame .pamana-town-art .pamana-town-art-hill.hill-front,
+.pamana-onboarding .pamana-town-art .pamana-town-art-hill.hill-front {opacity:.07}
+.page-frame .pamana-theme-grid button,.pamana-onboarding .pamana-theme-grid button {
+ background:#FFF!important;border-color:var(--pamana-border)!important;box-shadow:none!important;
+ border-radius:17px;min-height:166px;color:var(--ink)!important;
+}
+.page-frame .pamana-theme-grid button[aria-pressed="true"],.pamana-onboarding .pamana-theme-grid button[aria-pressed="true"] {
+ background:#F0F8F3!important;border-color:#73B39B!important;
+ box-shadow:0 0 0 1px #73B39B!important;
+}
+.page-frame .pamana-theme-grid button strong,.pamana-onboarding .pamana-theme-grid button strong{
+ font-size:.94rem;line-height:1.33;font-weight:720
+}
+.page-frame .pamana-theme-grid button small{font-size:.78rem;color:var(--muted)}
+.page-frame .pamana-theme-art,.pamana-onboarding .pamana-theme-art{height:95px}
+.page-frame .pamana-hometown-artcard{background:#FFF;border-color:var(--pamana-border)}
+.page-frame .pamana-hometown-artcard :is(strong,small){line-height:1.4}
+.page-frame .pamana-hometown-artcard strong{color:var(--ink)}
+.page-frame .pamana-hometown-artcard small{color:var(--muted)}
+.page-frame .pamana-level-grid button,.page-frame .pamana-avatar-grid button,
+.pamana-onboarding .pamana-level-grid button,.pamana-onboarding .pamana-avatar-grid button{
+ background:#FFF;color:var(--ink);min-height:74px;border-color:var(--pamana-border)
+}
+.page-frame .pamana-level-grid button[aria-pressed=true],.page-frame .pamana-avatar-grid button[aria-pressed=true],
+.pamana-onboarding .pamana-level-grid button[aria-pressed=true],.pamana-onboarding .pamana-avatar-grid button[aria-pressed=true]{
+ background:#EFF8F1;border-color:#72AF95
+}
+.page-frame .pamana-profile{gap:16px}
+.page-frame .pamana-panel{background:#FFF;border-color:var(--pamana-border)}
+.page-frame .pamana-panel h2{font-weight:750;color:var(--ink)}
+.page-frame .pamana-panel p{font-size:.93rem;color:var(--muted)}
+.pamana-soft-light-note {
+ background:#F1F8F3;border:1px solid #DDECE1;border-radius:14px;padding:14px;
+ color:#385C50!important;
+}
+.pamana-soft-light-note strong{color:#2B6955}
+.pamana-onboarding {background:var(--cream);color:var(--ink)}
+.pamana-onboarding>section {background:#FFF;border-color:var(--pamana-border);box-shadow:none}
+.pamana-onboarding h1 {color:var(--ink);font-weight:750}
+.pamana-onboarding p{color:var(--muted)}
+.pamana-onboarding .module-kicker{color:var(--green)}
+/* Learning: traditional photographs stay, but text and inputs use calm high contrast. */
+.page-frame .heritage-body,.page-frame .reading-page{color:var(--ink);}
+.page-frame .learning-progress{background:#F1F9F4;border-radius:17px;border:1px solid #DDECE3;padding:16px}
+.page-frame .learning-progress strong{color:var(--ink);font-weight:720;font-size:1rem}
+.page-frame .progress-number{font-family:var(--heading);font-size:2rem;color:#286F5D;font-weight:740}
+.page-frame .learning-progress progress{background:#DFEEE4}
+.page-frame .continue-lesson{background:#F2F9F4;border-color:#D7EADB;color:var(--ink);border-radius:17px}
+.page-frame .learning-card{border-color:var(--pamana-border);background:#FFF;}
+.page-frame .learning-card h3{color:var(--ink);font-weight:750;font-size:1.12rem}
+.page-frame .learning-card p{color:var(--muted);font-size:.92rem}
+.page-frame .lesson-cover{background:#F3F7F2}
+.page-frame .lesson-cover img{object-fit:cover}
+.page-frame :is(.reading-page,.place-information,.article-section) :is(h1,h2,h3){
+ color:var(--ink);font-family:var(--heading);font-weight:730;
+}
+.page-frame .reading-page :is(p,li){font-size:1rem;line-height:1.72}
+.page-frame .reading-page :is(.article-section p,.lesson-recap li,.key-terms dd){font-size:1rem}
+.page-frame .reading-page p:not(.eyebrow),.page-frame .place-information p{color:var(--muted);line-height:1.75}
+.page-frame .article-section{border-color:var(--pamana-border)}
+.page-frame .pamana-reader-control{background:#F2F9F4;border-color:#DFEDE3;color:var(--ink)}
+.page-frame .pamana-reader-control select{background:#FFF;border-color:#D8E6DB;color:var(--ink)}
+.page-frame :is(.quiz-option,.game-choice,.sorting-puzzle label,.timeline-puzzle li,.game-level label){
+ background:#FFF;color:var(--ink);border-color:var(--pamana-border);
+}
+.page-frame :is(.quiz-option.selected,.game-choice.is-selected,.game-level label.chosen){
+ background:#F0F8F3;border-color:#8ABEA6;color:var(--ink)
+}
+.page-frame .quiz-option.correct{background:#E7F5EA;border-color:#78B797}
+.page-frame .feedback.success,.page-frame .game-feedback.correct-feedback{
+ background:#E9F7EE;color:#255B47;border:1px solid #CBE8D5;
+}
+.page-frame .game-choice{min-height:62px;padding:15px;font-size:.98rem;line-height:1.5}
+.page-frame .game-activity{background:#FFF;box-shadow:none}
+.page-frame .game-hub h2,.page-frame .game-play h1,.page-frame .game-finished h1{
+ font-family:var(--heading)!important;color:var(--ink);font-weight:750;
+}
+.page-frame .game-tile h3{font-size:1.4rem;font-weight:740}
+.page-frame .game-tile-art{background:var(--game-bg,#EDF4EE);border-bottom:1px solid var(--pamana-border)}
+.page-frame .game-tile-copy>small{font-size:.76rem;letter-spacing:.05em;font-weight:760}
+.page-frame .game-tile-copy p{font-size:.92rem}
+.page-frame .game-personal-best{font-size:.8rem;color:var(--muted)}
+.page-frame .game-total b{color:var(--green);font:760 2.15rem var(--heading)}
+.page-frame .resume-game{background:#EFF7F2;border-color:#D9EBDE;color:var(--ink)}
+.page-frame .resume-game strong{color:var(--ink);font-family:var(--heading);font-weight:720}
+.page-frame .game-finished .game-final-score strong{font-family:var(--heading);color:var(--green)}
+.page-frame .game-feedback h2{color:var(--ink);font-family:var(--heading);font-weight:740}
+.page-frame .classic-quest{background:#F6F4FC;border:1px solid #E9E4F7}
+.page-frame .classic-quest h3{font-family:var(--heading);font-weight:730;color:var(--ink)}
+/* Calm map, Sulat, collection and private memory workspace surfaces */
+.page-frame .geographic-map,.page-frame .game-map{background:#EEF6F6;border-color:#D8E9E8}
+.page-frame .destination-card,.page-frame .festival-card{border-color:var(--pamana-border);background:#FFF}
+.page-frame .festival-date{background:#F7F1E5;color:#5C5B4A}
+.page-frame .festival-date strong{font-family:var(--heading);color:var(--ink);font-weight:760}
+.page-frame .sulat-content,.page-frame .writing-page{background:var(--cream);color:var(--ink)}
+.page-frame :is(.sulat-content,.writing-page) h2{color:var(--ink);font-family:var(--heading)}
+.page-frame :is(.sulat-character-select,.sulat-convert-form,.sulat-practice-card,.sulat-practice-reference){
+ background:#FFF;color:var(--ink);border-color:var(--pamana-border);
+}
+.page-frame .sulat-character-select .hanunoo-glyph{color:#316F5E}
+.page-frame .pamana-stamp-grid article{background:#FFF;border-color:var(--pamana-border)}
+.page-frame .settings-status-card{background:#F0F8F3;border-color:#DCEBE0}
+.page-frame .settings-card.settings-danger{background:#FFF9F8;border-color:#F2DAD5}
+.page-frame .settings-list-row{border-color:var(--pamana-border)}
+.page-frame .pamana-more-intro h1{color:var(--ink);font-weight:760}
+.page-frame .pamana-more-identity{background:#EFF7F2;color:var(--ink)}
+.page-frame .pamana-more-link{background:#FFF;box-shadow:none}
+.page-frame .pamana-more-link-icon{background:#F1F6F1;color:var(--green)}
+/* Larger tap areas, input contrast and legible navigational captions. */
+.page-frame :is(.filter-chips button,.module-switch button,
+ .pamana-hometown-artcard,.pamana-more-link,.quiz-option,.game-choice,
+ .secondary-action,.primary-action){min-height:44px}
+.page-frame input:not([type=radio]):not([type=checkbox]):not([type=range]),
+.page-frame select,.page-frame textarea{
+ font-family:var(--body);background-color:#FFF;color:var(--ink);
+ border-color:#DDE7E0;font-size:.97rem;line-height:1.45;
+}
+.page-frame :is(input,select,textarea):focus-visible{border-color:#4A8A71}
+.page-frame .app-bottom-nav{background:#FFF;border-color:var(--pamana-border);box-shadow:0 -4px 18px rgba(36,65,49,.055)}
+.page-frame .app-bottom-nav button{color:#5D707E;font-size:.75rem;min-height:61px}
+.page-frame .app-bottom-nav button.active{background:#EAF6EF;color:#286B58}
+.page-frame .app-bottom-nav button ion-icon{font-size:1.4rem}
+.page-frame .app-bottom-nav button span{font-weight:730}
+.page-frame .pamana-stamps h2{color:var(--ink);font-family:var(--heading)}
+.page-frame :is(.primary-action,.filter-chips button.chosen){
+ background:#286F5A;border-color:#286F5A;color:#FFF
+}
+.page-frame .secondary-action{background:#F0F8F3;color:#246452;border-color:#D6E9DE}
+.page-frame .filter-chips button:not(.chosen){background:#FFF;border-color:#DAE5DE;color:var(--muted)}
+.page-frame .module-switch button{background:#FFF;color:var(--muted)}
+.page-frame .module-switch button[aria-pressed=true]{background:#286F5A;color:#FFF}
+.page-frame .settings-content,.page-frame .module-content{color:var(--ink)}
+/* Preserve reduced motion and make focus indicator visible on light UI. */
+.page-frame :is(button,a,input,select,textarea):focus-visible{
+ outline:3px solid #C18C52!important;outline-offset:3px
+}
+@media(max-width:430px){
+ .page-frame .pamana-home-caption{max-width:96%}
+ .page-frame .pamana-home-art{width:39%;opacity:.46}
+ .page-frame .pamana-home-art .pamana-town-art-symbol{font-size:3.35rem}
+ .page-frame .home-topbar h1{font-size:1.8rem}
+ .page-frame .pamana-home-highlight{min-height:190px}
+ .page-frame .app-bottom-nav button{font-size:.7rem}
+}
+@media (prefers-reduced-motion: reduce) {
+ .page-frame :is(button,.learning-card,.festival-card,.destination-card){transition:none!important;transform:none!important}
+}
+:root[data-pamana-motion="reduce"] .page-frame :is(button,.learning-card,.festival-card,.destination-card){transition:none!important;transform:none!important}
