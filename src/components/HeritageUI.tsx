@@ -7,7 +7,7 @@ import { sourceById } from '../data/content';
 import { LibraryMedia, LibraryState, mediaUrl, readLibrary } from '../services/library';
 
 export function HeritageHero({ eyebrow, title, description, tone = 'green', image }: { eyebrow: string; title: string; description: string; tone?: string; image?: string }) {
-  return <header className={`heritage-hero tone-${tone} ${image ? 'with-photo' : ''}`} style={image ? { backgroundImage: `linear-gradient(0deg,rgba(13,42,38,.92),rgba(13,42,38,.12)),url(${image})` } : undefined}>
+  return <header className={`heritage-hero tone-${tone} ${image ? 'with-photo' : ''}`} style={image ? { backgroundImage: `linear-gradient(90deg,#FFFFFF 0%,rgba(255,255,255,.98) 40%,rgba(255,255,255,.89) 70%,rgba(255,255,255,.72) 100%),url(${image})` } : undefined}>
     <div className="heritage-topbar"><Link to="/home" className="heritage-brand"><img src={mascot} alt="" /><span>SMART <b>PAMANA</b></span></Link><Link to="/settings" className="round-action" aria-label="Open settings"><IonIcon icon={settingsOutline} /></Link></div>
     <div className="heritage-hero-copy"><span className="eyebrow">{eyebrow}</span><h1>{title}</h1><p>{description}</p><span className="offline-label"><IonIcon icon={cloudOfflineOutline} /> Your heritage, always close.</span></div>
   </header>;
