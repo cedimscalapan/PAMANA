@@ -4,6 +4,7 @@ import {useHistory,useLocation} from 'react-router-dom';
 import {useState} from 'react';
 import {PageFrame} from '../components/AppChrome';
 import HometownScene from '../components/HometownScene';
+import AdventureScenery from '../components/adventure/AdventureScenery';
 import {townId,findChapter,heritageChapters,chapterStatus,type HeritageChapter} from '../data/heritage-journey';
 import {readJourneyProgress,markFestivalOpened,syncJourneyQuestCompletion} from '../services/heritage-journey';
 import {readQuestProgress} from '../services/quest-games';
@@ -54,9 +55,10 @@ export default function JourneyPage(){
   {id:'quest',icon:gameControllerOutline,done:status.questCompleted,title:'Play a Mindoro heritage challenge',description:names[selected.mode]+' · a province-wide activity, not a town-specific simulation',action:'Go to Quest',onClick:()=>history.push('/quest?journey='+selected.id+'&mode='+selected.mode)}
  ];
  return <IonPage><IonContent>
-  <PageFrame active="home">
+  <PageFrame active="journey">
    <section className="pamana-journey-page">
     <header className="pamana-journey-header">
+     <AdventureScenery variant="sunrise" className="pamana2-journey-scene"/>
      <div><span className="pamana-eyebrow">SMART PAMANA · OFFLINE ADVENTURES</span><h1>Heritage Journey</h1><p>{descriptions[profile.learningStage]}</p></div>
      <div className="pamana-journey-mascot"><img src={kaPamana} alt="Ka-Pamana, your cultural exploration companion"/></div>
     </header>
