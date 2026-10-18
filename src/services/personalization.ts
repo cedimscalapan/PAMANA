@@ -12,36 +12,59 @@ export async function saveProfile(change:Partial<LocalProfile>):Promise<LocalPro
  window.dispatchEvent(new Event('pamana:profile-changed'));
  return updated;
 }
-export function applyPersonalization(p:LocalProfile=readProfile()):void{
- const root=document.documentElement,festival=resolveTheme(p.themeId);
- const dark=p.mode==='dark'||(p.mode==='system'&&window.matchMedia?.('(prefers-color-scheme: dark)').matches);
+/** Apply one calm light palette across every module, regardless of phone dark mode.
+ * Municipality schemes remain individual decorative accent choices only.
+ * Existing saved profile records are retained; old dark preferences are ignored.
+ */
+export function applyPersonalization(p:LocalProfile=readProfile()):void {
+ const root=document.documentElement;
+ const festival=resolveTheme(p.themeId);
  const set=(key:string,value:string)=>root.style.setProperty(key,value);
- // Hometown choices personalize accent colors, not the entire reading background.
- // Neutral surfaces keep all sixteen reading levels and content areas legible.
- set('--green', dark ? '#A5D4BC' : '#245A43');
- set('--deep-green', dark ? '#BBDCCC' : '#193E30');
- set('--brown', dark ? '#F2F6F2' : '#233C31');
- set('--terracotta', festival.accent);
- set('--pamana-theme-primary', festival.primary);
- set('--pamana-theme-accent', festival.accent);
- set('--pamana-theme-secondary', festival.secondary);
- set('--pamana-theme-canvas', festival.canvas);
- set('--cream',dark?'#141E1A':'#F6F8F4');
- set('--beige',dark?'#25352C':'#EAF1EA');
- set('--ink',dark?'#EFF5EF':'#1C3027');
- set('--muted',dark?'#B8C9BE':'#5E7065');
- set('--pamana-surface',dark?'#213028':'#FFFFFF');
- set('--pamana-border',dark?'#42584A':'#DCE7DE');
- set('--pamana-shadow',dark?'0 9px 26px rgba(0,0,0,.16)':'0 8px 26px rgba(31,67,47,.055)');
- set('--ion-background-color',dark?'#141E1A':'#F6F8F4');
- set('--ion-text-color',dark?'#EFF5EF':'#1C3027');
- set('--ion-color-primary', dark ? '#A5D4BC' : '#245A43');
- const rgb=festival.primary.match(/[0-9A-Fa-f]{2}/g);
- if(rgb&&rgb.length===3)set('--ion-color-primary-rgb',rgb.map(s=>parseInt(s,16)).join(','));
- const scales={small:'0.92',default:'1',large:'1.12','extra-large':'1.24'};
+ const tokens:Record<string,string>={
+  '--green':'#276D5B',
+  '--deep-green':'#215847',
+  '--brown':'#2A3B4A',
+  '--terracotta':'#BD7867',
+  '--amber':'#D5A455',
+  '--cream':'#FAFBF8',
+  '--beige':'#EEF6F0',
+  '--ink':'#273848',
+  '--muted':'#60717E',
+  '--pamana-surface':'#FFFFFF',
+  '--pamana-border':'#E3EAE6',
+  '--pamana-shadow':'0 7px 24px rgba(40,75,63,.055)',
+  '--pamana-theme-primary':festival.primary,
+  '--pamana-theme-accent':festival.accent,
+  '--pamana-theme-secondary':festival.secondary,
+  '--pamana-theme-canvas':festival.canvas,
+  '--ion-background-color':'#FAFBF8',
+  '--ion-text-color':'#273848',
+  '--ion-item-background':'#FFFFFF',
+  '--ion-card-background':'#FFFFFF',
+  '--ion-toolbar-background':'#FFFFFF',
+  '--ion-color-primary':'#276D5B',
+  '--ion-color-primary-rgb':'39,109,91',
+  '--ion-color-primary-contrast':'#FFFFFF',
+  '--ion-color-step-50':'#F3F6F3',
+  '--ion-color-step-100':'#E8EFEA',
+  '--ion-color-step-150':'#DCE7DF',
+  '--ion-color-step-200':'#D0DED4',
+  '--ion-color-step-300':'#B8C9BF',
+  '--ion-color-step-400':'#95AC9E',
+  '--ion-color-step-500':'#778D80',
+  '--ion-color-step-600':'#627468',
+  '--ion-color-step-700':'#47584D',
+  '--ion-color-step-800':'#38473E',
+  '--ion-color-step-900':'#27352D',
+ };
+ for(const [key,value] of Object.entries(tokens))set(key,value);
+ const scales={small:'0.94',default:'1',large:'1.12','extra-large':'1.24'};
  set('--pamana-text-scale',scales[p.textSize]);
  root.dataset.pamanaTheme=festival.id;
- root.dataset.pamanaMode=dark?'dark':'light';
+ root.dataset.pamanaMode='light';
  root.dataset.pamanaMotion=p.reducedMotion?'reduce':'normal';
+ root.style.colorScheme='light';
+ root.classList.remove('ion-palette-dark','dark');
+ document.body?.classList.remove('ion-palette-dark','dark');
  root.lang=p.language==='fil'?'fil':'en';
 }
