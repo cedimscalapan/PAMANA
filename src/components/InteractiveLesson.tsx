@@ -23,7 +23,7 @@ export default function InteractiveLesson({pack}:{pack:DiscoveryPack}){
  const prompt=pack.prompts[index],correct=isDiscoveryAnswerCorrect(prompt,selected);
  const image=pack.imageId?imageById(pack.imageId):undefined;
  const pick=(id:string)=>{setSelected(id);setChecked(false);setError('');};
- const reset=()=>{setIndex(0);setSelected('');setChecked(false);setHint(false);setError('');};
+ const reset=()=>{setDone(false);setIndex(0);setSelected('');setChecked(false);setHint(false);setError('');};
  const advance=async()=>{
   if(!checked||!correct||busy)return;
   if(index+1<pack.prompts.length){setIndex(index+1);setSelected('');setChecked(false);setHint(false);setError('');return;}
@@ -43,10 +43,10 @@ export default function InteractiveLesson({pack}:{pack:DiscoveryPack}){
     <div className="pamana-interactive-actions"><button type="button" className="secondary-action" onClick={reset}><IonIcon icon={refreshOutline}/> Replay</button><Link to={'/journey?town='+townId(pack.town)} className="primary-action">Open {pack.town} journey <IonIcon icon={arrowForwardOutline}/></Link></div>
   </div>:<>
     <div className="pamana-interactive-progress"><span>Discovery {index+1} of {pack.prompts.length}</span><progress max={pack.prompts.length} value={index} aria-label="Completed interaction steps"/></div>
-    {prompt.kind==='observe'&&<figure className="pamana-observe-panel">
+    {prompt.kind==='observe'&&<div className="pamana-observe-panel">
       {image?<MediaFigure image={image}/>:<div className="pamana-observe-symbol" role="img" aria-label={pack.imageDescription}><span aria-hidden="true">{pack.symbol}</span></div>}
-      <figcaption>{pack.imageDescription}</figcaption>
-    </figure>}
+      <p className="pamana-observe-note">{pack.imageDescription}</p>
+    </div>}
     <div className="pamana-discovery-question"><span className="pamana-eyebrow">{prompt.kind==='observe'?'LOOK CLOSELY':'MAKE THE CONNECTION'}</span><h3>{prompt.question}</h3>
       <div className="pamana-discovery-choices" role="group" aria-label="Choose your answer">
        {prompt.choices.map((choice,j)=><button type="button" key={choice.id}
