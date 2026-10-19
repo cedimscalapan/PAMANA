@@ -1,0 +1,42 @@
+
+/* Phases 05–06 — offline Mindoro outline and documented town chapters */
+.pamana5-adventure-map{margin:23px 0;padding:clamp(15px,3vw,23px);background:#FFF;border:1px solid #DAE9DD;border-radius:24px;color:#263B36}
+.pamana5-map-head{display:flex;justify-content:space-between;align-items:start;gap:17px}
+.pamana5-map-head h2{font:770 clamp(1.22rem,3.6vw,1.65rem)/1.2 var(--adventure-heading);margin:7px 0}
+.pamana5-map-head p{color:#556C5D;font-size:.84rem;line-height:1.55;margin:0 0 9px}
+.pamana5-switch{display:flex;gap:6px;border:1px solid #DCE9DF;border-radius:14px;background:#F6FAF7;padding:5px;flex:none}
+.pamana5-switch button,.pamana5-filters button{min-height:44px;border-radius:11px;padding:8px 12px;background:transparent;border:1px solid transparent;color:#3E7157;font-size:.81rem;font-weight:750;display:inline-flex;align-items:center;gap:6px;cursor:pointer}
+.pamana5-switch button[aria-pressed=true],.pamana5-filters button[aria-pressed=true]{background:#DDF0E4;border-color:#8FC3A4;color:#255A41}
+.pamana5-switch button ion-icon{font-size:1.1rem}
+.pamana5-filters{display:flex;gap:7px;flex-wrap:wrap;margin:12px 0 16px}
+.pamana5-filters button{border-color:#E0EAE3;background:#FFF}
+.pamana5-island-layout{display:grid;grid-template-columns:minmax(170px,1fr) minmax(0,1.45fr);gap:14px;align-items:start}
+.pamana5-coast-pane{background:#EAF8F8;border:1px solid #CFE8E7;border-radius:20px;padding:9px;overflow:hidden}
+.pamana5-coast{width:100%;height:auto;display:block;border-radius:15px}
+.pamana5-coast-pane p{display:flex;gap:7px;align-items:center;justify-content:center;font-size:.74rem;color:#4F7978;text-align:center;line-height:1.5;margin:6px}
+.pamana5-trail{padding:4px}
+.pamana5-trail-caption{margin:0 0 10px;font-size:.8rem;color:#5C7968;font-weight:700}
+.pamana5-chapter-trail{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}
+.pamana5-trail-stop{display:flex;gap:8px;align-items:center;min-width:0;text-align:left;min-height:58px;padding:9px;border:1px solid #E0E9E3;border-radius:14px;background:#FAFCFA;color:#263B36;cursor:pointer}
+.pamana5-trail-stop[aria-pressed=true],.pamana5-list-item[aria-pressed=true]{background:#E8F6EC;border-color:#6EAD87;box-shadow:0 0 0 1px #6EAD87}
+.pamana5-trail-icon{height:33px;width:33px;flex:none;border-radius:11px;display:grid;place-items:center;background:#DFF0E5;color:#387054;font-size:.9rem;font-weight:850}
+.pamana5-trail-stop>span:last-child{display:grid;min-width:0;gap:3px}
+.pamana5-trail-stop strong{font-size:.8rem;line-height:1.22;overflow-wrap:anywhere}
+.pamana5-trail-stop small{font-size:.7rem;color:#5B7663}
+.pamana5-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+.pamana5-list-item{display:flex;align-items:center;gap:11px;min-width:0;padding:12px;border-radius:14px;border:1px solid #DDEAE1;background:#FFF;text-align:left;color:#263B36;cursor:pointer;min-height:73px}
+.pamana5-list-item>span:first-child{font-size:1.3rem;flex:none}
+.pamana5-list-item>span:nth-child(2){display:grid;min-width:0;gap:5px;flex:1}
+.pamana5-list-item strong{font-size:.9rem;overflow-wrap:anywhere}
+.pamana5-list-item small{font-size:.73rem;color:#5D7069;line-height:1.4}
+.pamana5-list-status{font-size:.75rem;color:#3D7653;white-space:nowrap;display:inline-flex;align-items:center;gap:4px}
+.pamana5-none{font-size:.88rem;color:#53675A;line-height:1.6;padding:14px;background:#F6FBF6;border-radius:12px}
+.pamana5-attribution{margin:13px 0 0;padding:11px 13px;background:#F5F9F5;border-radius:11px;color:#5D7069;font-size:.73rem;line-height:1.55}
+.pamana6-heritage-context{margin:18px 0;padding:17px;background:#FFFDF6;border:1px solid #EEE8D5;border-radius:17px}
+.pamana6-heritage-context h3{font:760 1.2rem/1.3 var(--adventure-heading);color:#284738;margin:7px 0 10px}
+.pamana6-heritage-context img{display:block;max-height:230px;width:100%;object-fit:contain;border-radius:14px;background:#F2F6F1;margin:10px 0}
+.pamana6-heritage-context p{font-size:.89rem;line-height:1.68;color:#4E665A;margin:9px 0}
+.pamana6-heritage-context .pamana6-media-note{color:#67776E;font-size:.75rem}
+@media(max-width:650px){.pamana5-map-head{flex-direction:column}.pamana5-island-layout{grid-template-columns:1fr}.pamana5-coast-pane{max-width:420px;margin:0 auto;width:100%}.pamana5-list{grid-template-columns:1fr}}
+@media(max-width:400px){.pamana5-chapter-trail{grid-template-columns:1fr}.pamana5-trail-stop{min-height:52px}}
+.pamana5-adventure-map button:focus-visible{outline:3px solid #C18A4B!important;outline-offset:2px}
