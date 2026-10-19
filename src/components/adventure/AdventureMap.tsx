@@ -3,7 +3,6 @@ import {IonIcon} from '@ionic/react';
 import {listOutline,mapOutline,checkmarkCircleOutline,compassOutline} from 'ionicons/icons';
 import {mindoroPaths} from '../../data/mindoro-map';
 import {heritageChapters,chapterStatus,type HeritageChapter,type JourneyProgress,type QuestResultRef} from '../../data/heritage-journey';
-import type {Municipality} from '../../data/festival-themes';
 /** Attribution: source coastline from geoBoundaries ADM1, CC BY 3.0 IGO.
  * Trail cards are NOT placed at geocoordinates or municipality centroids.
  */
@@ -22,7 +21,7 @@ export function IslandOutline(){
 }
 export default function AdventureMap({selected,onSelect,progress,completedLessons,results,hometown}:{
  selected:string;onSelect:(chapter:HeritageChapter)=>void;progress:JourneyProgress;
- completedLessons:ReadonlySet<string>;results:readonly QuestResultRef[];hometown:Municipality|string
+ completedLessons:ReadonlySet<string>;results:readonly QuestResultRef[]
 }){
  const [view,setView]=useState<MapView>('map');
  const [filter,setFilter]=useState<'all'|'in-progress'|'complete'>('all');
