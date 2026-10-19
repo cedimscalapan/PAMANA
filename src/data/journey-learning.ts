@@ -3,6 +3,7 @@ import {officialFestivals} from './official-heritage';
 import {lessonArticles} from './lesson-articles';
 import {lessons} from './learning';
 import {sources} from './content';
+import {localityCulture,commonCulture} from './journey-culture';
 
 /** Source-aware original explanations of the public festival listings.
  * Claims here concern official public celebrations, not Indigenous community permission or ritual authority.
@@ -58,7 +59,9 @@ export const getJourneyReader=(chapter:HeritageChapter,stage:'festival'|'lesson'
   {id:'festival-1',title:'Why this festival matters',text:notes[0],sourceIds:src},
   {id:'festival-2',title:'What the official program highlights',text:
    'The provincial tourism listing associates '+festival.name+' with '+(festival.highlights??[]).join(', ')+'. These are public background highlights, not a verified schedule for a particular year. The festival is listed for '+date+' in '+festival.municipality+'. Confirm the current program with organizers before attending.',sourceIds:src},
-  {id:'festival-3',title:'Look closer and respect the context',text:notes[1]+' Read the linked source alongside any photograph or performance you encounter. Public festival descriptions do not automatically authorize reproduction of community-sensitive designs, songs, or stories.',sourceIds:src}
+  {id:'festival-3',title:'Look closer and respect the context',text:notes[1]+' Read the linked source alongside any photograph or performance you encounter. Public festival descriptions do not automatically authorize reproduction of community-sensitive designs, songs, or stories.',sourceIds:src},
+  ...(localityCulture[chapter.town]??[]).map(topic=>({id:topic.id,title:topic.title,text:topic.text,sourceIds:topic.sourceIds})),
+  ...commonCulture.map(topic=>({id:topic.id,title:topic.title,text:topic.text,sourceIds:topic.sourceIds}))
  ];
 };
 export function getJourneyQuestions(chapter:HeritageChapter):JourneyQuestion[]{
@@ -78,7 +81,7 @@ export function getJourneyQuestions(chapter:HeritageChapter):JourneyQuestion[]{
  const distractors=lessons.filter(l=>l.id!==lesson.id).map(l=>l.points[0]).filter(p=>p!==key);
  const insight=lessonInsights[chapter.lessonId];
  if(!insight)throw Error('Missing reviewed Matuto comprehension check for '+chapter.lessonId);
- return [
+ const base:JourneyQuestion[]=[
   {id:'festival-name',stage:'festival',prompt:'Which festival was documented for '+chapter.town+' in your first reading?',
    options:[festival.name,...others] as [string,string,string,string],answer:0,explanation:'Your first reading was about '+festival.name+' in '+chapter.town+'.',sourceIds:festival.sourceIds},
   {id:'festival-highlight',stage:'festival',prompt:'Which public highlight is listed for '+festival.name+'?',
@@ -93,7 +96,17 @@ export function getJourneyQuestions(chapter:HeritageChapter):JourneyQuestion[]{
    options:[key,...distractors.slice(0,3)] as [string,string,string,string],answer:0,
    explanation:'The linked Matuto lesson explains: '+key,sourceIds:lesson.sourceIds},
   {id:'lesson-insight',stage:'lesson',prompt:insight.prompt,
-   options:insight.options,answer:0,explanation:insight.explanation,sourceIds:lesson.sourceIds}
+   options:insight.options,answer:0,explanation:insight.explanation,sourceIds:lesson.sourceIds},
+  ...(localityCulture[chapter.town]??[]).map(topic=>topic.question),
+  ...commonCulture.map(topic=>topic.question)
  ];
+ // Stable per-chapter variation: correct answers are never always in slot A,
+ // while saved question IDs and option ordering remain identical after app restart.
+ return base.map((question,index)=>{
+  const seed=[chapter.id,question.id,String(index)].join('-');
+  const offset=Array.from(seed).reduce((total,char)=>total+char.charCodeAt(0),0)%4;
+  return {...question,options:question.options.map((_,i)=>question.options[(i+offset)%4]) as [string,string,string,string],
+   answer:(question.answer-offset+4)%4};
+ });
 }
 export const getJourneySourceLinks=(ids:readonly string[])=>ids.map(id=>sources.find(s=>s.id===id)).filter((s):s is NonNullable<typeof s>=>Boolean(s));
