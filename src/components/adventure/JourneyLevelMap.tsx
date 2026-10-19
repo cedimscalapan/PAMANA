@@ -25,7 +25,7 @@ export default function JourneyLevelMap({selected,progress,completedLessons,resu
   <div className="pamana-gameworld-top">
    <div><span className="pamana-gameworld-eyebrow"><IonIcon icon={compassOutline} aria-hidden="true"/> ORIENTAL MINDORO HERITAGE JOURNEY</span>
     <h2 id="pamana-gameworld-title">Choose your next level</h2>
-    <p>Choose any of the 15 hometowns. Learn its history, livelihoods, heritage places and festivals, then earn a stamp.</p></div>
+    <p>Choose any of the 15 hometowns. Learn its history, livelihoods, heritage places and festivals, then earn a stamp. Every level is open!</p></div>
    <div className="pamana-gameworld-total" aria-label={completedCount+' of 15 hometown stamps earned'}>
     <IonIcon icon={trophyOutline} aria-hidden="true"/><strong>{completedCount}<span>/15</span></strong><small>Stamps earned</small></div>
   </div>
