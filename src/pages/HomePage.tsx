@@ -27,6 +27,7 @@ export default function HomePage(){
  const profile=readProfile();
  const finished=new Set(lessons.filter(lesson=>localStorage.getItem(storageKey(lesson.id))==='complete').map(lesson=>lesson.id));
  const quest=readQuestProgress();
+ const hometownChallenges=Object.values(readJourneyProgress().chapters).filter(item=>item.chapterQuestCompleted===true).length;
  const dashboard=buildHomeDashboard({hometown:profile.hometown,progress:readJourneyProgress(),
   completedLessonIds:finished,questResults:quest.results,totalQuestCompletions:quest.totals.completed});
  const chapter=dashboard.chapter;
@@ -59,7 +60,7 @@ export default function HomePage(){
    </section>
    <section className="pamana-final-home-progress" aria-label="Saved learning progress">
     <div><IonIcon icon={bookOutline} aria-hidden="true"/><strong>{dashboard.finishedLessons}<small>/{dashboard.totalLessons}</small></strong><span>Lessons</span></div>
-    <div><IonIcon icon={trophyOutline} aria-hidden="true"/><strong>{dashboard.finishedQuests}</strong><span>Quests</span></div>
+    <div><IonIcon icon={trophyOutline} aria-hidden="true"/><strong>{dashboard.finishedQuests+hometownChallenges}</strong><span>Challenges</span></div>
     <div><IonIcon icon={ribbonOutline} aria-hidden="true"/><strong>{dashboard.finishedTowns}<small>/15</small></strong><span>Town stamps</span></div>
    </section>
    <section className="pamana-final-home-lesson" aria-labelledby="pamana-final-lesson-title">
