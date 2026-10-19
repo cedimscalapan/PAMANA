@@ -30,7 +30,7 @@ export const heritageChapters:HeritageChapter[]=municipalities.map(town=>{
  return {id:townId(town),town,festivalId:festival.id,festivalName:festival.name,lessonId:lesson.id,lessonTitle:lesson.title,mode:config.mode};
 });
 export const findChapter=(id:string|null|undefined)=>heritageChapters.find(chapter=>chapter.id===id);
-export type ChapterProgress={festivalOpened?:boolean;questSessionId?:string;questCompletedId?:string;festivalReadSections?:number[];lessonReadSections?:number[];chapterCorrectQuestions?:string[];chapterQuestCompleted?:boolean};
+export type ChapterProgress={festivalOpened?:boolean;questSessionId?:string;questCompletedId?:string;festivalReadSections?:number[];lessonReadSections?:number[];chapterCorrectQuestions?:string[];chapterQuestCompleted?:boolean;researchEdition?:2;chapterLessonCompleted?:boolean};
 export type JourneyProgress={version:1;chapters:Record<string,ChapterProgress>};
 export const emptyJourney=():JourneyProgress=>({version:1,chapters:{}});
 export type QuestResultRef={id:string;mode:GameMode};
@@ -38,8 +38,10 @@ export type JourneyStatus={festivalOpened:boolean;lessonCompleted:boolean;questC
 export function chapterStatus(chapter:HeritageChapter,progress:JourneyProgress,completedLessons:ReadonlySet<string>,results:readonly QuestResultRef[]):JourneyStatus {
  const local=progress.chapters[chapter.id]??{};
  const festivalOpened=local.festivalOpened===true;
- const lessonCompleted=completedLessons.has(chapter.lessonId);
- const questCompleted=local.chapterQuestCompleted===true||!!local.questCompletedId||!!local.questSessionId&&results.some(r=>r.id===local.questSessionId&&r.mode===chapter.mode);
+ const legacyQuest=!!local.questCompletedId||!!local.questSessionId&&results.some(r=>r.id===local.questSessionId&&r.mode===chapter.mode);
+ const legacyEarned=festivalOpened&&completedLessons.has(chapter.lessonId)&&legacyQuest;
+ const lessonCompleted=local.chapterLessonCompleted===true||(local.researchEdition!==2&&completedLessons.has(chapter.lessonId))||legacyEarned;
+ const questCompleted=local.chapterQuestCompleted===true||legacyQuest;
  const done=Number(festivalOpened)+Number(lessonCompleted)+Number(questCompleted);
  return {festivalOpened,lessonCompleted,questCompleted,done,total:3,completed:done===3};
 }
