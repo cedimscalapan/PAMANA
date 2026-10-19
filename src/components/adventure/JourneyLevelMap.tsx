@@ -19,13 +19,13 @@ export default function JourneyLevelMap({selected,progress,completedLessons,resu
  const selectedStatus=chapterStatus(selected,progress,completedLessons,results);
  const completedCount=chapters.filter(item=>item.status.completed).length;
  const nextKind=selectedStatus.completed?'revisit':!selectedStatus.festivalOpened?'discover':!selectedStatus.lessonCompleted?'learn':'play';
- const nextLabel={revisit:'Explore again',discover:'Start discovering',learn:'Continue learning',play:'Play linked Quest'}[nextKind];
+ const nextLabel={revisit:'Explore again',discover:'Discover local history',learn:'Explore festivals & heritage',play:'Start hometown challenge'}[nextKind];
  const available=chapters.filter(item=>item.chapter.town.toLowerCase().includes(query.trim().toLowerCase()));
  return <section className="pamana-gameworld" aria-labelledby="pamana-gameworld-title">
   <div className="pamana-gameworld-top">
-   <div><span className="pamana-gameworld-eyebrow"><IonIcon icon={compassOutline} aria-hidden="true"/> INTERACTIVE HERITAGE JOURNEY</span>
+   <div><span className="pamana-gameworld-eyebrow"><IonIcon icon={compassOutline} aria-hidden="true"/> ORIENTAL MINDORO HERITAGE JOURNEY</span>
     <h2 id="pamana-gameworld-title">Choose your next level</h2>
-    <p>Follow the winding trail, discover a hometown and earn its Heritage Stamp. Every level is open!</p></div>
+    <p>Choose any of the 15 hometowns. Learn its history, livelihoods, heritage places and festivals, then earn a stamp.</p></div>
    <div className="pamana-gameworld-total" aria-label={completedCount+' of 15 hometown stamps earned'}>
     <IonIcon icon={trophyOutline} aria-hidden="true"/><strong>{completedCount}<span>/15</span></strong><small>Stamps earned</small></div>
   </div>
