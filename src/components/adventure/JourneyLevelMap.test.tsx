@@ -16,7 +16,7 @@ describe('interactive Journey level-map render',()=>{
  });
  it('has immediate action, chapter-details and accessible List View alternatives',()=>{
   const html=render();
-  expect(html).toContain('Start discovering');
+  expect(html).toContain('Discover local history');
   expect(html).toContain('View chapter details');
   expect(html).toContain('Town list');
   expect(html).toContain('aria-label="Illustrated level trail with fifteen selectable hometown levels"');
