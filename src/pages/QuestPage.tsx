@@ -11,6 +11,8 @@ import { GameLevel, GameMode, GameRound, gameModes } from '../data/quest-games';
 import { mindoroPaths, projectMindoro } from '../data/mindoro-map';
 import { advance, GameSession, isCorrect, newSession, QuestProgress, readQuestProgress, RoundDraft, roundPoints, saveQuestProgress } from '../services/quest-games';
 import '../quest.css';
+import KaPamanaGuide from '../components/adventure/KaPamanaGuide';
+import {playUiSound} from '../services/ui-sounds';
 
 const photoAlt: Record<string,string> = {
   puerto:'A sandy beach and buildings seen from the sea.', naujan:'A freshwater lake bordered by green vegetation and distant hills.', halcon:'A mountain rising above a wooded landscape.', tamaraw:'A small wild buffalo with dark hair and closely set, V-shaped horns.',
@@ -100,11 +102,12 @@ export default function QuestPage(){
       setPlaying(true);void content.current?.scrollToTop(0);
     });
   };
-  const check=()=>{if(!session||!round)return;const correct=isCorrect(round,session.draft);update({...session.draft,checked:true,correct,misses:session.draft.misses+(correct?0:1)});};
+  const check=()=>{if(!session||!round)return;const correct=isCorrect(round,session.draft);update({...session.draft,checked:true,correct,misses:session.draft.misses+(correct?0:1)});if(correct)playUiSound('success');};
   const next=()=>{if(session)void persist(advance(progress,session),()=>void content.current?.scrollToTop(0));};
   const legacyScore=localStorage.getItem('pamana.quest.bestScore');
   return <IonPage><IonContent ref={content}><PageFrame active="quest">
     {!playing||!session||!round?<><HeritageHero eyebrow="Curiosity is your best companion." title="Pamana Quest" description="Look closer. Make connections. Discover something worth remembering." tone="amber"/><section className="heritage-body game-hub">
+      <KaPamanaGuide state="play" compact/>
       <div className="game-hub-intro"><div><span className="eyebrow">SIX WAYS TO DISCOVER</span><h2>What will you explore today?</h2><p>Short, source-linked games. No countdown. Everything you need is available offline.</p></div><span className="game-total"><b>{progress.totals.completed}</b>games completed</span></div>
       {journey&&linkedMode&&<div className="pamana-journey-quest-prompt"><div><small>CONNECTED HERITAGE JOURNEY</small><strong>{journey.town}: {gameModes.find(m=>m.id===linkedMode)?.name}</strong><p>This is a source-backed Mindoro-wide game. Complete it to earn the Quest step in your {journey.town} journey.</p></div><button type="button" className="primary-action" disabled={busy} onClick={()=>start(linkedMode)}>Play journey challenge →</button><Link to={'/journey?town='+journey.id}>Return to journey</Link></div>}
       {session&&!session.complete&&<div className="resume-game"><div><small>READY WHEN YOU ARE</small><strong>{definition?.name}</strong><span>Activity {session.index+1} of {session.rounds.length} · {session.score} points banked</span></div><button type="button" className="primary-action" disabled={busy} onClick={()=>setPlaying(true)}>Continue game →</button></div>}
