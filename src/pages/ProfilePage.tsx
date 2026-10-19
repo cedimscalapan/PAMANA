@@ -25,7 +25,7 @@ export default function ProfilePage(){
  const discard=()=>{if(busy)return;const previous=readProfile();setProfile(previous);setSaved(previous);setMessage('Unsaved choices discarded.');};
  return <IonPage><IonContent>
   <PageFrame active="settings">
-   <ModuleHeader title="Aking Pamana" subtitle="Make your heritage adventure your own." icon={personCircleOutline}/>
+   <ModuleHeader title="My Profile" subtitle="Choose your hometown, avatar, and learning preferences." icon={personCircleOutline}/>
    <div className="pamana-profile pamana3-profile">
     <PamanaIllustratedCard variant="hills" className="pamana3-profile-hero">
      <PamanaBadge tone="mint">MY ADVENTURE · MY CHOICE</PamanaBadge>
@@ -78,7 +78,7 @@ export default function ProfilePage(){
       </label>
      </div>
      <label className="pamana-checkbox pamana3-motion"><input type="checkbox" checked={profile.reducedMotion} onChange={e=>update({reducedMotion:e.target.checked})}/>Reduce decorative animations</label>
-     <p className="pamana3-field-note">Text size and reduced motion take effect after saving. Optional interface sounds are planned for a later phase and are not enabled here.</p>
+     <p className="pamana3-field-note">Text size and reduced motion take effect after saving. Optional interface sounds can be changed in Settings.</p>
     </section>
 
     <div className="pamana3-save-bar">
