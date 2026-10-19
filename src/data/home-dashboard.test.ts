@@ -1,6 +1,6 @@
 import {describe,expect,it} from 'vitest';
 import {buildHomeDashboard} from './home-dashboard';
-import {heritageChapters,emptyJourney,chapterStatus,type JourneyProgress} from './heritage-journey';
+import {heritageChapters,emptyJourney,type JourneyProgress,type ChapterProgress} from './heritage-journey';
 import {lessons} from './learning';
 
 const baco=heritageChapters.find(c=>c.town==='Baco')!;
@@ -13,7 +13,7 @@ const calculate=(opts:{
  completedLessonIds:opts.completed??new Set<string>(),questResults:opts.results??[],
  totalQuestCompletions:opts.quests??0
 });
-const withChapter=(chapterId:string,changes:Record<string,unknown>):JourneyProgress=>({
+const withChapter=(chapterId:string,changes:ChapterProgress):JourneyProgress=>({
  version:1,chapters:{[chapterId]:changes}
 });
 describe('Phase 04 accurate offline Home dashboard',()=>{
