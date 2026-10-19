@@ -31,7 +31,7 @@ describe('connected hometown Journey progress',()=>{
  });
  it('requires festival, full Matuto reading, then correct answers before the new stamp',async()=>{
   await expect(markJourneySectionRead(chapter.id,'festival',100)).rejects.toThrow('Invalid reading section');
-  await expect(completeJourneyLessonReading(chapter.id)).rejects.toThrow('Finish the festival');
+  await expect(completeJourneyLessonReading(chapter.id)).rejects.toThrow('Finish Tuklas');
   for(let i=0;i<getJourneyReader(chapter,'festival').length;i++)await markJourneySectionRead(chapter.id,'festival',i);
   await completeFestivalReading(chapter.id);
   await markJourneySectionRead(chapter.id,'lesson',0);
