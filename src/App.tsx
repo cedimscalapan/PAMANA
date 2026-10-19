@@ -14,11 +14,13 @@ import ProfilePage from './pages/ProfilePage';
 import MorePage from './pages/MorePage';
 import MyPamanaPage from './pages/MyPamanaPage';
 import JourneyPage from './pages/JourneyPage';
+import JourneyActivityPage from './pages/JourneyActivityPage';
 
 export default function App() {
   return <IonRouterOutlet>
     <Route exact path="/home" component={HomePage} />
     <Route exact path="/journey" component={JourneyPage} />
+    <Route exact path="/journey/activity" component={JourneyActivityPage} />
     <Route exact path="/learn" component={LearnPage} />
     <Route exact path="/writing" component={WritingPage} />
     <Route exact path="/explore" component={ExplorePage} />
