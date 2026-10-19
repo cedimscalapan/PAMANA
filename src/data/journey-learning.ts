@@ -25,6 +25,15 @@ const deepContext:Record<string,[string,string]>={
  'pakapya-agtike':['The provincial portal presents Socorro’s official festival through harvest thanksgiving and cultural presentations, including street dancing. It refers to Tadyawan Mangyan cultural context; meaningful interpretations should be reviewed with the communities concerned.','A public festival listing does not provide a script for an Indigenous ritual. Learn the organizer’s documented description while respecting community voices, consent, and limits on recording or reproduction.'],
  kapakyanan:['The provincial entry highlights Victoria’s citrus, fruits, rice and other agricultural production. Agricultural fairs, exhibits and dancing appear in its published highlights, connecting growing and trade with civic celebration.','Distinguish the town’s fruit and crop themes from the freshwater ecology of neighboring Naujan Lake. Both are part of local geography, but a festival display is not a claim about every resident’s work.']
 };
+/** Reviewed, meaningful checks of Matuto article facts (not section headings). */
+const lessonInsights:Record<string,{prompt:string;options:[string,string,string,string];explanation:string}>={
+ l1:{prompt:'How does the PPDO count Oriental Mindoro\'s local government units?',options:['14 municipalities and one component city','15 municipalities and one extra city','14 cities and one municipality','Only the capital city'],explanation:'The province has 14 municipalities and one component city, Calapan, for 15 city-and-municipality units.'},
+ l4:{prompt:'What is the respectful way to understand the term Mangyan?',options:['As an umbrella term for distinct Indigenous peoples','As a single language spoken identically by everyone','As one festival with a single tradition','As a name for one town only'],explanation:'The NCCA introduces Mangyan as a generic term for communities with different names, languages and cultural practices.'},
+ l11:{prompt:'What should you do with an offline tourism directory before planning a real visit?',options:['Check current access and local guidance with responsible sources','Assume every route and schedule is unchanged','Enter protected areas whenever they appear in an app','Treat every entry as a confirmed live event'],explanation:'The Matuto lesson explains that official listings help discovery but do not replace current travel and community guidance.'},
+ l12:{prompt:'Why does the Matuto lesson describe Naujan Lake as more than a scenic viewpoint?',options:['It is a connected wetland, habitat and livelihood landscape','It is only a saltwater beach','It has no conservation importance','Only one town is connected with its waters'],explanation:'The source-backed lesson explains Naujan Lake National Park and the wetland connections among water, wildlife and neighboring communities.'},
+ l14:{prompt:'Which pair of dates is distinguished in Oriental Mindoro\'s administrative history?',options:['June 13, 1950 approval and November 15, 1950 effectivity','June 13, 1950 founding of all Mangyan cultures','November 15, 1950 approval and June 13, 1950 effectivity','Both approval and effectivity were in 1993'],explanation:'Republic Act 505 was approved in June 1950, and Proclamation 186 set the division\'s effectivity in November 1950.'},
+ l16:{prompt:'What can an annual festival calendar NOT confirm on its own?',options:['A particular year\'s venue, program or activities','Which municipality the directory associates with a festival','That the directory publishes recurring dates','The name recorded in the directory'],explanation:'The Matuto reading distinguishes annual observance dates from the verified schedule and activities of a specific year.'}
+};
 export type JourneyReaderSection={id:string;title:string;text:string;sourceIds:string[]};
 export type JourneyQuestion={id:string;stage:'festival'|'lesson';prompt:string;options:[string,string,string,string];answer:number;explanation:string;sourceIds:string[]};
 export const getJourneyReader=(chapter:HeritageChapter,stage:'festival'|'lesson'):JourneyReaderSection[]=>{
@@ -32,7 +41,11 @@ export const getJourneyReader=(chapter:HeritageChapter,stage:'festival'|'lesson'
   const lesson=lessons.find(l=>l.id===chapter.lessonId);
   const article=lessonArticles[chapter.lessonId];
   if(!lesson||!article)throw Error('Missing reviewed Matuto material');
-  return article.sections.map((s,index)=>({id:'lesson-'+index,title:s.heading,text:s.text,sourceIds:lesson.sourceIds}));
+  const festival=officialFestivals.find(f=>f.id===chapter.festivalId)!;
+  const contextual:JourneyReaderSection={id:'lesson-connection',title:'Connect '+chapter.town+' with the bigger picture',
+   text:'The Oriental Mindoro Provincial Tourism Office lists '+festival.name+' for '+chapter.town+'. Its published festival account explains: '+festival.description+' The linked Matuto lesson, "'+lesson.title+'", adds broader context from its own sources. One important idea to keep in mind is: '+lesson.points[0]+' Study this distinction: the festival entry tells you what the public organizers describe, while the Matuto lesson helps you ask deeper historical, geographic, environmental or cultural questions. Neither reference grants permission to invent community practices or assume that a published annual event calendar gives live travel details.',
+   sourceIds:[...new Set([...festival.sourceIds,...lesson.sourceIds])]};
+  return [contextual,...article.sections.map((s,index)=>({id:'lesson-'+index,title:s.heading,text:s.text,sourceIds:lesson.sourceIds}))];
  }
  const festival=officialFestivals.find(f=>f.id===chapter.festivalId);
  if(!festival)throw Error('Missing reviewed festival');
@@ -63,9 +76,8 @@ export function getJourneyQuestions(chapter:HeritageChapter):JourneyQuestion[]{
   .filter(s=>!!s&&s!==highlight&&!highlights.includes(s));
  const key=lesson.points[0];
  const distractors=lessons.filter(l=>l.id!==lesson.id).map(l=>l.points[0]).filter(p=>p!==key);
- const sections=article.sections;
- const topic=sections[0].heading;
- const otherTopics=Object.entries(lessonArticles).filter(([id])=>id!==lesson.id).map(([,a])=>a.sections[0].heading).filter(t=>t!==topic);
+ const insight=lessonInsights[chapter.lessonId];
+ if(!insight)throw Error('Missing reviewed Matuto comprehension check for '+chapter.lessonId);
  return [
   {id:'festival-name',stage:'festival',prompt:'Which festival was documented for '+chapter.town+' in your first reading?',
    options:[festival.name,...others] as [string,string,string,string],answer:0,explanation:'Your first reading was about '+festival.name+' in '+chapter.town+'.',sourceIds:festival.sourceIds},
@@ -80,9 +92,8 @@ export function getJourneyQuestions(chapter:HeritageChapter):JourneyQuestion[]{
   {id:'lesson-key',stage:'lesson',prompt:'Which idea was explained in the Matuto lesson "'+lesson.title+'"?',
    options:[key,...distractors.slice(0,3)] as [string,string,string,string],answer:0,
    explanation:'The linked Matuto lesson explains: '+key,sourceIds:lesson.sourceIds},
-  {id:'lesson-topic',stage:'lesson',prompt:'Which topic was covered in the detailed Matuto reading?',
-   options:[topic,...otherTopics.slice(0,3)] as [string,string,string,string],answer:0,
-   explanation:'The lesson includes a section titled "'+topic+'": '+sections[0].text.slice(0,160)+'…',sourceIds:lesson.sourceIds}
+  {id:'lesson-insight',stage:'lesson',prompt:insight.prompt,
+   options:insight.options,answer:0,explanation:insight.explanation,sourceIds:lesson.sourceIds}
  ];
 }
 export const getJourneySourceLinks=(ids:readonly string[])=>ids.map(id=>sources.find(s=>s.id===id)).filter((s):s is NonNullable<typeof s>=>Boolean(s));
