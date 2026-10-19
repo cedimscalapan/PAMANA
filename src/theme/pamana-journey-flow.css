@@ -86,3 +86,21 @@
 }
 @media(max-width:360px){.pamana-flow-header{grid-template-columns:1fr}.pamana-flow-town-art{display:none}}
 @media(prefers-reduced-motion:reduce){.pamana-flow-screen *{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+
+/* Question-by-question UX: clear correct feedback and independent response controls. */
+.pamana-flow-question-track{display:flex;flex-wrap:wrap;gap:7px;justify-content:center;
+ margin:12px 0 22px;padding:11px;background:#F4F9F4;border:1px solid #E1EBDF;border-radius:14px}
+.pamana-flow-question-track span{display:grid;place-items:center;width:31px;height:31px;
+ border-radius:10px;background:#FFF;border:1px solid #DDE7DB;color:#6B7D70;
+ font-size:.73rem;font-weight:820}
+.pamana-flow-question-track span.done{background:#D8EFE1;color:#217348;border-color:#A4D4B5}
+.pamana-flow-question-track span.current{background:#2E8058;color:#FFF;border-color:#27714E;
+ outline:2px solid #E4B969;outline-offset:2px}
+.pamana-flow-feedback.correct{background:#EAF7ED;border:1px solid #B6DCC3;color:#205D3A;
+ margin:15px 0;padding:13px 16px}
+.pamana-flow-feedback.correct p{margin:6px 0 0;color:#326D4B;line-height:1.6}
+.pamana-flow-question>button.pamana-flow-primary{margin-top:12px;min-width:178px}
+.pamana-flow-question .pamana-flow-answers button.selected:disabled{background:#DDF3E2;color:#295B40;opacity:1;
+ border-color:#5BA675}
+.pamana-flow-question .pamana-flow-answers button:focus-visible{outline:3px solid #B17A32;outline-offset:3px}
+@media(max-width:430px){.pamana-flow-question-track span{width:27px;height:27px;font-size:.69rem}}

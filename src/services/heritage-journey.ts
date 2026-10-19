@@ -17,7 +17,7 @@ export function readJourneyProgress():JourneyProgress {
     festivalOpened:item.festivalOpened===true,
     questSessionId:typeof item.questSessionId==='string'?item.questSessionId:undefined,
     questCompletedId:typeof item.questCompletedId==='string'?item.questCompletedId:undefined,
-    festivalReadSections:Array.isArray(item.festivalReadSections)?item.festivalReadSections.filter((x:unknown)=>Number.isInteger(x)&&Number(x)>=0&&Number(x)<4).slice(0,4):[],
+    festivalReadSections:Array.isArray(item.festivalReadSections)?item.festivalReadSections.filter((x:unknown)=>Number.isInteger(x)&&Number(x)>=0&&Number(x)<32).slice(0,32):[],
     lessonReadSections:Array.isArray(item.lessonReadSections)?item.lessonReadSections.filter((x:unknown)=>Number.isInteger(x)&&Number(x)>=0&&Number(x)<12).slice(0,12):[],
     chapterCorrectQuestions:Array.isArray(item.chapterCorrectQuestions)?item.chapterCorrectQuestions.filter((x:unknown)=>typeof x==='string'&&x.length<=60).slice(0,20):[],
     chapterQuestCompleted:item.chapterQuestCompleted===true

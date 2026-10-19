@@ -50,7 +50,7 @@ describe('connected hometown Journey progress',()=>{
   const snapshot=readJourneyProgress();
   expect(snapshot.chapters[chapter.id].chapterQuestCompleted).toBe(true);
   expect(chapterStatus(chapter,snapshot,new Set([chapter.lessonId]),[]).completed).toBe(true);
-  expect(readJourneyProgress().chapters[chapter.id].chapterCorrectQuestions).toHaveLength(6);
+  expect(readJourneyProgress().chapters[chapter.id].chapterCorrectQuestions).toHaveLength(getJourneyQuestions(chapter).length);
   // Reading the old offline status still works after reloading localStorage.
   expect(mem.has('pamana.journey.v1')).toBe(true);
  });
