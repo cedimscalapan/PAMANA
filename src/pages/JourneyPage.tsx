@@ -72,7 +72,7 @@ export default function JourneyPage(){
     </header>
     <KaPamanaGuide state={status.completed?'celebrate':'discover'} compact/>
     <div className="pamana-journey-summary"><span><IonIcon icon={mapOutline}/> {heritageChapters.length} hometowns</span><span><IonIcon icon={trophyOutline}/> {stamps} heritage {stamps===1?'stamp':'stamps'}</span><span><IonIcon icon={checkmarkCircleOutline}/> Save progress offline</span></div>
-    <AdventureMap selected={selected.id} onSelect={chapter=>{history.push(pathFor(chapter));setMessage('');}} progress={saved} completedLessons={completedLessons} results={results} hometown={profile.hometown}/>
+    <AdventureMap selected={selected.id} onSelect={chapter=>{history.push(pathFor(chapter));setMessage('');}} progress={saved} completedLessons={completedLessons} results={results}/>
     <div className="pamana-journey-title"><div><span className="pamana-eyebrow">ALL FIFTEEN CHAPTERS</span><h2>Choose a hometown card</h2></div></div>
     <div className="pamana-journey-towns" aria-label="Choose one of the fifteen hometown journeys">
      {sorted.map(chapter=>{
