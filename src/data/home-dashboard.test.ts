@@ -55,8 +55,9 @@ describe('Phase 04 accurate offline Home dashboard',()=>{
   expect(unrelated.finishedQuests).toBe(1);
   expect(unrelated.next.kind).toBe('quest');
   const linked=calculate({progress,completed,results:[{id:'linked',mode:baco.mode}],quests:1});
-  expect(linked.status.completed).toBe(true);
   expect(linked.finishedTowns).toBe(1);
+  expect(linked.chapter.town).not.toBe('Baco');
+  expect(linked.chapterIsSuggestion).toBe(true);
   expect(linked.earnedGeneralStamps).toBeGreaterThan(0);
  });
  it('moves to an unfinished chapter when the chosen hometown is already completed',()=>{
