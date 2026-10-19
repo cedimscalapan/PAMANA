@@ -48,7 +48,7 @@ export default function JourneyActivityPage(){
  const lesson=lessons.find(l=>l.id===chapter.lessonId)!;
  const article=lessonArticles[chapter.lessonId];
  const festival=officialFestivals.find(f=>f.id===chapter.festivalId)!;
- const stage=step==='complete'&&status.completed?'complete':step==='quest'&&!status.festivalOpened?'festival':
+ const stage=step==='complete'&&!status.completed?(!status.festivalOpened?'festival':!status.lessonCompleted?'lesson':'quest'):step==='quest'&&!status.festivalOpened?'festival':
   step==='quest'&&!status.lessonCompleted?'lesson':step==='lesson'&&!status.festivalOpened?'festival':step;
  const sections=stage==='festival'||stage==='lesson'?getJourneyReader(chapter,stage):[];
  const readIndices=new Set(stage==='festival'?local.festivalReadSections??[]:local.lessonReadSections??[]);
@@ -85,7 +85,6 @@ export default function JourneyActivityPage(){
    setFeedback('correct');playUiSound('success');
   });
  };
- const advanceQuiz=()=>{setChoice(null);setFeedback(null);void content.current?.scrollToTop(0);};
  const nextChapter=heritageChapters[(heritageChapters.findIndex(c=>c.id===chapter.id)+1)%heritageChapters.length];
  const readingTitle=stage==='festival'?festival.name:lesson.title;
  return <IonPage><IonContent ref={content} fullscreen><PageFrame active="journey">
