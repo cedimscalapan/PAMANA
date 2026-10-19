@@ -19,7 +19,7 @@ export function IslandOutline(){
   <text x="180" y="402" fontSize="9" textAnchor="middle" fontWeight="600" fill="#4B7B79">Coastline outline only · Not a municipal boundary map</text>
  </svg>;
 }
-export default function AdventureMap({selected,onSelect,progress,completedLessons,results,hometown}:{
+export default function AdventureMap({selected,onSelect,progress,completedLessons,results}:{
  selected:string;onSelect:(chapter:HeritageChapter)=>void;progress:JourneyProgress;
  completedLessons:ReadonlySet<string>;results:readonly QuestResultRef[]
 }){
