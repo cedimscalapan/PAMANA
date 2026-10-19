@@ -30,7 +30,7 @@ export const heritageChapters:HeritageChapter[]=municipalities.map(town=>{
  return {id:townId(town),town,festivalId:festival.id,festivalName:festival.name,lessonId:lesson.id,lessonTitle:lesson.title,mode:config.mode};
 });
 export const findChapter=(id:string|null|undefined)=>heritageChapters.find(chapter=>chapter.id===id);
-export type ChapterProgress={festivalOpened?:boolean;questSessionId?:string;questCompletedId?:string};
+export type ChapterProgress={festivalOpened?:boolean;questSessionId?:string;questCompletedId?:string;festivalReadSections?:number[];lessonReadSections?:number[];chapterCorrectQuestions?:string[];chapterQuestCompleted?:boolean};
 export type JourneyProgress={version:1;chapters:Record<string,ChapterProgress>};
 export const emptyJourney=():JourneyProgress=>({version:1,chapters:{}});
 export type QuestResultRef={id:string;mode:GameMode};
@@ -39,7 +39,7 @@ export function chapterStatus(chapter:HeritageChapter,progress:JourneyProgress,c
  const local=progress.chapters[chapter.id]??{};
  const festivalOpened=local.festivalOpened===true;
  const lessonCompleted=completedLessons.has(chapter.lessonId);
- const questCompleted=!!local.questCompletedId||!!local.questSessionId&&results.some(r=>r.id===local.questSessionId&&r.mode===chapter.mode);
+ const questCompleted=local.chapterQuestCompleted===true||!!local.questCompletedId||!!local.questSessionId&&results.some(r=>r.id===local.questSessionId&&r.mode===chapter.mode);
  const done=Number(festivalOpened)+Number(lessonCompleted)+Number(questCompleted);
  return {festivalOpened,lessonCompleted,questCompleted,done,total:3,completed:done===3};
 }
