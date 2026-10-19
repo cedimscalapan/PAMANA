@@ -45,7 +45,7 @@ export default function JourneyActivityPage(){
  const questions=getJourneyQuestions(chapter);
  const answered=new Set(local.chapterCorrectQuestions??[]);
  const answeredCount=questions.filter(q=>answered.has(q.id)).length;
- const questionIndex=activeQuestionIndex(questions.map(q=>q.id),answered,quizCursor,feedback?.result==='correct'?feedback.questionId:undefined);
+ const questionIndex=activeQuestionIndex(questions.map(q=>q.id),answered,quizCursor,feedback&&feedback.result==='correct'?feedback.questionId:undefined);
  const question=questionIndex<0?undefined:questions[questionIndex];
  const questionFeedback=feedback?.questionId===question?.id?feedback.result:null;
  const lesson=lessons.find(l=>l.id===chapter.lessonId)!;
