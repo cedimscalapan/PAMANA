@@ -1,3 +1,4 @@
+import LakbaySections from '../components/LakbaySections';
 import {IonContent,IonIcon,IonPage,useIonViewWillEnter} from '@ionic/react';
 import {arrowForwardOutline,bookOutline,checkmarkCircleOutline,compassOutline,gameControllerOutline,lockClosedOutline,mapOutline,trophyOutline} from 'ionicons/icons';
 import {useHistory,useLocation} from 'react-router-dom';
@@ -11,7 +12,6 @@ import {readQuestProgress} from '../services/quest-games';
 import {lessons} from '../data/learning';
 import {storageKey} from '../data/content';
 import {readProfile} from '../services/personalization';
-import kaPamana from '../assets/reference/ka-pamana-icon.png';
 import {interactiveLessonFor} from '../data/interactive-lessons';
 import {isDiscoveryComplete} from '../services/interactive-lessons';
 import JourneyLevelMap from '../components/adventure/JourneyLevelMap';
@@ -74,9 +74,10 @@ export default function JourneyPage(){
    <section className="pamana-journey-page">
     <header className="pamana-journey-header">
      <AdventureScenery variant="sunrise" className="pamana2-journey-scene"/>
-     <div><span className="pamana-eyebrow">SMART PAMANA · OFFLINE ADVENTURES</span><h1>Heritage Journey</h1><p>{descriptions[profile.learningStage]}</p></div>
-     <div className="pamana-journey-mascot"><img src={kaPamana} alt="Ka-Pamana, your cultural exploration companion"/></div>
+     <div><span className="pamana-eyebrow">HERITAGE JOURNEY · OFFLINE LEARNING</span><h1>Lakbay</h1><p>{descriptions[profile.learningStage]}</p></div>
+     
     </header>
+    <LakbaySections active="adventure"/>
     <KaPamanaGuide state={status.completed?'celebrate':'discover'} compact/>
     <div className="pamana-journey-summary"><span><IonIcon icon={mapOutline}/> {heritageChapters.length} hometowns</span><span><IonIcon icon={trophyOutline}/> {stamps} heritage {stamps===1?'stamp':'stamps'}</span><span><IonIcon icon={checkmarkCircleOutline}/> Saved offline</span></div>
     <JourneyLevelMap selected={selected} onSelect={chapter=>{history.push(pathFor(chapter));setMessage('');}} onStart={startNext} onDetails={goToDetails} busy={busy}
