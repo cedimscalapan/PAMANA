@@ -1,7 +1,6 @@
 import {beforeEach,describe,expect,it,vi} from 'vitest';
 import {heritageChapters,chapterStatus} from '../data/heritage-journey';
 import {getJourneyReader,getJourneyQuestions} from '../data/journey-learning';
-import {storageKey} from '../data/content';
 import {readJourneyProgress,markJourneySectionRead,completeFestivalReading,completeJourneyLessonReading,markJourneyQuestionCorrect,completeChapterKnowledgeCheck} from './heritage-journey';
 vi.mock('./storage',()=>({setStored:vi.fn(async(key:string,value:string)=>{localStorage.setItem(key,value);})}));
 const mem=new Map<string,string>();
@@ -32,15 +31,15 @@ describe('connected hometown Journey progress',()=>{
  });
  it('requires festival, full Matuto reading, then correct answers before the new stamp',async()=>{
   await expect(markJourneySectionRead(chapter.id,'festival',100)).rejects.toThrow('Invalid reading section');
-  await expect(completeJourneyLessonReading(chapter.id)).rejects.toThrow('Finish the festival');
+  await expect(completeJourneyLessonReading(chapter.id)).rejects.toThrow('Finish Tuklas');
   for(let i=0;i<getJourneyReader(chapter,'festival').length;i++)await markJourneySectionRead(chapter.id,'festival',i);
   await completeFestivalReading(chapter.id);
   await markJourneySectionRead(chapter.id,'lesson',0);
   await expect(completeJourneyLessonReading(chapter.id)).rejects.toThrow('Read all');
   for(let i=1;i<getJourneyReader(chapter,'lesson').length;i++)await markJourneySectionRead(chapter.id,'lesson',i);
   await completeJourneyLessonReading(chapter.id);
-  expect(localStorage.getItem(storageKey(chapter.lessonId))).toBe('complete');
-  expect(chapterStatus(chapter,readJourneyProgress(),new Set([chapter.lessonId]),[]).done).toBe(2);
+  expect(readJourneyProgress().chapters[chapter.id].chapterLessonCompleted).toBe(true);
+  expect(chapterStatus(chapter,readJourneyProgress(),new Set(),[]).done).toBe(2);
   await expect(completeChapterKnowledgeCheck(chapter.id)).rejects.toThrow('Answer every');
   const questions=getJourneyQuestions(chapter);
   await expect(markJourneyQuestionCorrect(chapter.id,'fabricated-question')).rejects.toThrow('Unknown chapter question');
@@ -49,10 +48,20 @@ describe('connected hometown Journey progress',()=>{
   await completeChapterKnowledgeCheck(chapter.id);
   const snapshot=readJourneyProgress();
   expect(snapshot.chapters[chapter.id].chapterQuestCompleted).toBe(true);
-  expect(chapterStatus(chapter,snapshot,new Set([chapter.lessonId]),[]).completed).toBe(true);
+  expect(chapterStatus(chapter,snapshot,new Set(),[]).completed).toBe(true);
   expect(readJourneyProgress().chapters[chapter.id].chapterCorrectQuestions).toHaveLength(getJourneyQuestions(chapter).length);
   // Reading the old offline status still works after reloading localStorage.
   expect(mem.has('pamana.journey.v1')).toBe(true);
+ });
+ it('does not silently reuse old section checkmarks from the previous curriculum',async()=>{
+  mem.set('pamana.journey.v1',JSON.stringify({version:1,chapters:{
+   [chapter.id]:{festivalReadSections:[0,1,2,3,4,5,6,7,8],lessonReadSections:[0,1,2,3],festivalOpened:false}
+  }}));
+  expect(readJourneyProgress().chapters[chapter.id].researchEdition).toBeUndefined();
+  await markJourneySectionRead(chapter.id,'festival',0);
+  expect(readJourneyProgress().chapters[chapter.id].festivalReadSections).toEqual([0]);
+  expect(readJourneyProgress().chapters[chapter.id].researchEdition).toBe(2);
+  await expect(completeFestivalReading(chapter.id)).rejects.toThrow('Read all');
  });
  it('does not award another town a stamp for this town\'s specific challenge',async()=>{
   const other=heritageChapters[1];

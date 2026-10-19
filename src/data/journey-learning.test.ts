@@ -1,58 +1,54 @@
 import {describe,it,expect} from 'vitest';
 import {heritageChapters} from './heritage-journey';
 import {getJourneyReader,getJourneyQuestions} from './journey-learning';
-import {lessonArticles} from './lesson-articles';
-import {lessons} from './learning';
-import {officialFestivals} from './official-heritage';
+import {localityProfiles,festivalProfiles,heritageResearch,festivalsForTown} from './journey-research';
 import {sources} from './content';
 
-describe('all fifteen fully offline, festival-specific learning packs',()=>{
- it('provides complete sourced reading for every hometown',()=>{
+describe('unique, offline Mindoro Journey v2 curriculum',()=>{
+ it('has fourteen municipality profiles, Calapan City, and all 18 separately described public festivals',()=>{
+  expect(localityProfiles).toHaveLength(15);
+  expect(localityProfiles.filter(t=>t.kind==='city').map(t=>t.name)).toEqual(['Calapan City']);
+  expect(festivalProfiles).toHaveLength(18);
+  expect(festivalsForTown('Calapan City')).toHaveLength(4);
+  expect(new Set(Object.keys(heritageResearch.sources)).size).toBe(62);
+ });
+ it('does not repeat common province-wide paragraphs in the mandatory town reading',()=>{
+  const bodies:string[]=[];
   for(const chapter of heritageChapters){
-   const fest=getJourneyReader(chapter,'festival'),lesson=getJourneyReader(chapter,'lesson');
-   expect(fest).toHaveLength(9);
-   expect(fest.some(section=>section.id==='local-0')).toBe(true);
-   expect(fest.some(section=>section.id==='local-1')).toBe(true);
-   expect(fest.some(section=>section.id==='heritage-and-consent')).toBe(true);
-   expect(lesson).toHaveLength(lessonArticles[chapter.lessonId].sections.length+1);
-   expect(lesson[0].title).toContain(chapter.town);
-   expect(lesson[0].text).toContain(chapter.festivalName);
-   expect(lesson.length).toBeGreaterThanOrEqual(3);
-   expect(fest.map(s=>s.text).join(' ').length).toBeGreaterThan(2000);
-   expect(fest[0].text).toBe(officialFestivals.find(f=>f.id===chapter.festivalId)!.description);
-   for(const section of [...fest,...lesson]){
-    expect(section.title.length).toBeGreaterThan(6);
+   const first=getJourneyReader(chapter,'festival'),second=getJourneyReader(chapter,'lesson');
+   expect(first).toHaveLength(3);
+   expect(first.map(x=>x.id)).toEqual([chapter.id+'-history',chapter.id+'-life',chapter.id+'-heritage']);
+   expect(second).toHaveLength(festivalsForTown(chapter.town).length+2);
+   expect(second.some(x=>x.id==='places-'+chapter.id)).toBe(true);
+   expect(second.some(x=>x.id==='research-'+chapter.id)).toBe(true);
+   for(const section of [...first,...second]){
+    expect(section.title.length).toBeGreaterThan(4);
     expect(section.text.length).toBeGreaterThan(100);
     expect(section.sourceIds.length).toBeGreaterThan(0);
-    for(const id of section.sourceIds)expect(sources.find(item=>item.id===id)).toBeDefined();
+    section.sourceIds.forEach(id=>expect(sources.find(s=>s.id===id)?.url).toMatch(/^https:\/\//));
    }
+   bodies.push(...first.map(x=>x.text));
+   expect(new Set(first.map(x=>x.text)).size).toBe(first.length);
   }
+  expect(new Set(bodies).size).toBe(45);
  });
- it('asks eleven distinct verified questions from local culture and Matuto rather than generic free-play Quest material',()=>{
+ it('derives different checked questions for every town and all four Calapan festivals',()=>{
   const positions=new Set<number>();
   for(const chapter of heritageChapters){
-   const qs=getJourneyQuestions(chapter);
-   expect(getJourneyQuestions(chapter)).toEqual(qs); // stable after reload
-   qs.forEach(q=>positions.add(q.answer));
-   expect(qs).toHaveLength(11);
-   expect(qs.some(q=>q.id==='culture-0')).toBe(true);
-   expect(qs.some(q=>q.id==='culture-1')).toBe(true);
-   expect(qs.some(q=>q.id==='common-identities')).toBe(true);
-   expect(qs.some(q=>q.id==='common-consent')).toBe(true);
-   expect(new Set(qs.map(q=>q.id)).size).toBe(11);
-   expect(qs.filter(q=>q.stage==='festival')).toHaveLength(8);
-   expect(qs.filter(q=>q.stage==='lesson')).toHaveLength(3);
-   expect(qs[0].options[qs[0].answer]).toBe(chapter.festivalName);
-   expect(qs[2].options[qs[2].answer]).toBe(chapter.town);
-   const related=lessons.find(lesson=>lesson.id===chapter.lessonId)!;
-   expect(qs[3].prompt).toBe(related.quiz.prompt);
-   expect(qs[3].options[qs[3].answer]).toBe(related.quiz.answers[related.quiz.correctIndex]);
-   for(const q of qs){
+   const questions=getJourneyQuestions(chapter),festivals=festivalsForTown(chapter.town);
+   expect(questions).toEqual(getJourneyQuestions(chapter));
+   expect(questions).toHaveLength(festivals.length+7);
+   expect(new Set(questions.map(q=>q.id)).size).toBe(questions.length);
+   expect(questions.filter(q=>q.id.startsWith('v2-'+chapter.id))).toHaveLength(3);
+   expect(questions.filter(q=>q.id.startsWith('v2-festival'))).toHaveLength(festivals.length);
+   for(const q of questions){
     expect(q.options).toHaveLength(4);
     expect(new Set(q.options).size).toBe(4);
-    expect(q.options[q.answer]).toBeTruthy();
-    expect(q.explanation.length).toBeGreaterThan(15);
     expect(q.sourceIds.length).toBeGreaterThan(0);
+    expect(q.options[q.answer].length).toBeGreaterThan(0);
+    expect(q.explanation.length).toBeGreaterThan(25);
+    positions.add(q.answer);
+    for(const ref of q.sourceIds)expect(sources.some(s=>s.id===ref)).toBe(true);
    }
   }
   expect(positions.size).toBeGreaterThanOrEqual(3);

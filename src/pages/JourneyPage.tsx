@@ -39,11 +39,11 @@ export default function JourneyPage(){
  const start=()=>history.push(activityLink(selected,nextJourneyStep(status)));
  const goToDetails=()=>{details.current?.scrollIntoView({behavior:'auto',block:'start'});details.current?.focus();};
  const steps=[
-  {title:'Discover',subtitle:'Read the documented hometown festival and mark the reading sections complete.',icon:compassOutline,
+  {title:'Tuklas',subtitle:'Read the unique hometown history, livelihood and cultural heritage research.',icon:compassOutline,
    done:status.festivalOpened,step:'festival' as const,available:true},
-  {title:'Matuto',subtitle:'Read the complete reviewed cultural lesson and continue directly to your challenge.',icon:bookOutline,
+  {title:'Matuto',subtitle:'Discover all official annual festivals, documented heritage places and the sources behind local claims.',icon:bookOutline,
    done:status.lessonCompleted,step:'lesson' as const,available:status.festivalOpened},
-  {title:'Hometown Challenge',subtitle:'Answer questions from this festival and the linked Matuto reading—not random province-wide games.',icon:trophyOutline,
+  {title:'Hometown Challenge',subtitle:'Answer individual source-linked questions about this town’s history, local life, festivals and heritage places.',icon:trophyOutline,
    done:status.questCompleted,step:'quest' as const,available:status.festivalOpened&&status.lessonCompleted}
  ];
  return <IonPage><IonContent><PageFrame active="journey">
@@ -63,7 +63,7 @@ export default function JourneyPage(){
     onStart={start} onDetails={goToDetails} progress={saved} completedLessons={completedLessons} results={results}/>
    <section className="pamana-chapter pamana-journey-detail" ref={details} tabIndex={-1} aria-label={'Learning steps for '+selected.town}>
     <div className="pamana-chapter-top"><div><span className="pamana-eyebrow">SELECTED HOMETOWN</span>
-     <h2>{selected.town}</h2><p>{selected.festivalName} · {status.done} of 3 steps completed</p></div>
+     <h2>{selected.town}</h2><p>History · Livelihoods · Heritage · Festivals · {status.done} of 3 steps completed</p></div>
      <HometownScene className="pamana-chapter-symbol" hometown={selected.town}/></div>
     <div className="pamana-chapter-progress"><div><strong>{status.done} of 3 steps</strong>
      <span>{status.completed?'Your hometown stamp is earned. Explore again anytime.':'Your reading, questions and progress remain on this device.'}</span></div>

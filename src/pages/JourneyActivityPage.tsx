@@ -10,11 +10,11 @@ import {getJourneyReader,getJourneyQuestions} from '../data/journey-learning';
 import {activeQuestionIndex,nextUnansweredIndex} from '../data/journey-challenge-state';
 import {officialFestivals} from '../data/official-heritage';
 import {lessons} from '../data/learning';
-import {lessonArticles} from '../data/lesson-articles';
 import {storageKey} from '../data/content';
 import {photoForFestival,photoForLesson} from '../data/gallery';
 import {readJourneyProgress,markJourneySectionRead,completeFestivalReading,completeJourneyLessonReading,markJourneyQuestionCorrect,completeChapterKnowledgeCheck} from '../services/heritage-journey';
 import {readQuestProgress} from '../services/quest-games';
+import {reviewNotice,festivalsForTown} from '../data/journey-research';
 import {playUiSound} from '../services/ui-sounds';
 
 type Step='festival'|'lesson'|'quest'|'complete';
@@ -49,12 +49,12 @@ export default function JourneyActivityPage(){
  const question=questionIndex<0?undefined:questions[questionIndex];
  const questionFeedback=feedback&&feedback.questionId===question?.id?feedback.result:null;
  const lesson=lessons.find(l=>l.id===chapter.lessonId)!;
- const article=lessonArticles[chapter.lessonId];
+ const townFestivals=festivalsForTown(chapter.town);
  const festival=officialFestivals.find(f=>f.id===chapter.festivalId)!;
  const stage=step==='complete'&&!status.completed?(!status.festivalOpened?'festival':!status.lessonCompleted?'lesson':'quest'):step==='quest'&&!status.festivalOpened?'festival':
   step==='quest'&&!status.lessonCompleted?'lesson':step==='lesson'&&!status.festivalOpened?'festival':step;
  const sections=stage==='festival'||stage==='lesson'?getJourneyReader(chapter,stage):[];
- const readIndices=new Set(stage==='festival'?local.festivalReadSections??[]:local.lessonReadSections??[]);
+ const readIndices=new Set(local.researchEdition===2?(stage==='festival'?local.festivalReadSections??[]:local.lessonReadSections??[]):[]);
  const readCount=sections.filter((_,i)=>readIndices.has(i)).length;
  const allRead=sections.length>0&&readCount===sections.length;
  const picture=stage==='festival'?photoForFestival(chapter.festivalId):photoForLesson(chapter.lessonId);
@@ -95,7 +95,7 @@ export default function JourneyActivityPage(){
   void content.current?.scrollToTop(0);
  };
  const nextChapter=heritageChapters[(heritageChapters.findIndex(c=>c.id===chapter.id)+1)%heritageChapters.length];
- const readingTitle=stage==='festival'?festival.name:lesson.title;
+ const readingTitle=stage==='festival'?'Tuklas: '+chapter.town:'Matuto: Festivals and Living Heritage';
  return <IonPage><IonContent ref={content} fullscreen><PageFrame active="journey">
   <div className="pamana-flow-screen">
    <header className="pamana-flow-topbar">
@@ -105,7 +105,7 @@ export default function JourneyActivityPage(){
    <div className="pamana-flow-header">
     <HometownScene hometown={chapter.town} className="pamana-flow-town-art"/>
     <div><span className="pamana-eyebrow">YOUR HOMETOWN HERITAGE ADVENTURE</span>
-     <h1>{chapter.town}</h1><p>Explore history, everyday life, traditions, identities and cultural heritage, then use your learning in a hometown challenge.</p></div>
+     <h1>{chapter.town}</h1><p>Explore its unique history, everyday life, cultural heritage, festivals and documented places, then apply what you learned.</p></div>
    </div>
    <nav aria-label="Your three chapter steps" className="pamana-flow-stepper">
     {stages.map((item,index)=>{
@@ -120,14 +120,14 @@ export default function JourneyActivityPage(){
    {stage==='festival'||stage==='lesson'?<>
     <section className="pamana-flow-reading" aria-labelledby="flow-reading-title">
      <div className="pamana-flow-reading-title"><span className="pamana-eyebrow">STEP {stage==='festival'?'1':'2'} OF 3 · SOURCE-BACKED READING</span>
-      <h2 id="flow-reading-title">{readingTitle}</h2><p>{stage==='festival'?'Discover the hometown beyond celebrations: cultural places, livelihoods, history, distinct Mangyan communities, heritage and sources.':
-       'Read the complete existing Matuto article, not just its short lesson summary.'}</p></div>
+      <h2 id="flow-reading-title">{readingTitle}</h2><p>{stage==='festival'?'Explore three independent, locally researched topics: history, livelihoods and cultural heritage.':
+       'Learn about the festivals and documented places of this hometown. Each festival has its own record and verification sources.'}</p></div>
      <div className="pamana-flow-reading-meter"><label htmlFor="pamana-flow-read-progress">
       <strong>{readCount} of {sections.length} sections read</strong><span>{Math.round(readCount/sections.length*100)}% reading progress</span></label>
       <progress id="pamana-flow-read-progress" max={sections.length} value={readCount}/></div>
      {credited&&<figure className="pamana-flow-photo"><img src={credited.src} alt={credited.alt} loading="lazy"/>
       <figcaption>Documentary image: {credited.credit} · {credited.license}. View full media record in Koleksyon.</figcaption></figure>}
-     {stage==='lesson'&&<aside className="pamana-flow-objective"><strong>Your learning objective</strong><p>{article.objective}</p></aside>}
+     {stage==='lesson'&&<aside className="pamana-flow-objective"><strong>Continue discovering</strong><p>{townFestivals.length} documented annual festival{townFestivals.length===1?'':'s'} in {chapter.town}. Read the actual local festival records, heritage-place references and source limitations. <Link to={'/learn?lesson='+chapter.lessonId}>Optional: explore the wider Matuto lesson, {lesson.title}</Link>.</p></aside>}
      <div className="pamana-flow-section-picker" aria-label="Reading sections">{sections.map((item,index)=>
       <button key={item.id} type="button" aria-current={page===index?'step':undefined} aria-label={'Section '+(index+1)+': '+item.title+(readIndices.has(index)?', read':'')}
        className={(readIndices.has(index)?'read ':'')+(page===index?'selected':'')} onClick={()=>{setPage(index);void content.current?.scrollToTop(0);}}>
@@ -136,9 +136,9 @@ export default function JourneyActivityPage(){
       <span className="pamana-eyebrow">PART {page+1} / {sections.length}</span>
       <h3>{sections[page].title}</h3>
       <p>{sections[page].text}</p>
-      {stage==='lesson'&&page===sections.length-1&&<div className="pamana-flow-terms"><h4>Words to remember</h4>
-       <dl>{article.terms.map(([term,meaning])=><div key={term}><dt>{term}</dt><dd>{meaning}</dd></div>)}</dl></div>}
+
       <SourceNotes ids={sections[page].sourceIds}/>
+     <p className="pamana-flow-research-notice">{reviewNotice}</p>
      </article>
      <div className="pamana-flow-reading-actions">
       <button type="button" className="pamana-flow-secondary" disabled={page===0||busy} onClick={()=>setPage(page-1)}>← Previous part</button>
@@ -148,15 +148,15 @@ export default function JourneyActivityPage(){
      {readIndices.has(page)&&page<sections.length-1&&<button type="button" className="pamana-flow-next-part" onClick={()=>{setPage(page+1);void content.current?.scrollToTop(0);}}>
        Next reading part <IonIcon icon={arrowForwardOutline} aria-hidden="true"/></button>}
      {allRead&&<div className="pamana-flow-continue">
-      <div><strong>{stage==='festival'?'Festival discovery ready!':'Matuto reading ready!'}</strong>
+      <div><strong>{stage==='festival'?'Hometown discovery ready!':'Festival and heritage reading ready!'}</strong>
        <p>All {sections.length} sections are marked read. Your progress is saved on this device.</p></div>
-      <button type="button" disabled={busy} onClick={finishReader}>{stage==='festival'?'Finish Discovery → Matuto':'Finish Matuto → Hometown Challenge'}</button>
+      <button type="button" disabled={busy} onClick={finishReader}>{stage==='festival'?'Finish Tuklas → Festivals & Heritage':'Finish Matuto → Hometown Challenge'}</button>
      </div>}
     </section>
    </>:stage==='quest'?<section className="pamana-flow-quiz" aria-labelledby="flow-quiz-title">
-    <span className="pamana-eyebrow">STEP 3 OF 3 · YOUR HOMETOWN KNOWLEDGE CHECK</span>
+    <span className="pamana-eyebrow">STEP 3 OF 3 · LOCALITY-SPECIFIC KNOWLEDGE & GAMES</span>
     <h2 id="flow-quiz-title">What did you discover?</h2>
-    <p>Apply what you learned about <strong>{chapter.town}</strong>, local history, livelihoods, Mangyan heritage, cultural consent and <strong>{lesson.title}</strong>. Questions use the actual readings rather than a general trivia pool. No timer.</p>
+    <p>Answer source-linked questions about <strong>{chapter.town}</strong>: history, everyday life, heritage places and {townFestivals.length===1?'its annual festival':'all '+townFestivals.length+' annual festivals'}. No generic repeated province-wide questions or timer.</p>
     <div className="pamana-flow-reading-meter"><label htmlFor="pamana-flow-quiz-progress"><strong>{answeredCount} of {questions.length} correct</strong>
       <span>{Math.round(answeredCount/questions.length*100)}% complete</span></label>
      <progress id="pamana-flow-quiz-progress" value={answeredCount} max={questions.length}/></div>

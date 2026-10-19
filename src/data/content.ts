@@ -1,3 +1,4 @@
+import {sourceNames} from './journey-research';
 import { officialCatalogStats, officialFestivals, officialMunicipalities, officialPlaces, officialSources, travelPlanningNotes } from './official-heritage';
 import type { OfficialFestival } from './official-heritage';
 import destinationRecords from './destination-records.json';
@@ -64,6 +65,7 @@ export type CollectionItem = {
 
 export const sources: Source[] = [
   ...researchSources,
+  ...sourceNames,
   {"id":"journey-provincial-history","title":"History of Oriental Mindoro","publisher":"Oriental Mindoro Provincial Tourism Office","url":"https://www.travelorientalmindoro.ph/page/history","status":"Source checked 19 October 2026","use":"Overview of historical periods and provincial division; chronology is contextual, not the origin date of Indigenous cultures."},
   {"id":"journey-calapan-museum","title":"Oriental Mindoro Heritage Museum (Calapan)","publisher":"Oriental Mindoro Provincial Tourism Office","url":"https://www.travelorientalmindoro.ph/place/oriental-mindoro-heritage-museum","status":"Source checked 19 October 2026","use":"Location at former provincial capitol and MAHAL TANA presentation; exhibits and access require local confirmation."},
   {"id":"journey-mansalay-center","title":"Oriental Mindoro Heritage and Cultural Center (Mansalay)","publisher":"Oriental Mindoro Provincial Tourism Office","url":"https://www.travelorientalmindoro.ph/place/oriental-mindoro-heritage-and-cultural-center","status":"Source checked 19 October 2026","use":"Public institution and heritage preservation description, not authorization to reproduce works."},

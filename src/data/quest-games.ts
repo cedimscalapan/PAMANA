@@ -1,6 +1,7 @@
 import { destinations } from './destinations';
-import { festivals } from './content';
-import { lessons, questQuestions } from './learning';
+import {heritageChapters} from './heritage-journey';
+import {getJourneyQuestions} from './journey-learning';
+import {localityProfiles,festivalProfiles,cited,getTownLink} from './journey-research';
 
 export type GameMode = 'map' | 'photo' | 'timeline' | 'sort' | 'word' | 'memory' | 'quiz';
 export type GameLevel = 'gentle' | 'challenge';
@@ -10,10 +11,10 @@ export const gameModes: { id: GameMode; name: string; verb: string; description:
   { id: 'map', name: 'Map Explorer', verb: 'Find a place', description: 'Connect a destination with its place on Mindoro.', instruction: 'Choose the lettered point for the named destination. You can use the map or the coordinate list below it.', symbol: '↗', tone: 'blue' },
   { id: 'photo', name: 'Photo Detective', verb: 'Look a little closer', description: 'Read clues in properly credited documentary photographs.', instruction: 'Look at the photograph and choose the precise place or subject it shows. Sources are available for open-book play.', symbol: '◉', tone: 'amber' },
   { id: 'timeline', name: 'Timeline Challenge', verb: 'Put history in order', description: 'Build a chronology from documented milestones.', instruction: 'Move the cards from earliest to latest using the up and down buttons. Events in the same year may appear in either order.', symbol: '↕', tone: 'purple' },
-  { id: 'sort', name: 'Sort & Discover', verb: 'Make the connections', description: 'Group destinations and celebrations by their municipality.', instruction: 'Use each card’s menu to choose its municipality. Check the whole set when every card has a group.', symbol: '▦', tone: 'green' },
-  { id: 'word', name: 'Word Builder', verb: 'Follow the clue', description: 'Assemble a verified term, one letter at a time.', instruction: 'Tap the letter tiles in order. Tap an answer tile to return it, or use Undo. Repeated letters have separate tiles.', symbol: 'Aa', tone: 'brown' },
+  { id: 'sort', name: 'Sort & Discover', verb: 'Make the connections', description: 'Match real heritage places and festival records with their documented hometown.', instruction: 'Use each card’s menu to choose its municipality. Check the whole set when every card has a group.', symbol: '▦', tone: 'green' },
+  { id: 'word', name: 'Word Builder', verb: 'Follow the clue', description: 'Build Mindoro place names and documented heritage terms from clues.', instruction: 'Tap the letter tiles in order. Tap an answer tile to return it, or use Undo. Repeated letters have separate tiles.', symbol: 'Aa', tone: 'brown' },
   { id: 'memory', name: 'Memory Pairs', verb: 'Look, remember, connect', description: 'Match documentary pictures with their precise names.', instruction: 'Reveal two cards at a time: match a photograph to its name. After a mismatch, turn the cards back before continuing.', symbol: '◫', tone: 'red' },
-  { id: 'quiz', name: 'Knowledge Check', verb: 'The classic quiz', description: 'Revisit the existing question library at your own pace.', instruction: 'Choose one answer. Gentle start uses easier questions; the challenge uses medium and hard questions. There is no countdown.', symbol: '?', tone: 'blue' },
+  { id: 'quiz', name: 'Knowledge Check', verb: 'The classic quiz', description: 'Apply source-linked facts from all 15 hometowns at your own pace.', instruction: 'Choose one answer about an actual municipality or city. Check the explanation and source before moving on. No timer.', symbol: '?', tone: 'blue' },
 ];
 
 const item = (id: string, label: string, detail: string, sourceIds: string[], link: string, extra: Partial<GameItem> = {}): GameItem => ({ id, label, detail, sourceIds, link, ...extra });
@@ -55,13 +56,25 @@ export const wordItems: GameItem[] = ([
   ['CENSUS','An official enumeration of a population.','The 2024 POPCEN is a census, with a defined reference date.',['psa-2024'],'l3'],
   ['PROVENANCE','The documented history of where a collection or object came from.','The Library of Congress guide follows contributors, collecting dates and uncertainties.',['loc-provenance'],'l10'],
   ['BURI','The palm leaf used for the Hanunuo bag described by the Center.','The Center describes narrow buri-leaf strips in bay-ong sinuluyan.',['mhc-crafts'],'l4'],
-] as WordEntry[]).map(([word,clue,detail,sourceIds,lesson])=>item(`word-${word.toLowerCase()}`,word,detail,sourceIds,`/learn?lesson=${lesson}`,{group:clue}));
+] as WordEntry[]).map(([word,clue,detail,sourceIds,lesson])=>item(`word-${word.toLowerCase()}`,word,detail,sourceIds,`/learn?lesson=${lesson}`,{group:clue})).concat(
+ localityProfiles.map(town=>item('research-word-'+town.id,town.name.toUpperCase().replace(/[^A-Z]/g,''),
+ 'Town clue: '+town.lead+' The answer is an official city or municipality name.',
+ cited(town.sections[0].source_ids),getTownLink(town.name),{group:town.lead}))
+);
 
 export const mapItems: GameItem[] = destinations.filter(place=>!place.protectedCommunity && place.latitude !== undefined && place.longitude !== undefined).map(place=>item(`map-${place.id}`,place.name,`${place.name} is listed at ${place.address}. The point is the publisher’s location reference, not a verified entrance.`,place.sourceIds,`/explore?place=${place.id}`,{group:place.municipality,latitude:place.latitude,longitude:place.longitude}));
-export const sortingItems: GameItem[] = [
-  ...destinations.filter(place=>!place.protectedCommunity && !['puerto-galera','calapan','naujan-lake','mount-halcon'].includes(place.id)).map(place=>item(`sort-${place.id}`,place.name,`${place.name} is listed in ${place.municipality}.`,place.sourceIds,`/explore?place=${place.id}`,{group:place.municipality})),
-  ...festivals.map(festival=>item(`sort-festival-${festival.id}`,festival.name,`The provincial directory lists ${festival.name} in ${festival.municipality}. This is its directory locality, rather than every participating community.`,festival.sourceIds,`/explore?festival=${festival.id}`,{group:festival.municipality})),
+/** Locality-specific place/festival sorting: no invented GPS or ethnic boundaries. */
+export const sortingItems:GameItem[]=[
+ ...localityProfiles.flatMap(town=>town.places.map((place,index)=>item('research-place-'+town.id+'-'+index,
+  place.name,place.name+': '+place.context,cited(place.source_ids),getTownLink(town.name),{group:town.name}))),
+ ...festivalProfiles.map(festival=>item('research-festival-'+festival.id,festival.name,
+  festival.description,cited(festival.source_ids),getTownLink(festival.municipality),{group:festival.municipality})),
 ];
+/** Source-anchored quiz bank covers ALL 15 localities, not just reusable province-wide trivia. */
+export const localityQuestQuestions=heritageChapters.flatMap(chapter=>getJourneyQuestions(chapter).map(question=>({
+ ...question,id:chapter.id+'-'+question.id,town:chapter.town,link:'/journey/activity?town='+chapter.id+'&step=festival'
+})));
+
 
 export function shuffle<T>(items: T[], random = Math.random): T[] {
   const copy=[...items];
@@ -75,13 +88,16 @@ export function createRounds(mode: GameMode, level: GameLevel, recent: string[] 
   const size=level==='gentle'?3:5;
   const wrap=(id:string,prompt:string,hint:string,items:GameItem[],explanation:string,answer?:string):GameRound=>({id,mode,prompt,hint,items,explanation,answer,sourceIds:[...new Set(items.flatMap(item=>item.sourceIds))],link:items.find(item=>item.id===answer)?.link??items[0].link});
   if(mode==='quiz'){
-    const questions=questQuestions.filter(question=>level==='gentle'?question.difficulty==='easy':question.difficulty!=='easy');
-    const targets=questions.map(question=>item(question.id,question.prompt,question.explanation,question.sourceIds,'/learn'));
+    // Locality-based questions are derived from the actual sourced Journey readings.
+    // Free-play results remain independent from Journey stamp eligibility.
+    const targets=localityQuestQuestions.map(question=>item(question.id,question.prompt,
+     question.explanation,question.sourceIds,question.link));
     return freshItems(targets,size,recent,random).map(target=>{
-      const question=questions.find(question=>question.id===target.id)!;
-      const lesson=lessons.find(lesson=>lesson.sourceIds.some(id=>question.sourceIds.includes(id)));
-      const options=shuffle(question.answers.map((answer,index)=>item(`${question.id}-${index}`,answer,question.explanation,question.sourceIds,lesson?`/learn?lesson=${lesson.id}`:'/learn')),random);
-      return wrap(question.id,question.prompt,question.explanation,options,question.explanation,`${question.id}-${question.correctIndex}`);
+     const q=localityQuestQuestions.find(question=>question.id===target.id)!;
+     const options=shuffle(q.options.map((answer,index)=>item(q.id+'-choice-'+index,answer,
+      q.explanation,q.sourceIds,q.link)),random);
+     return wrap(q.id,q.prompt,'This question is about '+q.town+'. Open its source notes or revisit the hometown chapter before checking.',
+      options,q.explanation,q.id+'-choice-'+q.answer);
     });
   }
   if(mode==='photo') return freshItems(photoItems,size,recent,random).map(target=>{
