@@ -10,12 +10,15 @@ describe('all fifteen fully offline, festival-specific learning packs',()=>{
  it('provides complete sourced reading for every hometown',()=>{
   for(const chapter of heritageChapters){
    const fest=getJourneyReader(chapter,'festival'),lesson=getJourneyReader(chapter,'lesson');
-   expect(fest).toHaveLength(4);
+   expect(fest).toHaveLength(9);
+   expect(fest.some(section=>section.id==='local-0')).toBe(true);
+   expect(fest.some(section=>section.id==='local-1')).toBe(true);
+   expect(fest.some(section=>section.id==='heritage-and-consent')).toBe(true);
    expect(lesson).toHaveLength(lessonArticles[chapter.lessonId].sections.length+1);
    expect(lesson[0].title).toContain(chapter.town);
    expect(lesson[0].text).toContain(chapter.festivalName);
    expect(lesson.length).toBeGreaterThanOrEqual(3);
-   expect(fest.join(' ')).toBeDefined();
+   expect(fest.map(s=>s.text).join(' ').length).toBeGreaterThan(2000);
    expect(fest[0].text).toBe(officialFestivals.find(f=>f.id===chapter.festivalId)!.description);
    for(const section of [...fest,...lesson]){
     expect(section.title.length).toBeGreaterThan(6);
@@ -26,11 +29,18 @@ describe('all fifteen fully offline, festival-specific learning packs',()=>{
   }
  });
  it('asks six distinct questions from the two texts, not the generalized free-play Quest pool',()=>{
+  const positions=new Set<number>();
   for(const chapter of heritageChapters){
    const qs=getJourneyQuestions(chapter);
-   expect(qs).toHaveLength(6);
+   expect(getJourneyQuestions(chapter)).toEqual(qs); // stable after reload
+   qs.forEach(q=>positions.add(q.answer));
+   expect(qs).toHaveLength(11);
+   expect(qs.some(q=>q.id==='culture-0')).toBe(true);
+   expect(qs.some(q=>q.id==='culture-1')).toBe(true);
+   expect(qs.some(q=>q.id==='common-identities')).toBe(true);
+   expect(qs.some(q=>q.id==='common-consent')).toBe(true);
    expect(new Set(qs.map(q=>q.id)).size).toBe(6);
-   expect(qs.filter(q=>q.stage==='festival')).toHaveLength(3);
+   expect(qs.filter(q=>q.stage==='festival')).toHaveLength(8);
    expect(qs.filter(q=>q.stage==='lesson')).toHaveLength(3);
    expect(qs[0].options[qs[0].answer]).toBe(chapter.festivalName);
    expect(qs[2].options[qs[2].answer]).toBe(chapter.town);
@@ -45,5 +55,6 @@ describe('all fifteen fully offline, festival-specific learning packs',()=>{
     expect(q.sourceIds.length).toBeGreaterThan(0);
    }
   }
+  expect(positions.size).toBeGreaterThanOrEqual(3);
  });
 });
