@@ -31,6 +31,7 @@ import './theme/pamana-personalization-2d.css';
 import './theme/pamana-home-phase04.css';
 import './theme/pamana-phase05-12.css';
 import './theme/pamana-level-world.css';
+import './theme/pamana-final-consolidation.css';
 
 setupIonicReact();
 
