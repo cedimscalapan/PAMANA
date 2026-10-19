@@ -160,6 +160,11 @@ export default function JourneyActivityPage(){
     <div className="pamana-flow-reading-meter"><label htmlFor="pamana-flow-quiz-progress"><strong>{answeredCount} of {questions.length} correct</strong>
       <span>{Math.round(answeredCount/questions.length*100)}% complete</span></label>
      <progress id="pamana-flow-quiz-progress" value={answeredCount} max={questions.length}/></div>
+    <div className="pamana-flow-question-track" aria-label="Challenge question progress">
+     {questions.map((q,index)=><span key={q.id} aria-label={'Question '+(index+1)+(answered.has(q.id)?' correct':index===questionIndex?' current':' not yet complete')}
+      className={(answered.has(q.id)?'done ':'')+(index===questionIndex?'current':'')}>
+      {answered.has(q.id)?'✓':index+1}</span>)}
+    </div>
     {question?<article className="pamana-flow-question" key={question.id}>
      <span className="pamana-eyebrow">{question.stage==='festival'?'FROM YOUR HOMETOWN AND CULTURAL READING':'FROM YOUR MATUTO READING'} · QUESTION {questionIndex+1} / {questions.length}</span>
      <h3>{question.prompt}</h3>
