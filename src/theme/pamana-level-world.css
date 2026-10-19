@@ -179,3 +179,23 @@
 }
 @media(prefers-reduced-motion:reduce){.pamana-gameworld *, .pamana-gameworld :before, .pamana-gameworld :after{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
 :root[data-pamana-motion="reduce"] .pamana-gameworld *{transition:none!important;animation:none!important}
+
+/* Immediate, accessible level action dialog. Level selection should not require scrolling to the top. */
+.pamana-gameworld-modal{--width:min(calc(100% - 28px),430px);--height:min(425px,86vh);--border-radius:25px;--box-shadow:0 25px 70px rgba(22,65,48,.22)}
+.pamana-gameworld-modal::part(content){background:#FFFDF7;overflow:auto}
+.pamana-gameworld-modal-body{padding:18px 20px 22px;color:#264236;display:grid;gap:10px;overflow:auto;max-height:100%}
+.pamana-gameworld-modal-top{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.pamana-gameworld-modal-kicker{font-size:.72rem;font-weight:900;letter-spacing:.07em;color:#2A855C}
+.pamana-gameworld-modal-close{border:1px solid #D9E6DC;background:#FFF;color:#3E6853;cursor:pointer;
+ border-radius:11px;min-height:44px;min-width:44px;font-size:1.12rem}
+.pamana-gameworld-modal-art{width:100%;height:93px;border-radius:14px;overflow:hidden}
+.pamana-gameworld-modal-art .pamana-town-art-symbol{font-size:3rem}
+.pamana-gameworld-modal-body h3{font:820 1.5rem/1.2 var(--adventure-heading);margin:2px 0;color:#284C38}
+.pamana-gameworld-modal-body p{font-size:.88rem;line-height:1.55;color:#5C7262;margin:0 0 3px}
+.pamana-gameworld-modal-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.pamana-gameworld-modal-actions button{min-height:48px;border-radius:12px;font-size:.82rem;font-weight:790;padding:10px;cursor:pointer}
+.pamana-gameworld-modal-continue{display:flex;gap:5px;align-items:center;justify-content:center;border:1px solid #246B4A;
+ background:#287D57;color:#FFF}
+.pamana-gameworld-modal-details{background:#EFF8F1;border:1px solid #CADFD0;color:#2D7552}
+.pamana-gameworld-modal :is(button):focus-visible{outline:3px solid #BE8E42;outline-offset:2px}
+@media(max-width:375px){.pamana-gameworld-modal-actions{grid-template-columns:1fr}.pamana-gameworld-modal{--height:min(490px,90vh)}}
