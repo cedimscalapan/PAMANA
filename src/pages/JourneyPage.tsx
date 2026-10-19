@@ -14,6 +14,10 @@ import {readProfile} from '../services/personalization';
 import kaPamana from '../assets/reference/ka-pamana-icon.png';
 import {interactiveLessonFor} from '../data/interactive-lessons';
 import {isDiscoveryComplete} from '../services/interactive-lessons';
+import AdventureMap from '../components/adventure/AdventureMap';
+import {officialFestivals} from '../data/official-heritage';
+import {SourceNotes} from '../components/HeritageUI';
+import {photoForFestival} from '../data/gallery';
 
 const descriptions={
  little:'Explore pictures, stories, and gentle challenges at your own pace.',
@@ -42,6 +46,9 @@ export default function JourneyPage(){
  const discovery=interactiveLessonFor(selected.lessonId);
  const bonusCompleted=discovery?isDiscoveryComplete(selected.lessonId):false;
  const stamps=heritageChapters.filter(chapter=>chapterStatus(chapter,saved,completedLessons,results).completed).length;
+ const festivalReference=officialFestivals.find(item=>item.id===selected.festivalId);
+ const creditedImage=photoForFestival(selected.festivalId);
+ const chapterPhoto=creditedImage?.license&&creditedImage?.credit?creditedImage:undefined;
  const sorted=[...heritageChapters].sort((a,b)=>Number(b.town===profile.hometown)-Number(a.town===profile.hometown));
  const openFestival=async()=>{
   if(busy)return;setBusy(true);setMessage('');
@@ -63,7 +70,8 @@ export default function JourneyPage(){
      <div className="pamana-journey-mascot"><img src={kaPamana} alt="Ka-Pamana, your cultural exploration companion"/></div>
     </header>
     <div className="pamana-journey-summary"><span><IonIcon icon={mapOutline}/> {heritageChapters.length} hometowns</span><span><IonIcon icon={trophyOutline}/> {stamps} heritage {stamps===1?'stamp':'stamps'}</span><span><IonIcon icon={checkmarkCircleOutline}/> Save progress offline</span></div>
-    <div className="pamana-journey-title"><div><span className="pamana-eyebrow">CHOOSE A HOMETOWN</span><h2>Where will you discover next?</h2></div></div>
+    <AdventureMap selected={selected.id} onSelect={chapter=>{history.push(pathFor(chapter));setMessage('');}} progress={saved} completedLessons={completedLessons} results={results} hometown={profile.hometown}/>
+    <div className="pamana-journey-title"><div><span className="pamana-eyebrow">ALL FIFTEEN CHAPTERS</span><h2>Choose a hometown card</h2></div></div>
     <div className="pamana-journey-towns" aria-label="Choose one of the fifteen hometown journeys">
      {sorted.map(chapter=>{
       const local=chapterStatus(chapter,saved,completedLessons,results);
@@ -81,6 +89,14 @@ export default function JourneyPage(){
       <div><span className="pamana-eyebrow">YOUR SELECTED ADVENTURE</span><h2>{selected.town}</h2><p>Follow three short discoveries using existing reviewed references and activities.</p></div>
       <HometownScene className="pamana-chapter-symbol" hometown={selected.town}/>
      </div>
+     <section className="pamana6-heritage-context" aria-label={selected.town+' source-backed cultural information'}>
+      <span className="pamana-eyebrow">CULTURAL DISCOVERY · DOCUMENTED REFERENCE</span>
+      <h3>{selected.festivalName}</h3>
+      {chapterPhoto&&<img src={chapterPhoto.src} alt={chapterPhoto.alt} loading="lazy"/>}
+      <p>{festivalReference?.description??'Open the linked official directory to learn more about this celebration.'}</p>
+      <p className="pamana6-media-note">{chapterPhoto?'Photograph attribution is available in the linked cultural library.':'No approved documentary photo is displayed for this chapter.'} Festival calendars are annual directory references, not confirmed live events.</p>
+      {festivalReference&&<SourceNotes ids={festivalReference.sourceIds}/>}
+     </section>
      <div className="pamana-chapter-progress"><div><strong>{status.done} of 3 discoveries</strong><span>{status.completed?'Your hometown passport stamp is earned!':'No timer. Continue whenever you like.'}</span></div><progress max={3} value={status.done} aria-label={'Journey milestones completed in '+selected.town}/></div>
      <ol className="pamana-mission-trail">
       {milestones.map((step,index)=><li key={step.id} className={step.done?'is-done':''}>
