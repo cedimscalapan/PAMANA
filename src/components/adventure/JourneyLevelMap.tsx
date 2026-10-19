@@ -1,5 +1,5 @@
 import {useState} from 'react';
-import {IonIcon} from '@ionic/react';
+import {IonIcon,IonModal} from '@ionic/react';
 import {arrowForwardOutline,checkmarkCircleOutline,compassOutline,eyeOutline,listOutline,mapOutline,searchOutline,sparklesOutline,trophyOutline} from 'ionicons/icons';
 import {journeyLevels,journeyTrailPath,adventureZones} from '../../data/journey-levels';
 import {chapterStatus,type HeritageChapter,type JourneyProgress,type QuestResultRef} from '../../data/heritage-journey';
@@ -13,6 +13,8 @@ export default function JourneyLevelMap({selected,progress,completedLessons,resu
 }){
  const [view,setView]=useState<'path'|'list'>('path');
  const [query,setQuery]=useState('');
+ const [showLevel,setShowLevel]=useState(false);
+ const chooseLevel=(chapter:HeritageChapter)=>{onSelect(chapter);setShowLevel(true);};
  const chapters=journeyLevels.map(level=>({...level,status:chapterStatus(level.chapter,progress,completedLessons,results)}));
  const selectedStatus=chapterStatus(selected,progress,completedLessons,results);
  const completedCount=chapters.filter(item=>item.status.completed).length;
@@ -63,7 +65,7 @@ export default function JourneyLevelMap({selected,progress,completedLessons,resu
      className={'pamana-gameworld-node zone-'+zone+(status.completed?' completed':'')+(selected.id===chapter.id?' selected':'')}
      style={{left:(x/360*100)+'%',top:y+'px'}} aria-pressed={selected.id===chapter.id}
      aria-label={'Level '+number+': '+chapter.town+'. '+(status.completed?'Heritage Stamp earned':status.done+' of 3 discoveries completed')+'. Select chapter.'}
-     onClick={()=>onSelect(chapter)}>
+     onClick={()=>chooseLevel(chapter)}>
      <span className="pamana-gameworld-node-circle"><span aria-hidden="true">{status.completed?'✓':number}</span>
       {selected.id===chapter.id&&<span className="pamana-gameworld-node-active" aria-hidden="true"/>}
      </span>
@@ -78,13 +80,28 @@ export default function JourneyLevelMap({selected,progress,completedLessons,resu
     <input type="search" autoComplete="off" value={query} onChange={event=>setQuery(event.target.value)} placeholder="Search all 15 hometowns"/></label>
    <div className="pamana-gameworld-list" aria-label="All hometown levels">
     {available.map(({number,chapter,status})=><button type="button" key={chapter.id}
-     className={'pamana-gameworld-list-item'+(selected.id===chapter.id?' selected':'')} aria-pressed={selected.id===chapter.id} onClick={()=>onSelect(chapter)}>
+     className={'pamana-gameworld-list-item'+(selected.id===chapter.id?' selected':'')} aria-pressed={selected.id===chapter.id} onClick={()=>chooseLevel(chapter)}>
      <span className="pamana-gameworld-list-number">{status.completed?<IonIcon icon={checkmarkCircleOutline} aria-hidden="true"/>:number}</span>
      <span className="pamana-gameworld-list-name"><strong>{chapter.town}</strong><small>{status.completed?'Stamp earned':status.done+' of 3 discoveries completed'}</small></span>
      <IonIcon icon={arrowForwardOutline} aria-hidden="true"/></button>)}
    </div>
    {available.length===0&&<p className="pamana-gameworld-empty" role="status">No matching hometown found. Try another name.</p>}
   </div>}
+  <IonModal isOpen={showLevel} onDidDismiss={()=>setShowLevel(false)} className="pamana-gameworld-modal">
+    <div className="pamana-gameworld-modal-body">
+     <div className="pamana-gameworld-modal-top">
+      <span className="pamana-gameworld-modal-kicker">LEVEL {journeyLevels.find(item=>item.chapter.id===selected.id)?.number} · HERITAGE ADVENTURE</span>
+      <button type="button" className="pamana-gameworld-modal-close" aria-label="Close level details" onClick={()=>setShowLevel(false)}>✕</button>
+     </div>
+     <HometownScene hometown={selected.town} className="pamana-gameworld-modal-art"/>
+     <h3>{selected.town}</h3>
+     <p>{selectedStatus.completed?'Heritage Stamp earned. All three discoveries completed.':selectedStatus.done+' of 3 learning steps completed. Every activity stays available.'}</p>
+     <div className="pamana-gameworld-modal-actions">
+      <button type="button" className="pamana-gameworld-modal-continue" disabled={busy} onClick={()=>{setShowLevel(false);onStart();}}>{nextLabel}<IonIcon icon={arrowForwardOutline} aria-hidden="true"/></button>
+      <button type="button" className="pamana-gameworld-modal-details" onClick={()=>{setShowLevel(false);onDetails();}}>View chapter missions</button>
+     </div>
+    </div>
+   </IonModal>
   <p className="pamana-gameworld-disclaimer">This is an illustrated <strong>learning-level path</strong>, not a road, travel route or geographic municipality map. Levels are numbered for play; no town is locked. The original cultural references remain in each chapter.</p>
  </section>;
 }
