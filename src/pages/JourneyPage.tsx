@@ -1,7 +1,7 @@
 import {IonContent,IonIcon,IonPage,useIonViewWillEnter} from '@ionic/react';
 import {arrowForwardOutline,bookOutline,checkmarkCircleOutline,compassOutline,gameControllerOutline,lockClosedOutline,mapOutline,trophyOutline} from 'ionicons/icons';
 import {useHistory,useLocation} from 'react-router-dom';
-import {useState} from 'react';
+import {useRef,useState} from 'react';
 import {PageFrame} from '../components/AppChrome';
 import HometownScene from '../components/HometownScene';
 import AdventureScenery from '../components/adventure/AdventureScenery';
@@ -14,7 +14,7 @@ import {readProfile} from '../services/personalization';
 import kaPamana from '../assets/reference/ka-pamana-icon.png';
 import {interactiveLessonFor} from '../data/interactive-lessons';
 import {isDiscoveryComplete} from '../services/interactive-lessons';
-import AdventureMap from '../components/adventure/AdventureMap';
+import JourneyLevelMap from '../components/adventure/JourneyLevelMap';
 import {officialFestivals} from '../data/official-heritage';
 import {SourceNotes} from '../components/HeritageUI';
 import {photoForFestival} from '../data/gallery';
@@ -37,6 +37,7 @@ export default function JourneyPage(){
  const [,refresh]=useState(0);
  const [busy,setBusy]=useState(false);
  const [message,setMessage]=useState('');
+ const chapterRef=useRef<HTMLElement>(null);
  useIonViewWillEnter(()=>{
   setSaved(readJourneyProgress());refresh(n=>n+1);
   void syncJourneyQuestCompletion(selected.id).then(next=>{setSaved(next);refresh(n=>n+1);}).catch(()=>setMessage('Progress could not be refreshed. You can retry by returning to this page.'));
@@ -50,12 +51,18 @@ export default function JourneyPage(){
  const festivalReference=officialFestivals.find(item=>item.id===selected.festivalId);
  const creditedImage=photoForFestival(selected.festivalId);
  const chapterPhoto=creditedImage?.license&&creditedImage?.credit?creditedImage:undefined;
- const sorted=[...heritageChapters].sort((a,b)=>Number(b.town===profile.hometown)-Number(a.town===profile.hometown));
  const openFestival=async()=>{
   if(busy)return;setBusy(true);setMessage('');
   try{const next=await markFestivalOpened(selected.id);setSaved(next);history.push('/explore?festival='+selected.festivalId);}
   catch{setMessage('Your discovery could not be saved. Please try again.');}
   finally{setBusy(false);}
+ };
+ const goToDetails=()=>{chapterRef.current?.scrollIntoView({behavior:'auto',block:'start'});chapterRef.current?.focus();};
+ const startNext=()=>{
+  if(status.completed){goToDetails();return;}
+  if(!status.festivalOpened){void openFestival();return;}
+  if(!status.lessonCompleted){history.push('/learn?lesson='+selected.lessonId);return;}
+  history.push('/quest?journey='+selected.id+'&mode='+selected.mode);
  };
  const milestones=[
   {id:'festival',icon:compassOutline,done:status.festivalOpened,title:'Discover the local celebration',description:selected.festivalName,action:'Open festival',onClick:()=>void openFestival()},
@@ -71,24 +78,12 @@ export default function JourneyPage(){
      <div className="pamana-journey-mascot"><img src={kaPamana} alt="Ka-Pamana, your cultural exploration companion"/></div>
     </header>
     <KaPamanaGuide state={status.completed?'celebrate':'discover'} compact/>
-    <div className="pamana-journey-summary"><span><IonIcon icon={mapOutline}/> {heritageChapters.length} hometowns</span><span><IonIcon icon={trophyOutline}/> {stamps} heritage {stamps===1?'stamp':'stamps'}</span><span><IonIcon icon={checkmarkCircleOutline}/> Save progress offline</span></div>
-    <AdventureMap selected={selected.id} onSelect={chapter=>{history.push(pathFor(chapter));setMessage('');}} progress={saved} completedLessons={completedLessons} results={results}/>
-    <div className="pamana-journey-title"><div><span className="pamana-eyebrow">ALL FIFTEEN CHAPTERS</span><h2>Choose a hometown card</h2></div></div>
-    <div className="pamana-journey-towns" aria-label="Choose one of the fifteen hometown journeys">
-     {sorted.map(chapter=>{
-      const local=chapterStatus(chapter,saved,completedLessons,results);
-      return <button type="button" key={chapter.id} aria-pressed={selected.id===chapter.id}
-       className="pamana-journey-town" onClick={()=>{history.push(pathFor(chapter));setMessage('');}}>
-       <HometownScene className="pamana-journey-town-art" hometown={chapter.town}/>
-       <strong>{chapter.town}</strong>
-       <small>{local.completed?'Stamp earned':local.done+' of 3 discoveries'}</small>
-       {local.completed&&<span className="pamana-journey-earned" aria-label="Completed">✓</span>}
-      </button>;
-     })}
-    </div>
-    <section className="pamana-chapter" aria-label={'Adventure missions for '+selected.town}>
+    <div className="pamana-journey-summary"><span><IonIcon icon={mapOutline}/> {heritageChapters.length} hometowns</span><span><IonIcon icon={trophyOutline}/> {stamps} heritage {stamps===1?'stamp':'stamps'}</span><span><IonIcon icon={checkmarkCircleOutline}/> Saved offline</span></div>
+    <JourneyLevelMap selected={selected} onSelect={chapter=>{history.push(pathFor(chapter));setMessage('');}} onStart={startNext} onDetails={goToDetails} busy={busy}
+     progress={saved} completedLessons={completedLessons} results={results}/>
+    <section className="pamana-chapter pamana-journey-detail" ref={chapterRef} tabIndex={-1} aria-label={'Adventure missions for '+selected.town}>
      <div className="pamana-chapter-top">
-      <div><span className="pamana-eyebrow">YOUR SELECTED ADVENTURE</span><h2>{selected.town}</h2><p>Follow three short discoveries using existing reviewed references and activities.</p></div>
+      <div><span className="pamana-eyebrow">LEVEL DETAILS · {heritageChapters.findIndex(chapter=>chapter.id===selected.id)+1} OF 15</span><h2>{selected.town}</h2><p>Follow three short discoveries using existing reviewed references and activities.</p></div>
       <HometownScene className="pamana-chapter-symbol" hometown={selected.town}/>
      </div>
      <section className="pamana6-heritage-context" aria-label={selected.town+' source-backed cultural information'}>

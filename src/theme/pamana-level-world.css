@@ -1,0 +1,201 @@
+/* SMART PAMANA Journey Redesign — playful 2D level road with one clear action.
+   Levels are illustrative and non-geographic. No bitmap screenshots or new dependencies.
+*/
+.pamana-journey-page{max-width:850px}
+.pamana-journey-page .pamana-journey-header{min-height:156px;margin-bottom:11px;border-radius:22px}
+.pamana-journey-page .pamana-journey-header h1{font-size:clamp(1.75rem,5vw,2.35rem)}
+.pamana-journey-page .pamana-journey-summary{margin:12px 0 19px;gap:8px}
+.pamana-journey-page .pamana-journey-summary>span{background:#FFF;border-color:#DFE9E1;padding:7px 11px}
+.pamana-journey-page .pamana10-guide{margin:10px 0}
+.pamana-gameworld{--world-ink:#263D36;--world-green:#2D7659;color:var(--world-ink);
+ border:1px solid #D9E6DF;background:#FFF;border-radius:25px;overflow:hidden;
+ box-shadow:0 14px 40px rgba(31,91,67,.075);margin:12px 0 25px}
+.pamana-gameworld-top{display:flex;align-items:flex-start;justify-content:space-between;gap:15px;
+ padding:clamp(17px,4vw,26px) clamp(17px,4vw,29px) 9px}
+.pamana-gameworld-eyebrow{display:flex;align-items:center;gap:7px;font-size:.71rem;letter-spacing:.075em;
+ font-weight:860;color:#418365;line-height:1.4}
+.pamana-gameworld-eyebrow ion-icon{font-size:1.15rem;flex:none}
+.pamana-gameworld-top h2{font:820 clamp(1.48rem,4.6vw,1.92rem)/1.19 var(--adventure-heading);letter-spacing:-.035em;
+ margin:10px 0 8px;color:#213F32}
+.pamana-gameworld-top p{font-size:.89rem;line-height:1.56;color:#63776B;margin:0;max-width:465px}
+.pamana-gameworld-total{flex:0 0 102px;display:grid;justify-items:center;gap:4px;text-align:center;border-radius:18px;
+ padding:12px 7px;background:linear-gradient(150deg,#FFF5DB,#FFEBBE);
+ border:1px solid #EDD8A5;box-shadow:0 4px 0 #E2C990;color:#785822}
+.pamana-gameworld-total ion-icon{font-size:1.37rem}
+.pamana-gameworld-total strong{font:850 1.55rem/1 var(--adventure-heading)}
+.pamana-gameworld-total strong span{font-size:.72rem;opacity:.75}
+.pamana-gameworld-total small{font-size:.68rem;font-weight:750;line-height:1.3}
+.pamana-gameworld-selection{display:grid;grid-template-columns:87px minmax(0,1fr) auto;
+ align-items:center;gap:13px;margin:14px clamp(13px,3vw,27px) 17px;
+ border:2px solid #CFE5D8;border-radius:20px;background:#F5FBF6;
+ padding:12px;box-shadow:0 4px 15px rgba(41,100,66,.045)}
+.pamana-gameworld-selected-art{width:87px;height:97px;border-radius:14px;overflow:hidden}
+.pamana-gameworld-selected-art .pamana-town-art-symbol{font-size:2.5rem}
+.pamana-gameworld-selection-copy{min-width:0}
+.pamana-gameworld-selection-tag{display:flex;align-items:center;gap:5px;
+ font-size:.67rem;letter-spacing:.05em;font-weight:840;color:#3F8C62;line-height:1.35}
+.pamana-gameworld-selection-tag ion-icon{font-size:.98rem;flex:none}
+.pamana-gameworld-selection-copy h3{font:800 clamp(1.12rem,3.5vw,1.45rem)/1.24 var(--adventure-heading);
+ color:#264D37;margin:5px 0 3px}
+.pamana-gameworld-selection-copy p{font-size:.78rem;line-height:1.45;color:#5D7464;margin:0}
+.pamana-gameworld-mini-progress{display:flex;gap:5px;margin-top:9px}
+.pamana-gameworld-mini-progress span{height:7px;border-radius:99px;background:#D2E6D9;flex:1;max-width:52px}
+.pamana-gameworld-mini-progress span.filled{background:#49A774}
+.pamana-gameworld-start{display:flex;align-items:center;justify-content:center;gap:7px;
+ color:#FFF;background:linear-gradient(#39986D,#247752);border:1px solid #246C4B;border-bottom:4px solid #16583B;
+ border-radius:14px;min-height:50px;padding:10px 14px;font-size:.85rem;font-weight:830;
+ box-shadow:0 3px 9px rgba(34,105,65,.14);cursor:pointer;white-space:nowrap}
+.pamana-gameworld-start:active:not(:disabled){border-bottom-width:2px;transform:translateY(2px)}
+.pamana-gameworld-start:disabled{opacity:.6;cursor:wait}
+.pamana-gameworld-start ion-icon{font-size:1.15rem}
+.pamana-gameworld-toolbar{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:11px;
+ padding:0 clamp(13px,3vw,27px) 16px}
+.pamana-gameworld-switch{display:flex;gap:4px;background:#F1F6F1;border:1px solid #DDE9E0;border-radius:14px;padding:4px}
+.pamana-gameworld-switch button{display:inline-flex;align-items:center;justify-content:center;gap:6px;border:1px solid transparent;
+ background:transparent;border-radius:10px;color:#547161;padding:9px 13px;min-height:43px;font-size:.82rem;font-weight:760;cursor:pointer}
+.pamana-gameworld-switch button[aria-pressed=true]{background:#FFF;color:#286C50;border-color:#C7E0D0;
+ box-shadow:0 2px 7px rgba(51,100,70,.07)}
+.pamana-gameworld-switch ion-icon{font-size:1.2rem}
+.pamana-gameworld-details{display:flex;align-items:center;justify-content:center;gap:7px;
+ min-height:44px;background:transparent;border:0;padding:8px 4px;color:#317252;font-size:.83rem;font-weight:790;cursor:pointer}
+.pamana-gameworld-details ion-icon{font-size:1.14rem}
+/* A continuous decorative three-world board. Visual labels deliberately avoid geographic claims. */
+.pamana-gameworld-board-wrap{background:linear-gradient(180deg,#E2F7FB 0%,#DCF2E4 28%,#EEF8DE 52%,#E6F5EE 77%,#FFF0DE 100%);border-top:1px solid #DBE9D9}
+.pamana-gameworld-board{position:relative;max-width:610px;width:100%;height:1810px;margin:0 auto;overflow:hidden;isolation:isolate}
+.pamana-gameworld-board:before{content:"";position:absolute;inset:0;
+ background:radial-gradient(circle at 10% 10%,rgba(255,255,255,.7) 0 30px,transparent 32px),
+ radial-gradient(circle at 82% 25%,rgba(255,255,255,.45) 0 27px,transparent 29px),
+ radial-gradient(circle at 15% 48%,rgba(255,255,255,.45) 0 25px,transparent 27px),
+ radial-gradient(circle at 88% 74%,rgba(255,255,255,.5) 0 35px,transparent 37px);
+ pointer-events:none;z-index:-1}
+.pamana-gameworld-landscape{position:absolute;left:0;right:0;height:440px;opacity:.32;pointer-events:none;z-index:-1}
+.pamana-gameworld-landscape svg{display:block;width:100%;height:100%;object-fit:cover}
+.pamana-gameworld-landscape.zone-a{top:0}
+.pamana-gameworld-landscape.zone-b{top:615px}
+.pamana-gameworld-landscape.zone-c{top:1240px}
+.pamana-gameworld-road{position:absolute;top:0;left:0;width:100%;height:1810px;pointer-events:none;z-index:0;overflow:visible}
+.pamana-gameworld-road-outline{fill:none;stroke:#FFF;stroke-width:16;stroke-linecap:round;
+ stroke-linejoin:round;filter:drop-shadow(0 4px 1px rgba(123,157,125,.19))}
+.pamana-gameworld-road-dashes{fill:none;stroke:#E5A35A;stroke-width:8;stroke-dasharray:10 13;
+ stroke-linecap:round;stroke-linejoin:round}
+/* The board numbers are an accessibility-friendly level order, not real distance or coordinates. */
+.pamana-gameworld-zone-label{position:absolute;z-index:1;right:14px;top:24px;
+ display:grid;gap:3px;max-width:155px;padding:10px 12px;
+ background:rgba(255,255,255,.88);border:1px solid rgba(201,231,213,.98);
+ border-radius:15px;box-shadow:0 5px 10px rgba(49,99,79,.065);pointer-events:none}
+.pamana-gameworld-zone-label.zone-2{top:618px}
+.pamana-gameworld-zone-label.zone-3{top:1180px}
+.pamana-gameworld-zone-label span{color:#388666;font-size:.69rem;font-weight:900;letter-spacing:.06em}
+.pamana-gameworld-zone-label strong{color:#315E46;font-size:.88rem;line-height:1.2}
+.pamana-gameworld-zone-label small{color:#738679;font-size:.72rem}
+.pamana-gameworld-node{position:absolute;z-index:2;width:140px;max-width:42%;min-height:102px;
+ transform:translate(-50%,-50%);display:flex;flex-direction:column;align-items:center;justify-content:center;
+ gap:4px;padding:3px 2px;border:none;background:transparent;color:#213E35;cursor:pointer;touch-action:manipulation}
+.pamana-gameworld-node-circle{position:relative;display:grid;place-items:center;
+ width:59px;height:59px;flex:0 0 59px;border-radius:50%;
+ border:4px solid #FFF;background:linear-gradient(155deg,#79C6F6,#238CCF);
+ color:#FFF;text-shadow:0 2px 3px rgba(23,61,83,.34);font:900 1.45rem/1 var(--adventure-heading);
+ box-shadow:0 5px 0 #176DA9,0 9px 14px rgba(31,77,77,.2),inset 0 3px 0 rgba(255,255,255,.3);
+ transition:transform .15s ease,filter .15s ease}
+.pamana-gameworld-node-circle:after{content:"";position:absolute;left:15px;top:5px;width:21px;height:8px;
+ border-radius:50%;background:rgba(255,255,255,.35);transform:rotate(-18deg)}
+.pamana-gameworld-node.zone-2 .pamana-gameworld-node-circle{
+ background:linear-gradient(155deg,#F7BE6A,#F08B3E);box-shadow:0 5px 0 #BA642C,0 9px 14px rgba(98,69,37,.18),inset 0 3px 0 rgba(255,255,255,.32)}
+.pamana-gameworld-node.zone-3 .pamana-gameworld-node-circle{
+ background:linear-gradient(155deg,#C6A1FF,#8D6AD8);box-shadow:0 5px 0 #7050B5,0 9px 14px rgba(74,59,112,.2),inset 0 3px 0 rgba(255,255,255,.34)}
+.pamana-gameworld-node.completed .pamana-gameworld-node-circle{
+ background:linear-gradient(155deg,#FFE48A,#E5B249);box-shadow:0 5px 0 #AA7F25,0 9px 14px rgba(119,91,33,.21),inset 0 3px 0 rgba(255,255,255,.4)}
+.pamana-gameworld-node:hover .pamana-gameworld-node-circle{filter:brightness(1.07);transform:translateY(-2px)}
+.pamana-gameworld-node.selected .pamana-gameworld-node-circle{transform:scale(1.1);outline:3px solid #FFD569;outline-offset:5px}
+.pamana-gameworld-node-active{position:absolute;inset:-10px;border:2px dashed #FFD36D;border-radius:50%;pointer-events:none}
+.pamana-gameworld-node-name{display:inline-flex;align-items:center;justify-content:center;
+ border:1px solid #D9E0CD;border-bottom:3px solid #C4D8C5;box-shadow:0 3px 7px rgba(47,87,55,.11);
+ background:rgba(255,255,255,.97);border-radius:11px;padding:5px 9px;
+ color:#294637;font-weight:820;font-size:.79rem;line-height:1.23;min-height:29px;
+ text-align:center;white-space:normal;max-width:100%;overflow-wrap:anywhere}
+.pamana-gameworld-node.selected .pamana-gameworld-node-name{background:#FFF9DA;border-color:#DFC77F;color:#7E561A}
+.pamana-gameworld-node-stamp{position:absolute;top:1px;left:calc(50% + 18px);font-size:1.15rem;
+ color:#E4AE35;text-shadow:0 1px 1px white}
+.pamana-gameworld-finish{position:absolute;bottom:19px;left:50%;transform:translateX(-50%);
+ background:rgba(255,255,255,.92);border:1px solid #E4D6B8;padding:9px 17px;border-radius:99px;
+ box-shadow:0 3px 12px rgba(82,75,54,.06);color:#8E6C37;font-size:.73rem;font-weight:840;
+ letter-spacing:.06em;white-space:nowrap;pointer-events:none}
+.pamana-gameworld-disclaimer{padding:13px clamp(17px,4vw,26px) 19px;color:#687C71;font-size:.75rem;
+ line-height:1.55;background:#FBFDFB;margin:0}
+.pamana-gameworld-list-view{border-top:1px solid #E2EAE1;padding:17px clamp(14px,4vw,26px) 21px;background:#F7FBF8}
+.pamana-gameworld-search{display:flex;align-items:center;gap:11px;padding:0 12px;min-height:48px;
+ background:#FFF;border:1px solid #D6E4DA;border-radius:13px;color:#547363;margin:0 0 14px}
+.pamana-gameworld-search ion-icon{font-size:1.25rem;flex:none}
+.pamana-gameworld-search input{width:100%;min-height:46px;border:0;outline:0;font-size:.93rem;
+ background:transparent;color:#263D36}
+.pamana-gameworld-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+.pamana-gameworld-list-item{display:flex;align-items:center;gap:10px;min-width:0;
+ min-height:66px;padding:10px;border:1px solid #DDE8E1;border-radius:14px;background:#FFF;
+ color:#274339;text-align:left;cursor:pointer}
+.pamana-gameworld-list-item.selected{border:2px solid #57A279;background:#EFF9F1}
+.pamana-gameworld-list-number{display:grid;place-items:center;flex:0 0 36px;width:36px;height:36px;
+ border-radius:12px;background:#DFEFE5;color:#327B55;font-weight:850}
+.pamana-gameworld-list-number ion-icon{font-size:1.3rem}
+.pamana-gameworld-list-name{display:grid;gap:3px;flex:1;min-width:0}
+.pamana-gameworld-list-name strong{font-weight:800;font-size:.86rem}
+.pamana-gameworld-list-name small{font-size:.7rem;color:#687D6F;line-height:1.35}
+.pamana-gameworld-list-item>ion-icon{color:#54826A;font-size:1.1rem;flex:none}
+.pamana-gameworld-empty{background:#FFF;border-radius:12px;padding:14px;color:#6A796B;font-size:.85rem}
+.pamana-visually-hidden{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;
+ overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important}
+.pamana-gameworld :is(button,input):focus-visible{outline:3px solid #B78342!important;outline-offset:3px}
+.pamana-journey-detail{scroll-margin-top:16px;outline:none}
+.pamana-journey-detail:focus-visible{outline:3px solid #AB874C;outline-offset:4px}
+@media(max-width:730px){
+ .pamana-gameworld-selection{grid-template-columns:75px minmax(0,1fr)}
+ .pamana-gameworld-selected-art{width:75px;height:82px}
+ .pamana-gameworld-start{grid-column:2;justify-self:start}
+}
+@media(max-width:520px){
+ .pamana-gameworld-top{gap:11px}
+ .pamana-gameworld-total{flex-basis:80px;padding:9px 4px}
+ .pamana-gameworld-total strong{font-size:1.35rem}
+ .pamana-gameworld-top h2{font-size:1.48rem}
+ .pamana-gameworld-top p{font-size:.82rem}
+ .pamana-gameworld-selection{margin:12px 12px 15px;gap:10px}
+ .pamana-gameworld-toolbar{padding:0 12px 13px}
+ .pamana-gameworld-switch button{padding:8px 10px;font-size:.77rem}
+ .pamana-gameworld-details{font-size:.77rem}
+ .pamana-gameworld-list{grid-template-columns:1fr}
+ .pamana-gameworld-node{width:120px;max-width:39%}
+ .pamana-gameworld-node-circle{width:56px;height:56px;flex-basis:56px;font-size:1.4rem}
+ .pamana-gameworld-node-name{font-size:.72rem;padding:5px 7px}
+ .pamana-gameworld-zone-label{max-width:123px;padding:8px 9px}
+ .pamana-gameworld-zone-label strong{font-size:.78rem}
+}
+@media(max-width:370px){
+ .pamana-gameworld-selection{grid-template-columns:61px minmax(0,1fr);padding:10px}
+ .pamana-gameworld-selected-art{width:61px;height:75px}
+ .pamana-gameworld-start{grid-column:1/-1;justify-self:stretch}
+ .pamana-gameworld-toolbar{gap:5px}
+ .pamana-gameworld-details{font-size:.74rem}
+ .pamana-gameworld-node-name{font-size:.69rem}
+ .pamana-gameworld-node-circle{width:54px;height:54px;flex-basis:54px}
+}
+@media(prefers-reduced-motion:reduce){.pamana-gameworld *, .pamana-gameworld :before, .pamana-gameworld :after{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
+:root[data-pamana-motion="reduce"] .pamana-gameworld *{transition:none!important;animation:none!important}
+
+/* Immediate, accessible level action dialog. Level selection should not require scrolling to the top. */
+.pamana-gameworld-modal{--width:min(calc(100% - 28px),430px);--height:min(425px,86vh);--border-radius:25px;--box-shadow:0 25px 70px rgba(22,65,48,.22)}
+.pamana-gameworld-modal::part(content){background:#FFFDF7;overflow:auto}
+.pamana-gameworld-modal-body{padding:18px 20px 22px;color:#264236;display:grid;gap:10px;overflow:auto;max-height:100%}
+.pamana-gameworld-modal-top{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.pamana-gameworld-modal-kicker{font-size:.72rem;font-weight:900;letter-spacing:.07em;color:#2A855C}
+.pamana-gameworld-modal-close{border:1px solid #D9E6DC;background:#FFF;color:#3E6853;cursor:pointer;
+ border-radius:11px;min-height:44px;min-width:44px;font-size:1.12rem}
+.pamana-gameworld-modal-art{width:100%;height:93px;border-radius:14px;overflow:hidden}
+.pamana-gameworld-modal-art .pamana-town-art-symbol{font-size:3rem}
+.pamana-gameworld-modal-body h3{font:820 1.5rem/1.2 var(--adventure-heading);margin:2px 0;color:#284C38}
+.pamana-gameworld-modal-body p{font-size:.88rem;line-height:1.55;color:#5C7262;margin:0 0 3px}
+.pamana-gameworld-modal-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.pamana-gameworld-modal-actions button{min-height:48px;border-radius:12px;font-size:.82rem;font-weight:790;padding:10px;cursor:pointer}
+.pamana-gameworld-modal-continue{display:flex;gap:5px;align-items:center;justify-content:center;border:1px solid #246B4A;
+ background:#287D57;color:#FFF}
+.pamana-gameworld-modal-details{background:#EFF8F1;border:1px solid #CADFD0;color:#2D7552}
+.pamana-gameworld-modal :is(button):focus-visible{outline:3px solid #BE8E42;outline-offset:2px}
+@media(max-width:375px){.pamana-gameworld-modal-actions{grid-template-columns:1fr}.pamana-gameworld-modal{--height:min(490px,90vh)}}
