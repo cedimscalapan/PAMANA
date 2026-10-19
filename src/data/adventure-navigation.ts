@@ -1,19 +1,17 @@
-/** Single source of truth for the five adventure tabs.
- * The content modules keep their historical routes.
- */
-export const adventureTabs = [
- {id:'home',label:'Home',path:'/home',symbol:'home'},
- {id:'journey',label:'Journey',path:'/journey',symbol:'compass'},
+/** SMART PAMANA five-destination navigation. Old routes remain valid deep links. */
+export const adventureTabs=[
+ {id:'home',label:'Simula',path:'/home',symbol:'home'},
+ {id:'journey',label:'Lakbay',path:'/journey',symbol:'compass'},
  {id:'learn',label:'Matuto',path:'/learn',symbol:'book'},
- {id:'quest',label:'Quest',path:'/quest',symbol:'trophy'},
- {id:'more',label:'More',path:'/more',symbol:'menu'}
+ {id:'writing',label:'Sulat',path:'/writing',symbol:'pencil'},
+ {id:'my-pamana',label:'Pamana',path:'/my-pamana',symbol:'bookmark'}
 ] as const;
 export type AdventureTab=typeof adventureTabs[number]['id'];
-export type ExistingSection=AdventureTab|'explore'|'writing'|'stories'|'collection'|'settings';
-/** Nothing becomes inaccessible just because it isn't in the five-tab bar. */
-export const supportingRoutes=[
- '/explore','/writing','/stories','/collection','/profile','/settings','/onboarding'
-] as const;
-export const tabForSection=(section:ExistingSection):AdventureTab=>
- section==='explore'?'journey':
- ['writing','stories','collection','settings'].includes(section)?'more':section as AdventureTab;
+export type ExistingSection=AdventureTab|'explore'|'quest'|'stories'|'collection'|'settings'|'profile'|'more';
+/** Historical bookmarks remain available independently and preserve their query strings. */
+export const supportingRoutes=['/explore','/quest','/stories','/collection','/profile','/settings','/more','/onboarding','/welcome'] as const;
+export function tabForSection(section:ExistingSection):AdventureTab{
+ if(section==='explore'||section==='quest')return 'journey';
+ if(section==='stories'||section==='collection'||section==='settings'||section==='profile'||section==='more')return 'my-pamana';
+ return section;
+}

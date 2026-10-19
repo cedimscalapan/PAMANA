@@ -1,3 +1,4 @@
+import LakbaySections from '../components/LakbaySections';
 import { IonContent, IonIcon, IonPage } from '@ionic/react';
 import { arrowForwardOutline, calendarOutline, locationOutline } from 'ionicons/icons';
 import { useEffect, useRef, useState } from 'react';
@@ -10,17 +11,12 @@ import { imageById, photoForFestival, photoForPlace } from '../data/gallery';
 import { MediaFigure } from '../components/MediaFigure';
 import { mindoroPaths, projectMindoro } from '../data/mindoro-map';
 import { setStored } from '../services/storage';
-import { municipalities } from '../data/festival-themes';
-import { readProfile } from '../services/personalization';
-import HometownScene from '../components/HometownScene';
-import { themeForHometown } from '../data/festival-themes';
 
 const annualDate = (month: number, day: number) => new Date(2000, month - 1, day).toLocaleDateString('en-PH', { month: 'long', day: 'numeric' });
 const readSaved = (): string[] => { try { const value = JSON.parse(localStorage.getItem('pamana.savedPlaces') ?? '[]'); return Array.isArray(value) ? value.filter(item => typeof item === 'string') : []; } catch { return []; } };
 
 export default function ExplorePage() {
   const history = useHistory(); const location = useLocation();
-  const myHometown = readProfile().hometown;
   const params = new URLSearchParams(location.search);
   const placeId = params.get('place'); const festivalId = params.get('festival');
   const place = destinations.find(item => item.id === placeId);
@@ -51,12 +47,13 @@ export default function ExplorePage() {
     </article> : festival ? <article className="heritage-body reading-page"><DetailBack onBack={back} label="Festival calendar" /><span className="eyebrow">ANNUAL OBSERVANCE · {festival.municipality}</span><h1>{festival.name}</h1><p className="reading-lead">{annualDate(festival.month, festival.day)} · recurring directory date</p>{festivalImage && <MediaFigure image={festivalImage} />}<section className="place-information"><h2>The celebration</h2><p>{festival.description}</p></section>{festival.highlights?.length ? <section className="place-information"><h2>Documented highlights</h2><ul>{festival.highlights.map(item => <li key={item}>{item}</li>)}</ul></section> : <section className="place-information"><h2>Read the occasion in context</h2><p>This annual entry records the celebration’s name, locality, and date from the provincial calendar. A date alone does not establish the meaning of a performance or the activities for a particular year. Use the organizer’s current announcement and the official background page when planning or describing a visit.</p></section>}
       <aside className="visit-note"><strong>Check this year’s program</strong>The annual date is not confirmation of a particular year’s event. Verify the venue, activity times, admission arrangements, and recording rules with the organizers.</aside><div className="button-row"><a className="secondary-action" href={festival.detailUrl ?? 'https://www.travelorientalmindoro.ph/festivals'} target="_blank" rel="noreferrer">Official festival reference ↗</a><Link className="primary-action" to="/stories?memory=new">Create a memory</Link></div><SourceNotes ids={festival.sourceIds} />
     </article> : <>
+      <LakbaySections active="places"/>
       <HeritageHero eyebrow="There’s a story beyond every view." title="Lakbay Pamana" description="Follow your curiosity through Oriental Mindoro’s landscapes, heritage places, and celebrations." tone="blue" image={imageById('puerto')?.src} />
       <section className="heritage-body"><p className="quiet-note">Cover: White Beach, Puerto Galera · Eugene Alvin Villar · CC BY-SA 4.0. <Link to="/collection?photo=puerto">Photo details ↗</Link></p>
       <div className="module-switch" role="group" aria-label="Explore view">{['Places', 'Map', 'Festivals'].map(item => <button key={item} type="button" aria-pressed={view === item} onClick={() => { setView(item); setQuery(''); }}>{item}</button>)}</div>
       <div className="section-heading"><div><span className="eyebrow">{view === 'Festivals' ? 'A YEAR OF CELEBRATIONS' : 'FIND YOUR NEXT DISCOVERY'}</span><h2>{view === 'Festivals' ? 'The festival calendar' : view === 'Map' ? 'Put a place to the name' : 'Places with a story'}</h2></div><span>{view === 'Festivals' ? visibleFestivals.length : filtered.length} {view === 'Festivals' ? 'occasions' : 'places'}</span></div>
       <SearchField value={query} onChange={setQuery} placeholder={view === 'Festivals' ? 'Find a festival or municipality' : 'Find a place, landscape, or town'} />
-      <section className="pamana-hometown-gallery" aria-label="Illustrated municipality discovery"><h3>Discover a hometown</h3><p>Tap a town to discover its documented festivals and cultural highlights.</p><div className="pamana-hometown-gallery-track">{[...municipalities].sort((a,b)=>Number(b===myHometown)-Number(a===myHometown)).map(t=><button type="button" className="pamana-hometown-artcard" key={t} aria-pressed={municipality===t} onClick={()=>{setMunicipality(t);setView("Festivals");setMonth("All months");setQuery("");}}><HometownScene className="pamana-hometown-card-art" hometown={t}/><strong>{t}</strong><small>{themeForHometown(t).name}</small></button>)}</div></section>
+      
       <div className="destination-filters"><label>Municipality<select value={municipality} onChange={event => setMunicipality(event.target.value)}><option>All municipalities</option>{officialMunicipalities.map(item => <option key={item}>{item}</option>)}</select></label>{view === 'Festivals' ? <label>Month<select value={month} onChange={event => setMonth(event.target.value)}><option>All months</option>{Array.from({ length: 12 }, (_, index) => <option key={index} value={index + 1}>{new Date(2000, index, 1).toLocaleDateString('en-PH', { month: 'long' })}</option>)}</select></label> : <label>Type<select value={category} onChange={event => setCategory(event.target.value)}><option>All types</option>{[...new Set(destinations.map(item => item.type))].map(item => <option key={item}>{item}</option>)}</select></label>}</div>
       {view !== 'Festivals' && <label className="saved-places-toggle"><input type="checkbox" checked={savedOnly} onChange={event => setSavedOnly(event.target.checked)} /> Show my saved places</label>}
       {view === 'Map' && <><div className="geographic-map"><svg viewBox="0 0 380 420" role="group" aria-label="Geographic map of Mindoro with published destination reference points"><defs><pattern id="map-grid" width="55" height="55" patternUnits="userSpaceOnUse"><path d="M55 0H0V55" fill="none" stroke="#b3ceca" strokeWidth=".5" /></pattern></defs><rect width="380" height="420" fill="url(#map-grid)" />{mindoroPaths.map((path, index) => <path className="land" key={index} d={path} />)}<text x="20" y="25">VERDE ISLAND PASSAGE</text><text className="island-name" x="90" y="205" transform="rotate(29 90 205)">MINDORO</text><text x="275" y="180" transform="rotate(90 275 180)">TABLAS STRAIT</text><text x="344" y="29">N ↑</text>{mapped.map((item, index) => {

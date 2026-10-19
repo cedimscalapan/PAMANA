@@ -2,6 +2,22 @@
 
 Offline-first Ionic React application for learning about Oriental Mindoro's culture and heritage.
 
+## Final user-facing feature structure (five tabs)
+
+SMART PAMANA is an **offline-first cultural heritage learning and exploration application**. Its five primary destinations are:
+
+| Tab | Purpose |
+| --- | --- |
+| **Simula** | Greeting, one Continue Adventure action, accurate saved progress, resume lesson and activity shortcuts |
+| **Lakbay** | 15 freely accessible hometown journeys, documentary places/festivals, interactive cultural Quests and real stamp progress |
+| **Matuto** | 16 source-backed lessons with one main knowledge check and optional practice activities |
+| **Sulat** | Learn Hanunó’o characters and common words, convert/trace/write, reopen saved writings |
+| **Pamana** (Aking Pamana) | Hometown stamps, private Kuwento stories, personal photo Koleksyon, profile and settings |
+
+Ka-Pamana guidance, accessibility preferences, offline records and learning-only JSON backups are supporting capabilities, not extra bottom-navigation destinations. Previous routes (`/explore`, `/quest`, `/stories`, `/collection`, `/profile`, `/settings`, `/more`) remain available to keep existing deep links working.
+
+The illustrated chapter path is decorative, **not a geographic map**; no specific 2D production-art promise is required for the user-facing feature description. The published place-map references and credited cultural media are maintained separately. The learning backup **does not include private photos, stories, or handwriting images**. See `docs/FINAL_FIVE_FEATURE_CONSOLIDATION.md` for UI, data-preservation and QA details.
+
 ## Current implementation
 
 - Ionic React app shell with Capacitor Android packaging and route-based navigation.

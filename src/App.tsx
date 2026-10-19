@@ -12,6 +12,7 @@ import OnboardingPage from './pages/OnboardingPage';
 import WelcomePage from './pages/WelcomePage';
 import ProfilePage from './pages/ProfilePage';
 import MorePage from './pages/MorePage';
+import MyPamanaPage from './pages/MyPamanaPage';
 import JourneyPage from './pages/JourneyPage';
 
 export default function App() {
@@ -25,6 +26,7 @@ export default function App() {
     <Route exact path="/stories" component={StoriesPage} />
     <Route exact path="/collection" component={CollectionPage} />
     <Route exact path="/settings" component={SettingsPage} />
+    <Route exact path="/my-pamana" component={MyPamanaPage} />
     <Route exact path="/more" component={MorePage} />
     <Route exact path="/profile" component={ProfilePage} />
     <Route exact path="/onboarding" component={OnboardingPage} />

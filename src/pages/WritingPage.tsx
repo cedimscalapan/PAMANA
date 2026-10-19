@@ -247,11 +247,17 @@ const TracePad = forwardRef<TracePadHandle, TracePadProps>(function TracePad(
 
 const sectionItems: Array<{ id: SulatSection; label: string; icon: typeof bookOutline }> = [
   { id: 'learn', label: 'Characters', icon: bookOutline },
-  { id: 'convert', label: 'Convert', icon: createOutline },
-  { id: 'practice', label: 'Practice', icon: pencilOutline },
-  { id: 'words', label: 'Words', icon: libraryOutline },
-  { id: 'history', label: 'Writings', icon: imagesOutline },
+  { id: 'words', label: 'Common words', icon: libraryOutline },
+  { id: 'convert', label: 'Convert words', icon: createOutline },
+  { id: 'practice', label: 'Trace and write', icon: pencilOutline },
+  { id: 'history', label: 'Saved writings', icon: imagesOutline },
 ];
+const sulatGroups=[
+ {id:'learn',label:'Learn',icon:bookOutline,sections:['learn','words']},
+ {id:'write',label:'Write & Practice',icon:pencilOutline,sections:['convert','practice']},
+ {id:'history',label:'My Writings',icon:imagesOutline,sections:['history']}
+] as const;
+const sulatGroupFor=(section:SulatSection)=>sulatGroups.find(group=>(group.sections as readonly string[]).includes(section))??sulatGroups[0];
 
 const formatDate = (value: string) => new Intl.DateTimeFormat('fil-PH', {
   year: 'numeric',
@@ -454,20 +460,20 @@ export default function WritingPage() {
             icon={pencilOutline}
           />
 
-          <nav className="sulat-section-nav" aria-label="Sulat Pamana sections">
-            {sectionItems.map((item) => (
-              <button
-                key={item.id}
-                type="button"
-                className={section === item.id ? 'active' : ''}
-                onClick={() => setSection(item.id)}
-                aria-current={section === item.id ? 'page' : undefined}
-              >
-                <IonIcon icon={item.icon} />
-                <span>{item.label}</span>
+          <nav className="sulat-section-nav pamana-final-sulat-groups" aria-label="Sulat Pamana main activities">
+            {sulatGroups.map((group)=>(
+              <button key={group.id} type="button" className={sulatGroupFor(section).id===group.id?'active':''}
+                aria-current={sulatGroupFor(section).id===group.id?'page':undefined}
+                onClick={()=>setSection(group.sections[0] as SulatSection)}>
+                <IonIcon icon={group.icon} aria-hidden="true"/><span>{group.label}</span>
               </button>
             ))}
           </nav>
+          {sulatGroupFor(section).sections.length>1&&<nav className="pamana-final-sulat-subnav" aria-label="Choose an activity">
+            {sectionItems.filter(item=>(sulatGroupFor(section).sections as readonly string[]).includes(item.id)).map(item=>
+              <button key={item.id} type="button" aria-pressed={section===item.id}
+                onClick={()=>setSection(item.id)}>{item.label}</button>)}
+          </nav>}
 
           <section className="sulat-content">
             {section === 'learn' && (
