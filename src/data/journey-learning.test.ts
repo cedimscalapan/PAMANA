@@ -11,7 +11,9 @@ describe('all fifteen fully offline, festival-specific learning packs',()=>{
   for(const chapter of heritageChapters){
    const fest=getJourneyReader(chapter,'festival'),lesson=getJourneyReader(chapter,'lesson');
    expect(fest).toHaveLength(4);
-   expect(lesson).toHaveLength(lessonArticles[chapter.lessonId].sections.length);
+   expect(lesson).toHaveLength(lessonArticles[chapter.lessonId].sections.length+1);
+   expect(lesson[0].title).toContain(chapter.town);
+   expect(lesson[0].text).toContain(chapter.festivalName);
    expect(lesson.length).toBeGreaterThanOrEqual(3);
    expect(fest.join(' ')).toBeDefined();
    expect(fest[0].text).toBe(officialFestivals.find(f=>f.id===chapter.festivalId)!.description);
