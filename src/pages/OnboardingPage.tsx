@@ -3,17 +3,16 @@ import {arrowBackOutline,arrowForwardOutline,checkmarkCircleOutline} from 'ionic
 import {useHistory} from 'react-router-dom';
 import {useState} from 'react';
 import mascot from '../assets/reference/ka-pamana-icon.png';
-import {festivalThemes,municipalities,themeForHometown} from '../data/festival-themes';
+import {festivalThemes,themeForHometown} from '../data/festival-themes';
 import {learningStages} from '../data/learning-levels';
-import HometownScene from '../components/HometownScene';
+import {AvatarPicker,HometownPicker,LearningStylePicker,FestivalPalettePicker} from '../components/adventure/PersonalizationChoices';
 import AdventureScenery from '../components/adventure/AdventureScenery';
 import AdventureIntro from '../components/adventure/AdventureIntro';
 import {ONBOARDING_STEPS} from '../data/onboarding-flow';
-import {defaultProfile,nextHometownProfile,type AvatarId,type LocalProfile} from '../data/personalization';
+import {defaultProfile,nextHometownProfile,type LocalProfile} from '../data/personalization';
 import {readProfile} from '../services/personalization';
 import {completeOnboarding} from '../services/onboarding';
 
-const avatars:Array<[AvatarId,string]>=[['mascot','🌟'],['leaf','🌿'],['star','✨'],['book','📚'],['art','🎨']];
 export default function OnboardingPage(){
  const history=useHistory();
  const [step,setStep]=useState(0);
@@ -45,26 +44,17 @@ export default function OnboardingPage(){
     {step===0&&<><p>Welcome! Discover places, learn meaningful stories, try friendly activities, and preserve your discoveries—all without an account.</p><AdventureIntro compact/><p className="pamana2-onboarding-hint">Everything works at your pace. You can skip setup and change your profile later.</p></>}
     {step===1&&<><p>No real name or account needed. Choose a nickname and an avatar that feels right for you.</p>
      <label>Explorer nickname<input maxLength={32} autoComplete="off" value={draft.nickname} onChange={e=>update({nickname:e.target.value})}/></label>
-     <div className="pamana-avatar-grid" role="group" aria-label="Choose an avatar">
-      {avatars.map(([id,emoji])=><button type="button" key={id} aria-pressed={draft.avatar===id} onClick={()=>update({avatar:id})}><span aria-hidden="true">{emoji}</span><strong>{id==='mascot'?'Ka-Pamana':id[0].toUpperCase()+id.slice(1)}</strong></button>)}
-     </div>
+     <AvatarPicker value={draft.avatar} onChange={avatar=>update({avatar})}/>
     </>}
     {step===2&&<><p>Choose your hometown to see related festival and heritage discoveries. You can explore any municipality or city, regardless of your choice.</p>
-     <label>My hometown<select value={draft.hometown} onChange={e=>setDraft(old=>nextHometownProfile(old,e.target.value))}><option value="">I prefer not to say</option>{municipalities.map(t=><option key={t} value={t}>{t}</option>)}</select></label>
+     <HometownPicker value={draft.hometown} onChange={town=>setDraft(old=>nextHometownProfile(old,town))}/>
      <p className="pamana2-onboarding-hint">This choice is optional, editable, and stored on your device.</p>
     </>}
     {step===3&&<><p>Everyone can choose any learning experience, regardless of age. This setting can be changed at any time.</p>
-     <div className="pamana-level-grid" role="group" aria-label="Choose your learning experience">
-      {learningStages.map(s=><button type="button" key={s.id} aria-pressed={draft.learningStage===s.id} onClick={()=>update({learningStage:s.id})}><strong>{s.name}</strong><small>{s.detail}</small></button>)}
-     </div>
+     <LearningStylePicker value={draft.learningStage} onChange={learningStage=>update({learningStage})}/>
     </>}
     {step===4&&<><p>Choose a light, image-free festival color palette. Your hometown suggestion is <strong>{themeForHometown(draft.hometown).name}</strong>, but all themes are available.</p>
-     <div className="pamana-theme-grid" role="group" aria-label="Choose a festival color palette">
-      {festivalThemes.map(t=><button type="button" key={t.id} aria-pressed={draft.themeId===t.id} onClick={()=>update({themeId:t.id})}>
-       <HometownScene className="pamana-theme-art" hometown={t.municipality}/>
-       <strong>{t.name}</strong><small>{t.municipality||'Heritage theme'}</small>
-      </button>)}
-     </div>
+     <FestivalPalettePicker value={draft.themeId} hometown={draft.hometown} onChange={themeId=>update({themeId})}/>
     </>}
     {step===5&&<div className="pamana2-onboarding-summary">
      <span className="pamana2-onboarding-celebrate" aria-hidden="true">🌿</span>
