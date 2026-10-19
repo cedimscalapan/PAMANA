@@ -28,7 +28,7 @@ describe('all fifteen fully offline, festival-specific learning packs',()=>{
    }
   }
  });
- it('asks six distinct questions from the two texts, not the generalized free-play Quest pool',()=>{
+ it('asks eleven distinct verified questions from local culture and Matuto rather than generic free-play Quest material',()=>{
   const positions=new Set<number>();
   for(const chapter of heritageChapters){
    const qs=getJourneyQuestions(chapter);
@@ -39,7 +39,7 @@ describe('all fifteen fully offline, festival-specific learning packs',()=>{
    expect(qs.some(q=>q.id==='culture-1')).toBe(true);
    expect(qs.some(q=>q.id==='common-identities')).toBe(true);
    expect(qs.some(q=>q.id==='common-consent')).toBe(true);
-   expect(new Set(qs.map(q=>q.id)).size).toBe(6);
+   expect(new Set(qs.map(q=>q.id)).size).toBe(11);
    expect(qs.filter(q=>q.stage==='festival')).toHaveLength(8);
    expect(qs.filter(q=>q.stage==='lesson')).toHaveLength(3);
    expect(qs[0].options[qs[0].answer]).toBe(chapter.festivalName);
