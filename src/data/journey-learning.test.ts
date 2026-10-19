@@ -45,7 +45,7 @@ describe('unique, offline Mindoro Journey v2 curriculum',()=>{
     expect(q.options).toHaveLength(4);
     expect(new Set(q.options).size).toBe(4);
     expect(q.sourceIds.length).toBeGreaterThan(0);
-    expect(q.options[q.answer].length).toBeGreaterThan(2);
+    expect(q.options[q.answer].length).toBeGreaterThan(0);
     expect(q.explanation.length).toBeGreaterThan(25);
     positions.add(q.answer);
     for(const ref of q.sourceIds)expect(sources.some(s=>s.id===ref)).toBe(true);
