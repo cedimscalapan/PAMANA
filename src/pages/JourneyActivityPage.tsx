@@ -47,7 +47,7 @@ export default function JourneyActivityPage(){
  const answeredCount=questions.filter(q=>answered.has(q.id)).length;
  const questionIndex=activeQuestionIndex(questions.map(q=>q.id),answered,quizCursor,feedback&&feedback.result==='correct'?feedback.questionId:undefined);
  const question=questionIndex<0?undefined:questions[questionIndex];
- const questionFeedback=feedback?.questionId===question?.id?feedback.result:null;
+ const questionFeedback=feedback&&feedback.questionId===question?.id?feedback.result:null;
  const lesson=lessons.find(l=>l.id===chapter.lessonId)!;
  const article=lessonArticles[chapter.lessonId];
  const festival=officialFestivals.find(f=>f.id===chapter.festivalId)!;
