@@ -7,6 +7,7 @@ import HometownScene from '../components/HometownScene';
 import {SourceNotes} from '../components/HeritageUI';
 import {findChapter,heritageChapters,chapterStatus} from '../data/heritage-journey';
 import {getJourneyReader,getJourneyQuestions} from '../data/journey-learning';
+import {activeQuestionIndex,nextUnansweredIndex} from '../data/journey-challenge-state';
 import {officialFestivals} from '../data/official-heritage';
 import {lessons} from '../data/learning';
 import {lessonArticles} from '../data/lesson-articles';
@@ -17,7 +18,7 @@ import {readQuestProgress} from '../services/quest-games';
 import {playUiSound} from '../services/ui-sounds';
 
 type Step='festival'|'lesson'|'quest'|'complete';
-const stages=[{key:'festival',label:'Discover',icon:compassOutline},
+const stages=[{key:'festival',label:'Tuklas',icon:compassOutline},
  {key:'lesson',label:'Matuto',icon:bookOutline},{key:'quest',label:'Challenge',icon:trophyOutline}] as const;
 const journeyUrl=(id:string,step:Step)=>'/journey/activity?town='+encodeURIComponent(id)+'&step='+step;
 export default function JourneyActivityPage(){
@@ -29,11 +30,12 @@ export default function JourneyActivityPage(){
  const [saved,setSaved]=useState(readJourneyProgress);
  const [page,setPage]=useState(0);
  const [choice,setChoice]=useState<number|null>(null);
- const [feedback,setFeedback]=useState<'correct'|'incorrect'|null>(null);
+ const [quizCursor,setQuizCursor]=useState(0);
+ const [feedback,setFeedback]=useState<{questionId:string;result:'correct'|'incorrect'}|null>(null);
  const [busy,setBusy]=useState(false);
  const [error,setError]=useState('');
  const [,tick]=useState(0);
- useEffect(()=>{setPage(0);setChoice(null);setFeedback(null);setError('');void content.current?.scrollToTop(0);},[location.search]);
+ useEffect(()=>{setPage(0);setQuizCursor(0);setChoice(null);setFeedback(null);setError('');void content.current?.scrollToTop(0);},[location.search]);
  useIonViewWillEnter(()=>{setSaved(readJourneyProgress());tick(i=>i+1);});
  if(!chapter)return <IonPage><IonContent><PageFrame active="journey"><section className="pamana-flow-screen">
   <h1>Hometown not found</h1><p>Choose one of the fifteen available journeys.</p><Link to="/journey">Return to Lakbay</Link></section></PageFrame></IonContent></IonPage>;
@@ -43,8 +45,9 @@ export default function JourneyActivityPage(){
  const questions=getJourneyQuestions(chapter);
  const answered=new Set(local.chapterCorrectQuestions??[]);
  const answeredCount=questions.filter(q=>answered.has(q.id)).length;
- const questionIndex=questions.findIndex(q=>!answered.has(q.id));
+ const questionIndex=activeQuestionIndex(questions.map(q=>q.id),answered,quizCursor,feedback?.result==='correct'?feedback.questionId:undefined);
  const question=questionIndex<0?undefined:questions[questionIndex];
+ const questionFeedback=feedback?.questionId===question?.id?feedback.result:null;
  const lesson=lessons.find(l=>l.id===chapter.lessonId)!;
  const article=lessonArticles[chapter.lessonId];
  const festival=officialFestivals.find(f=>f.id===chapter.festivalId)!;
@@ -80,10 +83,16 @@ export default function JourneyActivityPage(){
  };
  const submitAnswer=()=>{
   if(!question||choice===null)return;
-  if(choice!==question.answer){setFeedback('incorrect');return;}
+  if(choice!==question.answer){setFeedback({questionId:question.id,result:'incorrect'});return;}
   void run(()=>markJourneyQuestionCorrect(chapter.id,question.id),()=>{
-   setFeedback('correct');playUiSound('success');
+   setFeedback({questionId:question.id,result:'correct'});playUiSound('success');
   });
+ };
+ const nextQuestion=()=>{
+  const updated=readJourneyProgress().chapters[chapter.id]?.chapterCorrectQuestions??[];
+  const next=nextUnansweredIndex(questions.map(q=>q.id),new Set(updated));
+  setChoice(null);setFeedback(null);setQuizCursor(next<0?questions.length:next);
+  void content.current?.scrollToTop(0);
  };
  const nextChapter=heritageChapters[(heritageChapters.findIndex(c=>c.id===chapter.id)+1)%heritageChapters.length];
  const readingTitle=stage==='festival'?festival.name:lesson.title;
@@ -96,7 +105,7 @@ export default function JourneyActivityPage(){
    <div className="pamana-flow-header">
     <HometownScene hometown={chapter.town} className="pamana-flow-town-art"/>
     <div><span className="pamana-eyebrow">YOUR HOMETOWN HERITAGE ADVENTURE</span>
-     <h1>{chapter.town}</h1><p>Discover a real festival, learn from a detailed Matuto lesson, then answer questions about what you read.</p></div>
+     <h1>{chapter.town}</h1><p>Explore history, everyday life, traditions, identities and cultural heritage, then use your learning in a hometown challenge.</p></div>
    </div>
    <nav aria-label="Your three chapter steps" className="pamana-flow-stepper">
     {stages.map((item,index)=>{
@@ -111,7 +120,7 @@ export default function JourneyActivityPage(){
    {stage==='festival'||stage==='lesson'?<>
     <section className="pamana-flow-reading" aria-labelledby="flow-reading-title">
      <div className="pamana-flow-reading-title"><span className="pamana-eyebrow">STEP {stage==='festival'?'1':'2'} OF 3 · SOURCE-BACKED READING</span>
-      <h2 id="flow-reading-title">{readingTitle}</h2><p>{stage==='festival'?'Explore the documented background, public themes and cultural context of this hometown festival.':
+      <h2 id="flow-reading-title">{readingTitle}</h2><p>{stage==='festival'?'Discover the hometown beyond celebrations: cultural places, livelihoods, history, distinct Mangyan communities, heritage and sources.':
        'Read the complete existing Matuto article, not just its short lesson summary.'}</p></div>
      <div className="pamana-flow-reading-meter"><label htmlFor="pamana-flow-read-progress">
       <strong>{readCount} of {sections.length} sections read</strong><span>{Math.round(readCount/sections.length*100)}% reading progress</span></label>
@@ -147,19 +156,26 @@ export default function JourneyActivityPage(){
    </>:stage==='quest'?<section className="pamana-flow-quiz" aria-labelledby="flow-quiz-title">
     <span className="pamana-eyebrow">STEP 3 OF 3 · YOUR HOMETOWN KNOWLEDGE CHECK</span>
     <h2 id="flow-quiz-title">What did you discover?</h2>
-    <p>These questions come from <strong>{festival.name}</strong> and <strong>{lesson.title}</strong>. No unrelated province-wide questions or timers.</p>
+    <p>Apply what you learned about <strong>{chapter.town}</strong>, local history, livelihoods, Mangyan heritage, cultural consent and <strong>{lesson.title}</strong>. Questions use the actual readings rather than a general trivia pool. No timer.</p>
     <div className="pamana-flow-reading-meter"><label htmlFor="pamana-flow-quiz-progress"><strong>{answeredCount} of {questions.length} correct</strong>
       <span>{Math.round(answeredCount/questions.length*100)}% complete</span></label>
      <progress id="pamana-flow-quiz-progress" value={answeredCount} max={questions.length}/></div>
     {question?<article className="pamana-flow-question" key={question.id}>
-     <span className="pamana-eyebrow">{question.stage==='festival'?'FROM YOUR FESTIVAL READING':'FROM YOUR MATUTO READING'} · QUESTION {questionIndex+1} / {questions.length}</span>
+     <span className="pamana-eyebrow">{question.stage==='festival'?'FROM YOUR HOMETOWN AND CULTURAL READING':'FROM YOUR MATUTO READING'} · QUESTION {questionIndex+1} / {questions.length}</span>
      <h3>{question.prompt}</h3>
      <div className="pamana-flow-answers">{question.options.map((answer,index)=><button key={index} type="button"
-      disabled={busy||feedback==='correct'} aria-pressed={choice===index} className={choice===index?'selected':''}
+      disabled={busy||questionFeedback==='correct'} aria-pressed={choice===index} className={choice===index?'selected':''}
       onClick={()=>{setChoice(index);setFeedback(null);}}><span>{String.fromCharCode(65+index)}</span>{answer}</button>)}</div>
-     {feedback==='incorrect'&&<p className="pamana-flow-feedback incorrect" role="status">Not quite. Review the festival or lesson details above, then try again. Hint: {question.explanation}</p>}
+     {questionFeedback==='incorrect'&&<p className="pamana-flow-feedback incorrect" role="status">Not yet—try another answer. Use the source below or review the related Tuklas and Matuto reading. You can retry without losing previously correct answers.</p>}
+     {questionFeedback==='correct'&&<div className="pamana-flow-feedback correct" role="status">
+      <strong>Correct! Question {questionIndex+1} saved.</strong><p>{question.explanation}</p></div>}
      <SourceNotes ids={question.sourceIds}/>
-     <button type="button" className="pamana-flow-primary" disabled={choice===null||busy} onClick={submitAnswer}>Check answer</button>
+     {questionFeedback==='correct'?
+      <button type="button" className="pamana-flow-primary" disabled={busy} onClick={nextQuestion}>
+       {answeredCount===questions.length?'View results & finish challenge':'Next question'} <IonIcon icon={arrowForwardOutline} aria-hidden="true"/>
+      </button>:
+      <button type="button" className="pamana-flow-primary" disabled={choice===null||busy} onClick={submitAnswer}>
+       Check this answer <IonIcon icon={checkmarkCircleOutline} aria-hidden="true"/></button>}
     </article>:<div className="pamana-flow-continue">
      <div><strong>You answered all {questions.length} chapter questions!</strong><p>Your answers are recorded offline. Save the hometown challenge to earn its stamp.</p></div>
      <button type="button" disabled={busy} onClick={()=>void run(()=>completeChapterKnowledgeCheck(chapter.id),()=>{
