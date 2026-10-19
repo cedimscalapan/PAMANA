@@ -5,19 +5,32 @@ import {readQuestProgress} from '../services/quest-games';
 import {heritageChapters,chapterStatus} from '../data/heritage-journey';
 import {readJourneyProgress} from '../services/heritage-journey';
 import {Link} from 'react-router-dom';
+import KaPamanaGuide from './adventure/KaPamanaGuide';
+
 export default function HeritageStamps(){
- const completed=lessons.filter(l=>localStorage.getItem(storageKey(l.id))==='complete').length;
- const questResults=readQuestProgress().results;
- const questCount=questResults.length;
- const stamps=deriveHeritageStamps(completed,questCount);
- const learned=new Set(lessons.filter(l=>localStorage.getItem(storageKey(l.id))==='complete').map(l=>l.id));
- const journeyProgress=readJourneyProgress();
- const towns=heritageChapters.filter(chapter=>chapterStatus(chapter,journeyProgress,learned,questResults).completed);
- return <section className="pamana-stamps" aria-label="Learning achievement stamps">
-   <h2>My Heritage Passport</h2><p className="quiet-note">Stamps unlock from completed lessons and Quests saved on this device. No account required.</p>
+ const completedLessons=new Set(lessons.filter(l=>localStorage.getItem(storageKey(l.id))==='complete').map(l=>l.id));
+ const questProgress=readQuestProgress();
+ const stamps=deriveHeritageStamps(completedLessons.size,questProgress.totals.completed);
+ const progress=readJourneyProgress();
+ const chapterStatuses=heritageChapters.map(chapter=>({chapter,status:chapterStatus(chapter,progress,completedLessons,questProgress.results)}));
+ const earned=chapterStatuses.filter(item=>item.status.completed).length;
+ return <section className="pamana-stamps pamana9-passport" aria-label="My Heritage Passport and earned discoveries">
+   <div className="pamana9-passport-header"><div><span className="pamana-eyebrow">MY OFFLINE CULTURAL DISCOVERIES</span><h2>Heritage Passport</h2>
+      <p>Every locality is yours to explore. A stamp is earned only after its documented festival, linked lesson and matching Quest session.</p>
+    </div><div className="pamana9-passport-total"><strong>{earned}<span>/15</span></strong><small>Town stamps earned</small></div></div>
+   <KaPamanaGuide state={earned>0?'celebrate':'welcome'} compact/>
+   <div className="pamana9-town-stamps">{chapterStatuses.map(({chapter,status})=><Link key={chapter.id} className={'pamana9-stamp '+(status.completed?'earned':'unearned')}
+     to={'/journey?town='+chapter.id} aria-label={chapter.town+', '+(status.completed?'stamp earned':status.done+' of 3 steps completed')}>
+     <span className="pamana9-stamp-art" aria-hidden="true">{status.completed?'🏅':'🧭'}</span>
+     <strong>{chapter.town}</strong><small>{status.completed?'Stamp earned':status.done+'/3 discoveries'}</small>
+     <span className="pamana9-stamp-action">{status.completed?'Explore again':'Continue journey'} →</span>
+    </Link>)}</div>
+   <p className="pamana9-passport-explain">A heritage stamp represents completed learning activities, not mastery of a living community or permission to visit protected places.</p>
+   <h3 className="pamana9-bonus-title">More learning milestones</h3>
+   <p className="quiet-note">These smaller milestones are based on existing saved lesson and Quest totals, not extra game currencies.</p>
    <div className="pamana-stamp-grid">{stamps.map(s=><article key={s.id} className={s.earned?'earned':'locked'} aria-label={s.title+(s.earned?', earned':', not yet earned')}>
       <span aria-hidden="true">{s.earned?s.emoji:'🔒'}</span><strong>{s.title}</strong><small>{s.requirement}</small><em>{s.earned?'Earned':'Not yet earned'}</em>
    </article>)}</div>
-   <div className="pamana-passport-towns"><div><strong>Hometown discovery stamps</strong><p>{towns.length} of {heritageChapters.length} hometown journeys completed</p></div><div className="pamana-passport-earned">{towns.length?towns.map(chapter=><Link key={chapter.id} to={'/journey?town='+chapter.id} aria-label={'View completed '+chapter.town+' journey'}>🏅 {chapter.town}</Link>):<p>No hometown stamps yet. Start with your own town or explore another.</p>}</div><Link to="/journey" className="pamana-passport-link">Explore Heritage Journey →</Link></div>
+   <Link to="/journey" className="pamana-passport-link">Explore all hometown journeys →</Link>
  </section>;
 }

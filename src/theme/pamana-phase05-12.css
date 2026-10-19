@@ -1,0 +1,117 @@
+
+/* Phases 05–06 — offline Mindoro outline and documented town chapters */
+.pamana5-adventure-map{margin:23px 0;padding:clamp(15px,3vw,23px);background:#FFF;border:1px solid #DAE9DD;border-radius:24px;color:#263B36}
+.pamana5-map-head{display:flex;justify-content:space-between;align-items:start;gap:17px}
+.pamana5-map-head h2{font:770 clamp(1.22rem,3.6vw,1.65rem)/1.2 var(--adventure-heading);margin:7px 0}
+.pamana5-map-head p{color:#556C5D;font-size:.84rem;line-height:1.55;margin:0 0 9px}
+.pamana5-switch{display:flex;gap:6px;border:1px solid #DCE9DF;border-radius:14px;background:#F6FAF7;padding:5px;flex:none}
+.pamana5-switch button,.pamana5-filters button{min-height:44px;border-radius:11px;padding:8px 12px;background:transparent;border:1px solid transparent;color:#3E7157;font-size:.81rem;font-weight:750;display:inline-flex;align-items:center;gap:6px;cursor:pointer}
+.pamana5-switch button[aria-pressed=true],.pamana5-filters button[aria-pressed=true]{background:#DDF0E4;border-color:#8FC3A4;color:#255A41}
+.pamana5-switch button ion-icon{font-size:1.1rem}
+.pamana5-filters{display:flex;gap:7px;flex-wrap:wrap;margin:12px 0 16px}
+.pamana5-filters button{border-color:#E0EAE3;background:#FFF}
+.pamana5-island-layout{display:grid;grid-template-columns:minmax(170px,1fr) minmax(0,1.45fr);gap:14px;align-items:start}
+.pamana5-coast-pane{background:#EAF8F8;border:1px solid #CFE8E7;border-radius:20px;padding:9px;overflow:hidden}
+.pamana5-coast{width:100%;height:auto;display:block;border-radius:15px}
+.pamana5-coast-pane p{display:flex;gap:7px;align-items:center;justify-content:center;font-size:.74rem;color:#4F7978;text-align:center;line-height:1.5;margin:6px}
+.pamana5-trail{padding:4px}
+.pamana5-trail-caption{margin:0 0 10px;font-size:.8rem;color:#5C7968;font-weight:700}
+.pamana5-chapter-trail{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}
+.pamana5-trail-stop{display:flex;gap:8px;align-items:center;min-width:0;text-align:left;min-height:58px;padding:9px;border:1px solid #E0E9E3;border-radius:14px;background:#FAFCFA;color:#263B36;cursor:pointer}
+.pamana5-trail-stop[aria-pressed=true],.pamana5-list-item[aria-pressed=true]{background:#E8F6EC;border-color:#6EAD87;box-shadow:0 0 0 1px #6EAD87}
+.pamana5-trail-icon{height:33px;width:33px;flex:none;border-radius:11px;display:grid;place-items:center;background:#DFF0E5;color:#387054;font-size:.9rem;font-weight:850}
+.pamana5-trail-stop>span:last-child{display:grid;min-width:0;gap:3px}
+.pamana5-trail-stop strong{font-size:.8rem;line-height:1.22;overflow-wrap:anywhere}
+.pamana5-trail-stop small{font-size:.7rem;color:#5B7663}
+.pamana5-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+.pamana5-list-item{display:flex;align-items:center;gap:11px;min-width:0;padding:12px;border-radius:14px;border:1px solid #DDEAE1;background:#FFF;text-align:left;color:#263B36;cursor:pointer;min-height:73px}
+.pamana5-list-item>span:first-child{font-size:1.3rem;flex:none}
+.pamana5-list-item>span:nth-child(2){display:grid;min-width:0;gap:5px;flex:1}
+.pamana5-list-item strong{font-size:.9rem;overflow-wrap:anywhere}
+.pamana5-list-item small{font-size:.73rem;color:#5D7069;line-height:1.4}
+.pamana5-list-status{font-size:.75rem;color:#3D7653;white-space:nowrap;display:inline-flex;align-items:center;gap:4px}
+.pamana5-none{font-size:.88rem;color:#53675A;line-height:1.6;padding:14px;background:#F6FBF6;border-radius:12px}
+.pamana5-attribution{margin:13px 0 0;padding:11px 13px;background:#F5F9F5;border-radius:11px;color:#5D7069;font-size:.73rem;line-height:1.55}
+.pamana6-heritage-context{margin:18px 0;padding:17px;background:#FFFDF6;border:1px solid #EEE8D5;border-radius:17px}
+.pamana6-heritage-context h3{font:760 1.2rem/1.3 var(--adventure-heading);color:#284738;margin:7px 0 10px}
+.pamana6-heritage-context img{display:block;max-height:230px;width:100%;object-fit:contain;border-radius:14px;background:#F2F6F1;margin:10px 0}
+.pamana6-heritage-context p{font-size:.89rem;line-height:1.68;color:#4E665A;margin:9px 0}
+.pamana6-heritage-context .pamana6-media-note{color:#67776E;font-size:.75rem}
+@media(max-width:650px){.pamana5-map-head{flex-direction:column}.pamana5-island-layout{grid-template-columns:1fr}.pamana5-coast-pane{max-width:420px;margin:0 auto;width:100%}.pamana5-list{grid-template-columns:1fr}}
+@media(max-width:400px){.pamana5-chapter-trail{grid-template-columns:1fr}.pamana5-trail-stop{min-height:52px}}
+.pamana5-adventure-map button:focus-visible{outline:3px solid #C18A4B!important;outline-offset:2px}
+
+/* Phase 07 source-backed idea reveal */
+.pamana7-reveal{margin:22px 0;padding:clamp(16px,3vw,24px);border:1px solid #D9E8DD;background:#F5FAF6;border-radius:21px}
+.pamana7-head h2{font:770 clamp(1.16rem,3vw,1.4rem)/1.25 var(--adventure-heading);margin:8px 0;color:#263B36}
+.pamana7-head p{font-size:.86rem;color:#536D5B;line-height:1.6;margin:0 0 15px}
+.pamana7-reveal-grid{display:grid;gap:10px;grid-template-columns:repeat(2,minmax(0,1fr))}
+.pamana7-reveal-card{min-height:105px;display:flex;flex-direction:column;gap:9px;padding:14px;text-align:left;border-radius:15px;border:1px solid #D8E7DC;background:#FFF;color:#263B36;cursor:pointer}
+.pamana7-reveal-card[aria-expanded=true]{background:#E9F6ED;border-color:#6DAF89}
+.pamana7-reveal-top{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:.74rem;color:#42815E;font-weight:760}
+.pamana7-reveal-top ion-icon{font-size:1.15rem}
+.pamana7-reveal-card strong{font-size:.9rem;font-weight:700;line-height:1.5}
+.pamana7-footnote{font-size:.77rem;color:#536F5B;line-height:1.5;margin:14px 0 0}
+/* Phase 09 passport */
+.pamana9-passport{background:#FFF;border:1px solid #E1E9DE;border-radius:24px;padding:clamp(16px,4vw,24px);color:#263B36}
+.pamana9-passport-header{display:flex;justify-content:space-between;gap:14px;align-items:center;margin-bottom:16px}
+.pamana9-passport-header h2{font:800 clamp(1.46rem,4vw,1.9rem)/1.2 var(--adventure-heading);margin:6px 0;color:#263B36}
+.pamana9-passport-header p{font-size:.85rem;color:#5D7069;line-height:1.6;margin:0}
+.pamana9-passport-total{display:grid;justify-items:center;padding:13px;min-width:110px;border-radius:18px;background:#EAF7ED;color:#287653}
+.pamana9-passport-total strong{font:800 1.7rem var(--adventure-heading)}
+.pamana9-passport-total strong span{font-size:.85rem;color:#619074}
+.pamana9-passport-total small{font-size:.7rem;line-height:1.4;text-align:center;font-weight:750}
+.pamana9-town-stamps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:17px 0}
+.pamana9-stamp{display:flex;flex-direction:column;justify-content:center;align-items:center;gap:6px;min-height:144px;padding:12px 9px;text-decoration:none;background:#F8FBF8;color:#263B36;border:1px dashed #D2E1D4;border-radius:18px;text-align:center}
+.pamana9-stamp.earned{background:#FFF8E7;border:2px solid #E5C883}
+.pamana9-stamp-art{font-size:2rem;line-height:1.3}
+.pamana9-stamp strong{font-size:.91rem;font-weight:770;line-height:1.3;color:#263B36}
+.pamana9-stamp small{font-size:.73rem;color:#5D7069}
+.pamana9-stamp-action{font-size:.73rem;color:#317251;font-weight:780;margin-top:5px}
+.pamana9-passport-explain{font-size:.83rem;line-height:1.6;color:#5D7069;background:#F1F9F4;border-radius:12px;padding:11px}
+.pamana9-bonus-title{font:760 1.16rem var(--adventure-heading);color:#263B36;margin:23px 0 8px}
+/* Phase 10 contextual mascot */
+.pamana10-guide{display:flex;align-items:center;gap:13px;position:relative;background:#F4F9F2;border:1px solid #D9E8D9;border-radius:18px;padding:15px 20px;margin:16px 0}
+.pamana10-guide img{height:86px;width:77px;object-fit:contain;flex:none}
+.pamana10-guide>div{flex:1;min-width:0}
+.pamana10-kicker{display:block;font-size:.74rem;font-weight:830;color:#387754;letter-spacing:.06em;margin-bottom:5px}
+.pamana10-guide strong{font-size:1.05rem;color:#263B36}
+.pamana10-guide p{font-size:.84rem;line-height:1.55;color:#536E5A;margin:5px 0 0}
+.pamana10-guide-icon{font-size:1.32rem;color:#589B6B;flex:none}
+.pamana10-guide.compact{padding:10px 14px;gap:10px;margin:12px 0}
+.pamana10-guide.compact img{height:58px;width:48px}
+.pamana10-guide.compact p{font-size:.8rem}
+/* Phases 11–12 settings and learn-only backup */
+.pamana11-sound-setting label{display:flex;align-items:center;gap:10px;min-height:48px;font-weight:690;font-size:.92rem}
+.pamana11-sound-setting input[type=checkbox]{width:20px;height:20px;accent-color:#287653}
+.pamana12-backup-actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:13px 0}
+.pamana12-import{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:11px 16px;border-radius:12px;background:#EFF7F1;border:1px solid #CFE2D4;font-weight:730;font-size:.85rem;color:#286D50;cursor:pointer;position:relative;overflow:hidden}
+.pamana12-import input{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:pointer}
+.pamana12-backup-message{font-size:.87rem;color:#286449;padding:12px;background:#F2FAF4;border-radius:12px}
+.pamana12-import:focus-within,.pamana11-sound-setting button:focus-visible{outline:3px solid #B98C4A!important;outline-offset:2px}
+@media(max-width:650px){.pamana7-reveal-grid{grid-template-columns:1fr}.pamana9-town-stamps{grid-template-columns:repeat(2,minmax(0,1fr))}.pamana9-passport-header{align-items:start}}
+@media(max-width:360px){.pamana9-town-stamps{gap:7px}.pamana9-stamp{padding:9px 5px}.pamana9-passport-total{min-width:82px}.pamana10-guide-icon{display:none}}
+@media(prefers-reduced-motion:reduce){.pamana10-guide *, .pamana9-passport *{animation:none!important;transition:none!important}}
+:root[data-pamana-motion=reduce] .pamana10-guide *{animation:none!important;transition:none!important}
+
+/* Phase 08 festival connection game — no timers or competing reward balance. */
+.pamana8-festival-game{margin:22px 0;padding:clamp(17px,4vw,25px);background:#FFFDF6;border:1px solid #E6DFCD;border-radius:21px}
+.pamana8-header h2{font:770 clamp(1.2rem,4vw,1.52rem)/1.25 var(--adventure-heading);color:#263B36;margin:7px 0}
+.pamana8-header p{font-size:.86rem;line-height:1.6;color:#5D7069}
+.pamana8-festival-game progress{display:block;width:100%;height:8px;accent-color:#458B67;border-radius:99px;margin:16px 0 11px}
+.pamana8-number{font-size:.77rem;color:#53805E;font-weight:760}
+.pamana8-festival-game h3{font:750 clamp(1rem,3vw,1.18rem)/1.4 var(--adventure-heading);color:#263B36}
+.pamana8-options{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin:15px 0}
+.pamana8-options button{min-height:54px;text-align:left;border:1px solid #DCE7DE;border-radius:13px;padding:12px;background:#FFF;color:#263B36;font-size:.9rem;font-weight:690;cursor:pointer}
+.pamana8-options button[aria-pressed=true]{background:#E9F7EF;border:2px solid #60A780}
+.pamana8-hint,.pamana8-response,.pamana8-context{padding:11px 14px;border-radius:11px;background:#F1F9F3;color:#486E56;font-size:.86rem;line-height:1.6}
+.pamana8-hint{display:flex;gap:9px;background:#FFF5E7;color:#6F5A38}
+.pamana8-response.retry{background:#FFF1E9;color:#7F5B34}
+.pamana8-actions{display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+.pamana8-actions button,.pamana8-complete button{min-height:46px;border-radius:12px;padding:10px 14px;background:#E6F4E9;color:#29664D;border:1px solid #CBE4D1;font-size:.85rem;font-weight:760;cursor:pointer}
+.pamana8-actions button:disabled{opacity:.55;cursor:default}
+.pamana8-complete{padding:17px;background:#EFF9F1;border:1px solid #CDE6D4;border-radius:15px;display:grid;gap:10px;justify-items:start}
+.pamana8-complete ion-icon{font-size:1.7rem;color:#287653}
+.pamana8-complete strong{font-size:1.1rem;color:#263B36}
+.pamana8-complete p{font-size:.86rem;color:#526D59;margin:0}
+@media(max-width:410px){.pamana8-options{grid-template-columns:1fr}}

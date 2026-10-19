@@ -15,6 +15,9 @@ import { readProfile,saveProfile } from '../services/personalization';
 import {interactiveLessonFor} from '../data/interactive-lessons';
 import InteractiveLesson from '../components/InteractiveLesson';
 import GlossaryMatch from '../components/GlossaryMatch';
+import LessonDiscovery from '../components/adventure/LessonDiscovery';
+import KaPamanaGuide from '../components/adventure/KaPamanaGuide';
+import {playUiSound} from '../services/ui-sounds';
 
 export default function LearnPage() {
   const history = useHistory();
@@ -43,7 +46,7 @@ export default function LearnPage() {
   const back = () => history.replace('/learn');
   const finish = async () => {
     if (!selected) return;
-    try { await setStored(storageKey(selected.id), 'complete'); setProgress(previous => ({ ...previous, [selected.id]: true })); setError(''); }
+    try { await setStored(storageKey(selected.id), 'complete'); setProgress(previous => ({ ...previous, [selected.id]: true })); setError('');playUiSound('success'); }
     catch { setError('Progress could not be saved. Please try again.'); }
   };
   const article = selected && lessonArticles[selected.id];
@@ -77,6 +80,8 @@ export default function LearnPage() {
       {article.sections.slice(0,plan?.sections ?? article.sections.length).map((section, index) => <section className="article-section" id={`lesson-section-${index}`} key={section.heading}><span className="section-number">{String(index + 1).padStart(2, '0')}</span><h2>{section.heading}</h2><p>{section.text}</p></section>)}
       <section className="key-terms"><h2>Words to keep</h2><dl>{article.terms.slice(0,plan?.terms ?? article.terms.length).map(([term, definition]) => <div key={term}><dt>{term}</dt><dd>{definition}</dd></div>)}</dl></section><GlossaryMatch lessonId={selected.id}/></>}
       {interactivePack&&<InteractiveLesson key={interactivePack.id} pack={interactivePack}/>}
+      <KaPamanaGuide state="learn" compact/>
+      <LessonDiscovery key={selected.id} lesson={selected}/>
       <section className="lesson-recap"><span className="eyebrow">TAKE IT WITH YOU</span><h2>The key ideas</h2><ul>{selected.points.map(point => <li key={point}>{point}</li>)}</ul></section>
       <section className="knowledge-check"><span className="eyebrow">CHECK YOUR UNDERSTANDING</span><h2>{selected.quiz.prompt}</h2><div className="quiz-options">{selected.quiz.answers.map((option, index) => <button type="button" key={option} className={`quiz-option ${answer === index ? 'selected' : ''} ${answer !== undefined && index === selected.quiz.correctIndex ? 'correct' : ''}`} onClick={() => setAnswer(index)} aria-pressed={answer === index}><span>{String.fromCharCode(65 + index)}</span>{option}</button>)}</div>{answer !== undefined && <div role="status" className={`feedback ${answer === selected.quiz.correctIndex ? 'success' : ''}`}><strong>{answer === selected.quiz.correctIndex ? 'Tama! You’ve got it.' : 'Let’s look at that again.'}</strong><p>{selected.quiz.explanation}</p></div>}</section>
       {article && plan?.showReflection && <section className="reflection-box"><h2>Make the connection</h2><p>{article.reflection}</p><label>Your reflection <span>Optional · private on this device</span><textarea value={reflection} onChange={event => setReflection(event.target.value)} placeholder="What stood out to you?" /></label><button className="secondary-action" onClick={async () => { try { await setStored(`pamana.reflection.${selected.id}`, reflection); setError('Reflection saved on this device.'); } catch { setError('Your reflection could not be saved. Try again.'); } }}>Save reflection</button></section>}

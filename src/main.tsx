@@ -29,6 +29,7 @@ import './theme/pamana-adventure-design.css';
 import './theme/pamana-welcome.css';
 import './theme/pamana-personalization-2d.css';
 import './theme/pamana-home-phase04.css';
+import './theme/pamana-phase05-12.css';
 
 setupIonicReact();
 
