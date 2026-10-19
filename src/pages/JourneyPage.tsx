@@ -18,6 +18,7 @@ import AdventureMap from '../components/adventure/AdventureMap';
 import {officialFestivals} from '../data/official-heritage';
 import {SourceNotes} from '../components/HeritageUI';
 import {photoForFestival} from '../data/gallery';
+import KaPamanaGuide from '../components/adventure/KaPamanaGuide';
 
 const descriptions={
  little:'Explore pictures, stories, and gentle challenges at your own pace.',
@@ -69,6 +70,7 @@ export default function JourneyPage(){
      <div><span className="pamana-eyebrow">SMART PAMANA · OFFLINE ADVENTURES</span><h1>Heritage Journey</h1><p>{descriptions[profile.learningStage]}</p></div>
      <div className="pamana-journey-mascot"><img src={kaPamana} alt="Ka-Pamana, your cultural exploration companion"/></div>
     </header>
+    <KaPamanaGuide state={status.completed?'celebrate':'discover'} compact/>
     <div className="pamana-journey-summary"><span><IonIcon icon={mapOutline}/> {heritageChapters.length} hometowns</span><span><IonIcon icon={trophyOutline}/> {stamps} heritage {stamps===1?'stamp':'stamps'}</span><span><IonIcon icon={checkmarkCircleOutline}/> Save progress offline</span></div>
     <AdventureMap selected={selected.id} onSelect={chapter=>{history.push(pathFor(chapter));setMessage('');}} progress={saved} completedLessons={completedLessons} results={results} hometown={profile.hometown}/>
     <div className="pamana-journey-title"><div><span className="pamana-eyebrow">ALL FIFTEEN CHAPTERS</span><h2>Choose a hometown card</h2></div></div>
