@@ -2,7 +2,6 @@ import {setStored} from './storage';
 import {findChapter,emptyJourney,type JourneyProgress,type ChapterProgress} from '../data/heritage-journey';
 import {readQuestProgress} from './quest-games';
 import {getJourneyReader,getJourneyQuestions} from '../data/journey-learning';
-import {storageKey} from '../data/content';
 const KEY='pamana.journey.v1';
 export function readJourneyProgress():JourneyProgress {
  try {
@@ -20,7 +19,9 @@ export function readJourneyProgress():JourneyProgress {
     festivalReadSections:Array.isArray(item.festivalReadSections)?item.festivalReadSections.filter((x:unknown)=>Number.isInteger(x)&&Number(x)>=0&&Number(x)<32).slice(0,32):[],
     lessonReadSections:Array.isArray(item.lessonReadSections)?item.lessonReadSections.filter((x:unknown)=>Number.isInteger(x)&&Number(x)>=0&&Number(x)<12).slice(0,12):[],
     chapterCorrectQuestions:Array.isArray(item.chapterCorrectQuestions)?item.chapterCorrectQuestions.filter((x:unknown)=>typeof x==='string'&&x.length<=60).slice(0,20):[],
-    chapterQuestCompleted:item.chapterQuestCompleted===true
+    chapterQuestCompleted:item.chapterQuestCompleted===true,
+    researchEdition:item.researchEdition===2?2:undefined,
+    chapterLessonCompleted:item.chapterLessonCompleted===true
    };
   }
   return {version:1,chapters};
@@ -63,36 +64,35 @@ export async function markJourneySectionRead(id:string,stage:'festival'|'lesson'
  if(!Number.isInteger(index)||index<0||index>=sections.length)throw Error('Invalid reading section');
  const key=stage==='festival'?'festivalReadSections':'lessonReadSections';
  const current=readJourneyProgress().chapters[id]??{};
- const values=[...new Set([...(current[key]??[]),index])].sort((a,b)=>a-b);
- return patchChapter(id,{[key]:values});
+ const previous=current.researchEdition===2?current[key]??[]:[];
+ const values=[...new Set([...previous,index])].sort((a,b)=>a-b);
+ // Legacy index-only checkmarks must NOT silently mark a different researched article as read.
+ const reset=current.researchEdition===2?{}:{festivalReadSections:[],lessonReadSections:[],chapterCorrectQuestions:[],chapterLessonCompleted:false};
+ return patchChapter(id,{...reset,researchEdition:2,[key]:values});
 }
 export async function completeFestivalReading(id:string):Promise<JourneyProgress>{
  const chapter=findChapter(id);
  if(!chapter)throw Error('Unknown hometown journey');
  const record=readJourneyProgress().chapters[id]??{};
  const required=getJourneyReader(chapter,'festival').length;
- if(!record.festivalOpened && (record.festivalReadSections??[]).length<required)throw Error('Read all festival sections before finishing.');
+ if((record.researchEdition===2||!record.festivalOpened) && (record.festivalReadSections??[]).length<required)throw Error('Read all researched hometown sections before finishing.');
  return patchChapter(id,{festivalOpened:true});
 }
 export async function completeJourneyLessonReading(id:string):Promise<JourneyProgress>{
  const chapter=findChapter(id);
  if(!chapter)throw Error('Unknown hometown journey');
  const record=readJourneyProgress().chapters[id]??{};
- if(!record.festivalOpened)throw Error('Finish the festival discovery first.');
+ if(!record.festivalOpened)throw Error('Finish Tuklas before continuing to the festival and heritage learning step.');
  const required=getJourneyReader(chapter,'lesson').length;
- const key=storageKey(chapter.lessonId);
- if(localStorage.getItem(key)!=='complete' && (record.lessonReadSections??[]).length<required)throw Error('Read all lesson sections before finishing.');
- // The existing global Matuto completion remains the source of truth for lesson status.
- // Use the native SQLite/browser adapter, not a second local-only progress key.
- await setStored(key,'complete');
- window.dispatchEvent(new Event('pamana:journey-changed'));
- return readJourneyProgress();
+ if(record.researchEdition!==2||(record.lessonReadSections??[]).length<required)throw Error('Read all source-linked festival and heritage sections before finishing.');
+ // Do NOT mark the separate generic Matuto lesson complete: it was not actually read.
+ return patchChapter(id,{chapterLessonCompleted:true});
 }
 export async function markJourneyQuestionCorrect(id:string,questionId:string):Promise<JourneyProgress>{
  const chapter=findChapter(id);
  if(!chapter)throw Error('Unknown hometown journey');
  const status=readJourneyProgress().chapters[id]??{};
- if(!status.festivalOpened||localStorage.getItem(storageKey(chapter.lessonId))!=='complete')throw Error('Complete both readings before the challenge.');
+ if(!status.festivalOpened||status.chapterLessonCompleted!==true)throw Error('Finish both unique hometown reading steps before the challenge.');
  if(!getJourneyQuestions(chapter).some(question=>question.id===questionId))throw Error('Unknown chapter question');
  const values=[...new Set([...(status.chapterCorrectQuestions??[]),questionId])];
  return patchChapter(id,{chapterCorrectQuestions:values});
@@ -101,7 +101,7 @@ export async function completeChapterKnowledgeCheck(id:string):Promise<JourneyPr
  const chapter=findChapter(id);
  if(!chapter)throw Error('Unknown hometown journey');
  const status=readJourneyProgress().chapters[id]??{};
- if(!status.festivalOpened||localStorage.getItem(storageKey(chapter.lessonId))!=='complete')throw Error('Complete the festival and Matuto readings first.');
+ if(!status.festivalOpened||status.chapterLessonCompleted!==true)throw Error('Complete Tuklas and festival heritage readings first.');
  if(!getJourneyQuestions(chapter).every(question=>(status.chapterCorrectQuestions??[]).includes(question.id)))throw Error('Answer every hometown-specific question correctly before completing.');
  return patchChapter(id,{chapterQuestCompleted:true});
 }
