@@ -1,0 +1,126 @@
+/* Final SMART PAMANA UX consolidation. Navigation and real data remain Ionic/React. */
+.pamana-final-home,.pamana-final-space{max-width:860px;margin:0 auto;padding:clamp(17px,3.8vw,29px) clamp(14px,3.5vw,27px) 100px;color:#284336}
+.pamana-final-home-header{display:flex;justify-content:space-between;align-items:center;gap:15px;margin-bottom:18px}
+.pamana-final-home-header h1,.pamana-final-space-header h1{font:820 clamp(1.8rem,5vw,2.35rem)/1.18 var(--adventure-heading);color:#244A36;margin:6px 0}
+.pamana-final-home-header p{margin:3px 0;color:#677E6D}
+.pamana-final-home-avatar{display:grid;place-items:center;width:52px;height:52px;flex:none;border:1px solid #D4E7D9;border-radius:17px;background:#F1F9F2;cursor:pointer;color:#41795C}
+.pamana-final-home-avatar img{width:45px;height:45px;object-fit:contain}
+.pamana-final-home-avatar ion-icon{font-size:1.9rem}
+.pamana-final-home-hero{position:relative;isolation:isolate;overflow:hidden;min-height:220px;border-radius:24px;border:1px solid #CFDFD0;background:#E9F8EF}
+.pamana-final-home-scenery{position:absolute;inset:0;width:100%;height:100%;z-index:-1;opacity:.78}
+.pamana-final-home-hero:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(255,254,244,.97),rgba(250,254,248,.92) 56%,rgba(255,255,255,.12));z-index:-1}
+.pamana-final-home-hero-copy{padding:clamp(20px,4vw,29px);max-width:490px}
+.pamana-final-home-hero h2{font:860 clamp(1.7rem,5vw,2.3rem)/1.12 var(--adventure-heading);margin:9px 0;color:#27513B}
+.pamana-final-home-hero p{line-height:1.53;font-size:.88rem;max-width:355px;color:#607364;margin:0 0 17px}
+.pamana-final-primary{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 17px;
+ min-height:48px;border-radius:13px;border:1px solid #26734D;border-bottom:3px solid #165C3D;background:#2F855A;color:#FFF!important;
+ font-weight:820;font-size:.84rem;text-decoration:none;cursor:pointer}
+.pamana-final-primary ion-icon{font-size:1.14rem}
+.pamana-final-home-progress{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:15px 0 23px}
+.pamana-final-home-progress>div{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:6px;border:1px solid #DEE8DF;border-radius:16px;background:#FFF;padding:13px 9px;min-width:0}
+.pamana-final-home-progress ion-icon{font-size:1.3rem;color:#4A8D6C}
+.pamana-final-home-progress strong{font:820 1.25rem var(--adventure-heading);color:#294939}
+.pamana-final-home-progress strong small{font-size:.72rem;color:#77877A}
+.pamana-final-home-progress span{font-size:.76rem;color:#607364;font-weight:720}
+.pamana-final-home-lesson{display:flex;align-items:center;justify-content:space-between;gap:15px;border:1px solid #E2E9DA;background:#FEFDF8;
+ border-radius:19px;padding:17px 19px}
+.pamana-final-home-lesson h2{font:780 clamp(1.13rem,3vw,1.4rem)/1.25 var(--adventure-heading);margin:7px 0;color:#284737}
+.pamana-final-home-lesson p{margin:0;font-size:.82rem;line-height:1.53;color:#66786A}
+.pamana-final-home-lesson button{display:flex;align-items:center;justify-content:center;gap:6px;flex:none;border:1px solid #B8D6C3;border-radius:12px;background:#F0F8F0;color:#2D7550;padding:11px 13px;min-height:46px;font-weight:780;cursor:pointer}
+.pamana-final-home-shortcuts{margin-top:24px}
+.pamana-final-home-shortcuts h2{font:800 clamp(1.17rem,3vw,1.4rem) var(--adventure-heading);margin:0 0 12px;color:#294A37}
+.pamana-final-home-shortcuts>div{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.pamana-final-home-shortcuts button{display:grid;justify-items:start;align-content:start;gap:8px;text-align:left;border:1px solid #DDE8DD;background:#FFF;
+ color:#284438;border-radius:16px;padding:15px;min-height:130px;cursor:pointer}
+.pamana-final-home-shortcuts button ion-icon{font-size:1.5rem;color:#3F9564;padding:8px;border-radius:10px;background:#E6F3E9}
+.pamana-final-home-shortcuts button strong{font-size:.9rem;line-height:1.2}
+.pamana-final-home-shortcuts button small{color:#657A6A;font-size:.72rem;line-height:1.42}
+.pamana-final-home-discovery{margin-top:24px;border:1px solid #DFEADF;border-radius:16px;background:#FFF}
+.pamana-final-home-discovery>summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:8px;padding:14px 18px;font-weight:770;color:#346D50}
+.pamana-final-home-discovery>summary::-webkit-details-marker{display:none}
+.pamana-final-home-discovery>summary:after{content:"+";margin-left:auto;font-size:1.3rem}
+.pamana-final-home-discovery[open]>summary:after{content:"−"}
+.pamana-final-home-discovery .cultural-fact-card{margin:10px}
+/* Shared Lakbay navigation keeps all historical routes visible without a second 15-town selector */
+.pamana-final-lakbay-nav{max-width:910px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;margin:18px auto;padding:0 clamp(11px,3vw,21px)}
+.pamana-final-lakbay-nav a{min-width:0;display:flex;align-items:center;gap:10px;border:1px solid #DFE8DE;border-radius:15px;background:#FFF;padding:10px 12px;text-decoration:none;color:#466955;min-height:61px}
+.pamana-final-lakbay-nav a.selected{border:2px solid #73AD85;background:#EBF7EE;color:#255E41}
+.pamana-final-lakbay-nav ion-icon{font-size:1.3rem;flex:none}
+.pamana-final-lakbay-nav span{min-width:0;display:grid;gap:4px}
+.pamana-final-lakbay-nav strong{font-size:.84rem;line-height:1.25}
+.pamana-final-lakbay-nav small{font-size:.68rem;color:#708474;line-height:1.35}
+.pamana-final-optional-quest{border:1px solid #DCE9DD;border-radius:18px;background:#F8FCF8;margin:20px 0;padding:11px}
+.pamana-final-optional-quest>summary{min-height:44px;cursor:pointer;display:flex;align-items:center;font-weight:800;padding:10px;color:#306D4E}
+.pamana-final-optional-quest>summary:after{content:"+";margin-left:auto}
+.pamana-final-optional-quest[open]>summary:after{content:"−"}
+.pamana-final-practice-more{border:1px solid #D8E9DE;background:#F9FCF8;border-radius:17px;margin:18px 0;padding:14px}
+.pamana-final-practice-more>summary{cursor:pointer;font-size:.96rem;font-weight:800;padding:11px 8px;min-height:44px;color:#326E50}
+.pamana-final-practice-more>p{font-size:.84rem;color:#667E6B;padding:0 8px;margin:6px 0 17px}
+/* Sulat: three obvious main activities with optional subnavigation for each. */
+.pamana-final-sulat-groups{grid-template-columns:repeat(3,minmax(0,1fr))!important}
+.pamana-final-sulat-subnav{display:flex;gap:8px;max-width:980px;margin:5px auto 14px;justify-content:center;padding:0 14px}
+.pamana-final-sulat-subnav button{font-size:.82rem;font-weight:760;min-height:43px;padding:9px 16px;border-radius:100px;border:1px solid #D9E7DC;background:#FFF;color:#4A765D;cursor:pointer}
+.pamana-final-sulat-subnav button[aria-pressed=true]{border-color:#66AE85;background:#E8F5EC;color:#276B45}
+/* Unified personal space */
+.pamana-final-space-header{background:linear-gradient(110deg,#F0F8EF,#FFFAF1);border-radius:22px;border:1px solid #D9E9D9;padding:clamp(17px,4vw,25px)}
+.pamana-final-space-header>p{color:#5F7567;line-height:1.55;margin:5px 0 16px;font-size:.89rem}
+.pamana-final-profile{display:flex;align-items:center;gap:12px;border-radius:14px;background:rgba(255,255,255,.82);padding:10px 12px}
+.pamana-final-avatar{display:grid;place-items:center;flex:0 0 44px;width:44px;height:44px;background:#E3F1E5;border-radius:13px;font-size:1.7rem}
+.pamana-final-profile>div{display:grid;gap:2px;flex:1;min-width:0}
+.pamana-final-profile strong{font-weight:850;font-size:.92rem}
+.pamana-final-profile small{color:#718173;font-size:.73rem}
+.pamana-final-profile button{display:inline-flex;align-items:center;justify-content:center;gap:7px;background:#FFF;color:#307252;
+ border:1px solid #CFE5D5;border-radius:11px;padding:9px;min-height:44px;font-size:.79rem;font-weight:750;cursor:pointer}
+.pamana-final-space-tabs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;margin:20px 0}
+.pamana-final-space-tabs button{display:flex;align-items:center;justify-content:center;gap:7px;background:#FFF;border:1px solid #DAE8DD;border-radius:13px;
+ min-height:51px;padding:10px;color:#58715E;font-size:.86rem;font-weight:790;cursor:pointer}
+.pamana-final-space-tabs button ion-icon{font-size:1.25rem}
+.pamana-final-space-tabs button[aria-pressed=true]{border:2px solid #74B18A;background:#EAF6EE;color:#246B47}
+.pamana-final-space-content{background:#FFF;border:1px solid #E1E9DD;border-radius:20px;padding:clamp(12px,3vw,19px)}
+.pamana-final-space-content>.pamana-stamps{border:0;margin:0;padding:0}
+.pamana-final-space-title{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.pamana-final-space-title h2{font:810 1.5rem var(--adventure-heading);margin:6px 0;color:#285039}
+.pamana-final-space-content>p{color:#617365;font-size:.88rem;line-height:1.62;margin:9px 0 18px}
+.pamana-final-space-empty{border-radius:14px;background:#F2F8F2;padding:17px;color:#667C6A}
+.pamana-final-story-list{display:grid;gap:9px}
+.pamana-final-story-list a{display:flex;gap:8px;align-items:center;padding:14px;background:#FAFCF9;border:1px solid #DFE9DE;border-radius:12px;color:#305E45;text-decoration:none}
+.pamana-final-story-list a strong{flex:1;font-size:.88rem}
+.pamana-final-story-list a small{color:#758675}
+.pamana-final-more-link{display:inline-block;margin:16px 0;font-weight:800;text-decoration:none;color:#337E56}
+.pamana-final-shortcuts{display:grid;gap:10px}
+.pamana-final-shortcuts a{min-height:73px;display:flex;align-items:center;gap:12px;padding:14px;border:1px solid #DFEADF;border-radius:14px;
+ background:#F9FCF9;color:#2E6849;text-decoration:none}
+.pamana-final-shortcuts a>ion-icon:first-child{font-size:1.5rem}
+.pamana-final-shortcuts a>span{display:grid;gap:4px;flex:1}
+.pamana-final-shortcuts strong{font-size:.9rem}
+.pamana-final-shortcuts small{font-size:.76rem;color:#687D70}
+.pamana-final-settings-link{display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap;
+ margin-top:17px;padding:17px;border:1px solid #DBE7DC;border-radius:17px;background:#F9FBF8}
+.pamana-final-settings-link>div{display:flex;align-items:center;gap:12px}
+.pamana-final-settings-link>div>ion-icon{font-size:1.5rem;color:#488465}
+.pamana-final-settings-link span{display:grid;gap:3px}
+.pamana-final-settings-link strong{font-size:.89rem}
+.pamana-final-settings-link small{font-size:.73rem;color:#788A78}
+.pamana-final-settings-link>a{display:inline-flex;align-items:center;gap:5px;color:#327451;text-decoration:none;font-size:.81rem;font-weight:800;min-height:44px}
+.pamana-final-home :is(button,a,summary):focus-visible,.pamana-final-space :is(button,a):focus-visible,
+.pamana-final-lakbay-nav a:focus-visible,.pamana-final-sulat-subnav button:focus-visible,
+.pamana-final-practice-more summary:focus-visible{outline:3px solid #BC8B46;outline-offset:3px}
+@media(max-width:600px){
+ .pamana-final-home-shortcuts>div{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .pamana-final-home-lesson{flex-direction:column;align-items:stretch}
+ .pamana-final-home-lesson button{align-self:flex-start}
+ .pamana-final-lakbay-nav{gap:6px;padding:0 10px}
+ .pamana-final-lakbay-nav a{display:grid;justify-items:center;gap:4px;padding:9px 4px;text-align:center;min-height:68px}
+ .pamana-final-lakbay-nav strong{font-size:.73rem}
+ .pamana-final-lakbay-nav small{display:none}
+ .pamana-final-profile{flex-wrap:wrap}
+}
+@media(max-width:355px){
+ .pamana-final-home-progress>div{display:grid;text-align:center;justify-items:center;gap:3px}
+ .pamana-final-home-progress strong{font-size:1.07rem}
+ .pamana-final-home-progress span{font-size:.68rem}
+ .pamana-final-space-tabs button{font-size:.74rem;gap:4px;padding:8px 4px}
+ .pamana-final-space-tabs button ion-icon{font-size:1rem}
+ .pamana-final-sulat-groups button{font-size:.72rem}
+}
+@media(prefers-reduced-motion:reduce){.pamana-final-home *, .pamana-final-space *{animation:none!important;transition:none!important}}
